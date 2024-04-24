@@ -35,6 +35,7 @@ public class TrialDialogueManager : MinigameManagerBase
 
     [Header("Debugging")]
     [SerializeField] bool debug = false;
+    [SerializeField] TrialDialogue debugTrialDialogue = null;
     [SerializeField] float ffModeSpeed = 2;
     [SerializeField] TextMeshProUGUI dialogueBox = null;
     [SerializeField] float pauseTimeFF = 0.5f;
@@ -137,6 +138,13 @@ public class TrialDialogueManager : MinigameManagerBase
         }
         DialogueEventSystem.StartListening("TrialTutorial", TutorialEvaluation);
         UIHandler.ToTitle += ResetTrialDia;
+        if (debug)
+        {
+            TrialDiscussion disc = new TrialDiscussion();
+            disc.trialDialogues = new TrialDialogue[1];
+            disc.trialDialogues[0] = debugTrialDialogue;
+            PlayTrialDialogue(disc);
+        }
     }
     void ResetTrialDia()
     {
