@@ -137,7 +137,7 @@ public class SoundManager : MonoBehaviour
     public bool CurrentEventInMusicIs(AudioClip eventName) => MusicSource.clip == eventName;
     public void PlayMusic(AudioClip eventName, bool skip = false)
     {
-        if (eventName.name == stopMusicCode || eventName == null)
+        if (eventName == null || eventName.name == stopMusicCode)
         {
             MusicSource.Stop();
             boxText.text = "";
@@ -242,7 +242,11 @@ public class SoundManager : MonoBehaviour
     }
     public void LoadMusic(string name)
     {
-        AudioClip loaded = jukeBox.GetAudioClip(name);
+        AudioClip loaded = null;
+        
+        if (jukeBox != null)
+            loaded = jukeBox.GetAudioClip(name);
+
         if (loaded == null)
         {
             Debug.LogWarning("Couldn't find Saved Music, no music playing");

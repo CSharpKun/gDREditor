@@ -54,8 +54,14 @@ public class NSDBuilderEditor : DialogueEditorBase
     }
     private void CreateForm()
     {
+        if (cameraAnimDatabase == null)
+        {
+            int _assetamount = GetCameraAnimDatabase();
+
+            if (_assetamount != 1) return;
+        }
         if (!ValidateCharacterDatabase() || !ValidateCharacters() ||
-            !ValidateCameraAnimDatabase() || !ValidateCameraAnims() ||
+             !ValidateCameraAnims() ||
             !ValidateCameraVFXDatabase() || !ValidateCameraVFXs() || !ValidateEvidenceDB()) { return; }
 
         #region Debug Mode
@@ -235,20 +241,45 @@ public class NSDBuilderEditor : DialogueEditorBase
     }
     private bool ValidateCameraVFXs() => true;
 
-    private bool ValidateCameraAnimDatabase()
+    private int GetCameraAnimDatabase()
     {
-        var database = Resources.Load<TrialCameraAnimDatabase>("DREditor/CameraAnim/CameraAnimDatabase");
-        if (!database)
+        string[] _databaseguids = AssetDatabase.FindAssets("t:TrialCameraAnimDatabase");
+
+        if (_databaseguids.Length == 1)
+        {
+            string _databasepath = AssetDatabase.GUIDToAssetPath(_databaseguids[0]);
+
+            EditorGUILayout.LabelField($"Loading CharacterDatabase at {_databasepath}.");
+            cameraAnimDatabase = AssetDatabase.LoadAssetAtPath<TrialCameraAnimDatabase>(_databasepath);
+            return 1;
+        }
+        else if (_databaseguids.Length > 1)
         {
             using (new EditorGUILayout.VerticalScope())
             {
-                EditorGUILayout.LabelField("CameraAnimDatabase is not set.");
-                EditorGUILayout.LabelField("Create a CameraVFXDatabase in Resources/DREditor/CameraAnim/CameraAnimDatabase.asset");
+                EditorGUILayout.LabelField("There are more than one Database Assets found in your project.");
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("Here are the path of all the files:");
+                for (int i = 0; i < _databaseguids.Length; i++)
+                {
+                    string _path = AssetDatabase.GUIDToAssetPath(_databaseguids[i]);
+                    EditorGUILayout.LabelField($"	• {_path}");
+                }
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("Only one Database is allowed. Please delete all the duplicates until one remains.");
             }
-            return false;
+            return 2;
         }
-        cameraAnimDatabase = database;
-        return true;
+        else
+        {
+            using (new EditorGUILayout.VerticalScope())
+            {
+                EditorGUILayout.LabelField("There are no CharacterDatabase Asset found in your project.");
+                //EditorGUILayout.LabelField("Please create one by right clicking in the Project Window and navigating to: \n[Create > DREditor > Characters > Character Database]", GUILayout.Height(50));
+                EditorGUILayout.LabelField("Do not create more than one. Only one Database is allowed.");
+            }
+            return 0;
+        }
     }
 
     private bool ValidateCameraAnims() => true;
@@ -545,7 +576,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 if (currLine.Expression != null)
                 {
                     GUIStyle expr = new GUIStyle();
-                    if (currLine.ExpressionNumber > 0)
+                    if (currLine.ExpressionNumber > 0 && currLine.Expression.Sprite != null)
                     {
                         var tex = HandyFields.GetMaterialTexture(currLine.Expression.Sprite);
                         if (tex)
