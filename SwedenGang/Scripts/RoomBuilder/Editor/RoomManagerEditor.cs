@@ -90,7 +90,7 @@ public class RoomManagerEditor : Editor
     #region Prefab References
     private void PrefabReferences()
     {
-        if (manager.ActorPrefabs.Count < cDB.Characters.Count-2)
+        if (manager.ActorPrefabs.Count < cDB.GetActorPrefabCount())
         {
             List<GameObject> p = new List<GameObject>();
             /*for(int i = 0; i < cDB.Characters.Count; i++)

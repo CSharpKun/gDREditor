@@ -75,5 +75,17 @@ namespace DREditor.Characters
 
             return null;
         }
+        public int GetActorPrefabCount()
+        {
+            int count = 0;
+            foreach (Character c in Characters)
+            {
+                if (c.ActorPrefab != null)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }
