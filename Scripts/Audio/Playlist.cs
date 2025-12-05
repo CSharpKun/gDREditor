@@ -1,64 +1,47 @@
-﻿//DRPlaylist script by SeleniumSoul for DREditor
-using System.Collections.Generic;
-using UnityEngine;
+//DRPlaylist script by SeleniumSoul for DREditor
+//Godot version by CSharpKun
+using Godot;
+using System.Linq;
 
-namespace DREditor.Audio
+namespace gDREditor.Audio
 {
-    using Debug = UnityEngine.Debug;
-    [System.Serializable]
-    [CreateAssetMenu(menuName = "DREditor/MusicPlaylist", fileName = "New Music Playlist")]
-    public class Playlist : ScriptableObject
+    [GlobalClass]
+    public partial class Playlist : Resource, IPlaylist
     {
-        public List<Music> Musics = new List<Music>();
+        [Export] public Music[] Musics { get; set; }
 
         public string[] GetAudioTitles()
-        {
-            string[] titles = new string[Musics.Count];
-
-            for (int i = 0; i < Musics.Count; i++)
-            {
-                titles[i] = Musics[i].Title;
-            }
-            return titles;
+        {            
+            return [..Musics.Select(m => m.Title)];
         }
 
-        public int[] GetAudioCount()
+        public AudioStream GetAudioStream(string title)
         {
-            int[] musiccount = new int[Musics.Count];
-
-            for (int i = 0; i < Musics.Count; i++)
-            {
-                musiccount[i] = i;
-
-            }
-            return musiccount;
+            var stream = Musics.Where(m => m.Title == title).FirstOrDefault(null as Music);
+            if (stream == null) { GD.PushWarning("Couldn't find Music: " + title); return null; }
+            return stream.BGM;
         }
-        public AudioClip GetAudioClip(string title)
+        public string GetTitleFromClip(AudioStream stream)
         {
-            foreach(Music music in Musics)
-            {
-                if (music.Title == title)
-                    return music.BGM;
-            }
-            Debug.Log("Couldn't find song: " + title);
-            return null;
-        }
-        public string GetTitleFromClip(AudioClip clip)
-        {
-            foreach (Music music in Musics)
-            {
-                if (music.BGM == clip)
-                    return music.Title;
-            }
-            Debug.Log("Couldn't find Title: " + clip);
-            return null;
+            var title = Musics.Where(m => m.BGM == stream).FirstOrDefault(null as Music);
+            if (title == null) { GD.PushWarning("Couldn't find Title: " + stream); return null; }
+            return title.Title;
         }
     }
 
-    [System.Serializable]
-    public class Music
+    [GlobalClass]
+    public partial class Music : Resource
     {
-        public string Title;
-        public AudioClip BGM;
+        [Export] public string Title { get; set; }
+        [Export] public AudioStream BGM { get; set; }
     }
+
+    #region Interfaces
+    public interface IPlaylist
+    {
+        string[] GetAudioTitles();
+        AudioStream GetAudioStream(string title);
+        string GetTitleFromClip(AudioStream stream);
+    }
+    #endregion
 }
