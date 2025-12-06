@@ -1,12 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using DREditor.Dialogues;
 using System.IO;
-using System.Text.RegularExpressions;
-using System.Text;
-using System;
 using System.Linq;
 
 public static class TextFileTrim
@@ -18,7 +10,7 @@ public static class TextFileTrim
         if (path.Length != 0)
         {
             var linesList = File.ReadAllLines(path).ToList();
-            for(int i = 0; i < linesList.Count; i++)
+            for (int i = 0; i < linesList.Count; i++)
             {
                 if (linesList[i].StartsWith("//"))
                 {
@@ -26,7 +18,7 @@ public static class TextFileTrim
                 }
             }
             File.WriteAllLines(path, linesList.ToArray());
-            
+
 
 
         }

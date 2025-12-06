@@ -1,8 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using DREditor.EventObjects;
 
 /// <summary>
@@ -26,7 +22,7 @@ public class ItemDisplayer : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        
+
     }
     private void Start()
     {
@@ -50,11 +46,11 @@ public class ItemDisplayer : MonoBehaviour
             HideName();
             return;
         }
-        if(displayText != null)
+        if (displayText != null)
         {
             displayText.text = name;
         }
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetBool(displayBool, true);
         }

@@ -1,7 +1,5 @@
-﻿
+
 using DREditor.EventObjects;
-using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace DREditor.FPC
 {
@@ -111,8 +109,8 @@ namespace DREditor.FPC
 
             var moveTowardsPos = new Vector3(hVelocity, 0, vVelocity);
             moveTowardsPos = transform.TransformDirection(moveTowardsPos);
-            
-            
+
+
             /*if (_characterController.isGrounded && Input.GetButton("Jump")) {
                 _downForce = JumpSpeed;
             }*/
@@ -135,14 +133,14 @@ namespace DREditor.FPC
                 moveTowardsPos += transform.parent.position;
                 transform.parent.position = _initialParentPos;
             }
-                   
 
-             _characterController.Move(new Vector3(moveTowardsPos.x, _downForce * Time.deltaTime, moveTowardsPos.z));
+
+            _characterController.Move(new Vector3(moveTowardsPos.x, _downForce * Time.deltaTime, moveTowardsPos.z));
         }
-        
+
     }
-    
-    
+
+
 
 }
 

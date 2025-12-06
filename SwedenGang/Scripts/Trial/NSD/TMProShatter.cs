@@ -1,10 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using DG.Tweening;
-using UnityEditor;
-
 // OG Author LeoTheDev : Tidied up by Sweden. 
 [RequireComponent(typeof(TMP_Text))]
 public class TMProShatter : MonoBehaviour
@@ -44,7 +37,7 @@ public class TMProShatter : MonoBehaviour
     }
     public void ResetMesh()
     {
-        if(resetMesh == null)
+        if (resetMesh == null)
         {
             return;
         }
@@ -54,7 +47,7 @@ public class TMProShatter : MonoBehaviour
         //Debug.Log(Container.mesh.vertices.Length);
         Container.mesh.triangles = resetMesh.triangles;
         Container.mesh.vertices = resetMesh.vertices;
-        
+
         Container.mesh.uv = resetMesh.uv;
         Container.mesh.normals = resetMesh.normals;
         Container.mesh.colors = resetMesh.colors;
@@ -95,7 +88,7 @@ public class TMProShatter : MonoBehaviour
             float dist = Vector3.Distance(Triangles[i].Center, HitPoint);
             float force = Mathf.Lerp(HitForce, 0, dist / MaxHitArea);
             triangleVelocity[i] = direction * force;
-            if(freezeXYRot)
+            if (freezeXYRot)
                 rotationVelocity[i] = new Vector3(0, 0, Random.Range(0, 1f)) * force * AngularVelocityMultiplier;
             else
                 rotationVelocity[i] = new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0, 1f)) * force * AngularVelocityMultiplier;

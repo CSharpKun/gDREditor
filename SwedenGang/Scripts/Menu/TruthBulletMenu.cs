@@ -1,15 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.TrialEditor;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.EventSystems;
-using TMPro;
 using DREditor.PlayerInfo;
+using DREditor.TrialEditor;
+using System.Collections.Generic;
 public class TruthBulletMenu : MonoBehaviour
 {
     /* TO-DO: For NSD, Have bullets in cylinder shown first and then
@@ -53,7 +46,7 @@ public class TruthBulletMenu : MonoBehaviour
     {
         SetChapterEvidence();
         //Load();
-        
+
     }
     bool firstSet = false;
     [SerializeField] bool ignoreFirst = false;
@@ -82,7 +75,7 @@ public class TruthBulletMenu : MonoBehaviour
             //UIHandler.instance.OnChange.RemoveListener(WriteInfo);
             EventSystem.current.SetSelectedGameObject(null);
         }
-        
+
     }
     public bool localTime = false;
     public void ReturnScale() // Called from TBM Animator
@@ -114,7 +107,7 @@ public class TruthBulletMenu : MonoBehaviour
             bulletText.text = evidence.TruthBullets[0].Description;
         }
     }
-    
+
     public void ShowTrial(CallbackContext context)
     {
         if (inMenu)
@@ -126,7 +119,7 @@ public class TruthBulletMenu : MonoBehaviour
         trialBG.DOFade(0.9f, 0.2f)
             .SetUpdate(true);
         scrollGroup.Reveal();
-        
+
     }
     public void HideTrial(CallbackContext context)
     {
@@ -136,7 +129,7 @@ public class TruthBulletMenu : MonoBehaviour
 
         if (!inTruthBulletSelectMinigame)
             RemoveBack();
-        
+
     }
     public void AddBack() => _controls.UI.Cancel.started += HideTrial;
     public void RemoveBack() => _controls.UI.Cancel.started -= HideTrial;
@@ -149,7 +142,7 @@ public class TruthBulletMenu : MonoBehaviour
         */
         if (scrollGroup.isActive)
             return;
-        
+
         Load();
         trialBG.DOFade(0.9f, 0.2f)
             .SetUpdate(true);
@@ -208,7 +201,7 @@ public class TruthBulletMenu : MonoBehaviour
                 }
                 if (found)
                     break;
-                
+
             }
             if (!found)
             {
@@ -216,9 +209,9 @@ public class TruthBulletMenu : MonoBehaviour
                 //Debug.LogWarning(x + " was " + found);
                 o.DisableOption();
             }
-            
+
         }
-        
+
 
         DisableUnused();
     }
@@ -253,7 +246,7 @@ public class TruthBulletMenu : MonoBehaviour
 
     TruthBullet GetBullet(ScrollOption o)
     {
-        
+
         for (int i = 0; i < evidence.TruthBullets.Count; i++)
         {
             TruthBullet t = evidence.TruthBullets[i];

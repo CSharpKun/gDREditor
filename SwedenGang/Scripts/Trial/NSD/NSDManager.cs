@@ -1,21 +1,14 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
 using DREditor.Camera;
+using DREditor.Characters;
+using DREditor.Dialogues;
+using DREditor.EventObjects;
+using DREditor.PlayerInfo;
+using DREditor.TrialEditor;
+using NSD;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using NSD;
-using DREditor.TrialEditor;
-using DREditor.Characters;
-using UnityEngine.Rendering;
-using DG.Tweening;
-using DREditor.PlayerInfo;
-using UnityEngine.Video;
-using DREditor.Dialogues;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
-using DREditor.EventObjects;
 
 public class NSDManager : MinigameManagerBase
 {
@@ -82,7 +75,7 @@ public class NSDManager : MinigameManagerBase
     //[SerializeField] KeyCode SelectKey = KeyCode.Q;
     bool canSelect = true;
 
-    
+
 
     [Header("Effects")]
     [SerializeField] Animator openingAnimator = null;
@@ -150,7 +143,7 @@ public class NSDManager : MinigameManagerBase
 
     List<TruthBullet> TruthBullets = new List<TruthBullet>();
 
-    
+
 
 #if ENABLE_INPUT_SYSTEM
     DRControls _controls;
@@ -224,7 +217,7 @@ public class NSDManager : MinigameManagerBase
         if (inDebate)
         {
             CamUpdate();
-            
+
 
             if (canEffect)
                 SpeedChange();
@@ -247,7 +240,7 @@ public class NSDManager : MinigameManagerBase
         if (TruthBullets.Count == 1)
             return;
         //Debug.Log("Called Change Bullet");
-        
+
         if (!changingBullet && (canFire || InCycle && canCycle))
         {
             //Debug.Log(_controls.Minigame.Change.ReadValue<Vector2>());
@@ -268,7 +261,7 @@ public class NSDManager : MinigameManagerBase
     }
     IEnumerator ChangeBulletAnim(bool inSelect)
     {
-        
+
         currentBullet = TruthBullets[bulletNumber];
         float duration = 0.1f;
         BulletMask.DOSizeDelta(new Vector2(90, BulletMask.sizeDelta.y), duration)
@@ -286,13 +279,13 @@ public class NSDManager : MinigameManagerBase
             canFire = true;
         canSelect = true;
         //if (InCycle)
-            //canCycle = true;
+        //canCycle = true;
         yield break;
     }
     [SerializeField] float selectionDuration = 0.5f;
 
     #region Cycle Through Bullets
-    
+
     bool InCycle = false;
     bool cyclePass = false;
     void StartCycle(CallbackContext context)
@@ -349,7 +342,7 @@ public class NSDManager : MinigameManagerBase
     }
     IEnumerator SwapRoutine(bool isUp, bool inSelect)
     {
-        
+
         if (InCycle)
             canCycle = false;
         indicators[bulletNumber].texture = indicatorOff;
@@ -380,7 +373,7 @@ public class NSDManager : MinigameManagerBase
             RotateSelectionChamber(false);
         yield return StartCoroutine(ChangeBulletAnim(inSelect));
 
-        
+
         if (InCycle)
             canCycle = true;
         changingBullet = false;
@@ -441,11 +434,11 @@ public class NSDManager : MinigameManagerBase
         }
     }
 
-    
+
 
     void FadeBulletIndicators(float to, float duration)
     {
-        for(int i = 0; i < TruthBullets.Count; i++)
+        for (int i = 0; i < TruthBullets.Count; i++)
         {
             indicators[i].DOFade(to, duration)
                 .SetUpdate(true);
@@ -512,9 +505,9 @@ public class NSDManager : MinigameManagerBase
         Vector2 pos = new Vector2(-838.4f, -437.2f);
         FadeBulletIndicators(1, 0.3f);
         BulletText.text = TruthBullets[bulletNumber].Title;
-        
 
-        
+
+
         BulletMask.DOAnchorPos(pos, 0.5f)
             .SetUpdate(true)
             .SetDelay(0.2f);
@@ -524,8 +517,8 @@ public class NSDManager : MinigameManagerBase
             .SetUpdate(true);
         yield return new WaitForSecondsRealtime(0.5f);
 
-        
-        if(!InDialogue.Value)
+
+        if (!InDialogue.Value)
             NSDReticle.ShowOrHide();
         canFire = true;
         canSelect = true;
@@ -572,7 +565,7 @@ public class NSDManager : MinigameManagerBase
     {
         if (velocityCanChange && !slow && !fast && !InCycle)
         {
-            
+
             fast = true;
             fastVolume.enabled = true;
             Time.timeScale = fastSpeed;
@@ -584,7 +577,7 @@ public class NSDManager : MinigameManagerBase
     {
         if (fast)
         {
-            
+
             fast = false;
             fastVolume.enabled = false;
             Time.timeScale = 1;
@@ -596,7 +589,7 @@ public class NSDManager : MinigameManagerBase
     {
         if (PlayerInfo.instance.CurrentStamina > 0 && !fast && !slow && !InCycle)
         {
-            
+
             slow = true;
             volume.enabled = false;
             slowVolume.enabled = true;
@@ -613,7 +606,7 @@ public class NSDManager : MinigameManagerBase
     }
     public void RemoveSlow()
     {
-        
+
         fast = false;
         fastVolume.enabled = false;
         slow = false;
@@ -637,7 +630,7 @@ public class NSDManager : MinigameManagerBase
     AnimationClip GetClip(string clipName)
     {
         AnimationClip[] clips = trialCamera.CameraAnimator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips)
+        foreach (AnimationClip clip in clips)
         {
             if (clip.name == clipName)
                 return clip;
@@ -669,9 +662,9 @@ public class NSDManager : MinigameManagerBase
 
         TruthBullets = SetBulletsFromDiff(asset);
 
-        
 
-        if(TruthBullets.Count == 0)
+
+        if (TruthBullets.Count == 0)
         {
             Debug.LogError("NSD Asset Must have Bullets for the current difficulty set in the " +
                 "GameManager!");
@@ -690,8 +683,8 @@ public class NSDManager : MinigameManagerBase
         else
             PlayMusic(asset.StartingMusic);
         openingBlackFade.DOColor(new Color32(0, 0, 0, 255), 1);
-        yield return new WaitForSeconds(GetClip("NSD-transition").length/1.5f);
-        
+        yield return new WaitForSeconds(GetClip("NSD-transition").length / 1.5f);
+
         //yield return new WaitForSeconds(1);
         volume.enabled = true;
         openingBlackFade.DOColor(new Color32(0, 0, 0, 0), 0.5f);
@@ -699,7 +692,7 @@ public class NSDManager : MinigameManagerBase
         openingAnimator.SetTrigger("StartIntro");
         yield return new WaitForSeconds(0.5f);
         PlaySFX(NSDStartSFX);
-        
+
         yield return new WaitForSeconds(4);
         // Animate the NSD UI to start loading the bullets
         debate = asset;
@@ -708,7 +701,7 @@ public class NSDManager : MinigameManagerBase
         loadChamberShadow.DOFade(1, 0.3f);
         loadChamber.DOFade(1, 0.3f);
         yield return new WaitForSeconds(0.3f);
-        
+
         Vector3 rot = new Vector3(loadChamber.rectTransform.rotation.eulerAngles.x, loadChamber.rectTransform.rotation.eulerAngles.y,
             loadChamber.rectTransform.rotation.eulerAngles.z);
 
@@ -728,7 +721,7 @@ public class NSDManager : MinigameManagerBase
         {
             sb = 2;
         }
-        else if(TruthBullets.Count == 3 || TruthBullets.Count == 4)
+        else if (TruthBullets.Count == 3 || TruthBullets.Count == 4)
         {
             sb = 1;
         }
@@ -738,11 +731,11 @@ public class NSDManager : MinigameManagerBase
             Debug.LogError("There can be a min of 1 and a max of 6 bullets!");
         }
 
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             SelectBullets[i].enabled = false;
         }
-        for(int i = 0; i < TruthBullets.Count; i++)
+        for (int i = 0; i < TruthBullets.Count; i++)
         {
             SelectBullets[i].enabled = true;
         }
@@ -755,8 +748,8 @@ public class NSDManager : MinigameManagerBase
         Vector3[] bulletOGPos = new Vector3[TruthBullets.Count]; // To reset position of loaded bullets
         for (int i = 0; i < TruthBullets.Count; i++) // Load Bullet Animation
         {
-            
-            
+
+
             TMP_Text bText = BulletObjects[i + sb].GetComponentInChildren<TMP_Text>();
             RectTransform rect = BulletObjects[i + sb].GetComponent<RectTransform>();
             Vector3 p = rect.position;
@@ -770,10 +763,10 @@ public class NSDManager : MinigameManagerBase
                 Vector2 set = rect.sizeDelta;
                 set.x += (10 * (bText.text.Length - 20)) + 50;
                 rect.sizeDelta = set;
-                p.x += (bText.text.Length - 20)/2;
+                p.x += (bText.text.Length - 20) / 2;
                 rect.position = p;
             }
-            
+
 
 
             BulletObjects[i + sb].transform.DOMove(new Vector3(p.x + bloX, p.y + bloY + yOffset, p.z), bulletLoadSpeed);
@@ -785,7 +778,7 @@ public class NSDManager : MinigameManagerBase
             BulletObjects[i + sb].transform.Find("Burst").GetComponent<RawImage>().DOFade(0, 0.1f)
                 .SetDelay(bulletLoadSpeed);
             PlaySFX(BulletLoad);
-            yield return new WaitForSeconds(bulletLoadSpeed*1.25f);
+            yield return new WaitForSeconds(bulletLoadSpeed * 1.25f);
             BulletObjects[i + sb].transform.Find("Particle").GetComponent<ParticleSystem>().Stop();
         }
         // Chamber Idle Rotate
@@ -820,12 +813,12 @@ public class NSDManager : MinigameManagerBase
             RectTransform rect = BulletObjects[i + sb].GetComponent<RectTransform>();
             rect.position = bulletOGPos[i];
         }
-        
+
         // Main UI Slides in
         MainNSDUI.transform.DOMoveX(0, 0.2f);
 
         panelCounter.DOFade(1, 0.2f);
-        for(int i = 0; i < debate.PanelGroup.Count; i++)
+        for (int i = 0; i < debate.PanelGroup.Count; i++)
         {
             panelCounters[i].DOFade(1, 0.2f);
         }
@@ -963,7 +956,7 @@ public class NSDManager : MinigameManagerBase
         CantFire();
         HideUI();
         DeActivateControls();
-        if(InCycle)
+        if (InCycle)
             EndCycle(new CallbackContext());
         NSDReticle.Instance.ShowReticleOverride(false);
         PhraseReset();
@@ -985,7 +978,7 @@ public class NSDManager : MinigameManagerBase
         PlayVoiceLine(panel.VoiceSFX);
         trialCamera.SeatFocus = panel.Speaker.TrialPosition;
         yield return new WaitForSeconds(Time.deltaTime / 2);
-        
+
         if (panel.camAnimIdx != 10)
         {
             if (i == 0)
@@ -1013,7 +1006,7 @@ public class NSDManager : MinigameManagerBase
 
         //yield return new WaitForSeconds(0.55f);
         float duration;
-        
+
         if (panel.PhraseGroup.Count == 0)
             duration = trialCamera.CameraAnimator.GetCurrentAnimatorStateInfo(0).length;
         else
@@ -1026,7 +1019,7 @@ public class NSDManager : MinigameManagerBase
     }
     Actor GetCurrentActor(Character character)
     {
-        for(int i = 0; i < actorObjects.Count; i++)
+        for (int i = 0; i < actorObjects.Count; i++)
         {
             if (actorObjects[i].name == character.FirstName)
                 return actors[i];
@@ -1051,7 +1044,7 @@ public class NSDManager : MinigameManagerBase
         panelSpeaker.text = panel.Speaker.FirstName;
         panelPortrait.texture = panel.Speaker.NSDPortrait;
     }
-    
+
     private float PlayPhrase(NSDBuilder.Panel panel)
     {
         float panelLength = 0;
@@ -1095,7 +1088,7 @@ public class NSDManager : MinigameManagerBase
 
     void PlayWhiteNoise(NSDBuilder.Panel panel)
     {
-        for(int i = 0; i < panel.whiteNoises.Count; i++)
+        for (int i = 0; i < panel.whiteNoises.Count; i++)
         {
             NSDBuilder.WhiteNoise wn = panel.whiteNoises[i];
             WhiteNoiseText wnText = wnTexts[i];
@@ -1181,10 +1174,10 @@ public class NSDManager : MinigameManagerBase
     {
         if (isConsent)
         {
-            
+
             //Debug.Log(currentPanel.SpeakerNumber);
             consentImage.texture = consentTex[currentPanel.SpeakerNumber];
-            
+
             consentAnimator.Play(consentAnimName);
             return consentAnimLength;
         }
@@ -1202,7 +1195,7 @@ public class NSDManager : MinigameManagerBase
                 ansCanvas.enabled = true;
                 waitTime = animClip.length;
             }
-            
+
             return waitTime;
         }
     }
@@ -1217,12 +1210,12 @@ public class NSDManager : MinigameManagerBase
     }
     public void PhraseReset()
     {
-        foreach(PhraseText text in phraseTexts)
+        foreach (PhraseText text in phraseTexts)
         {
             text.Reset();
         }
-        
-        foreach(WhiteNoiseText text in wnTexts)
+
+        foreach (WhiteNoiseText text in wnTexts)
         {
             text.Reset();
         }
@@ -1238,12 +1231,12 @@ public class NSDManager : MinigameManagerBase
         {
             if (InCycle)
             {
-                
+
                 break;
             }
             yield return null;
         }
-        if(InCycle)
+        if (InCycle)
             EndCycle(new CallbackContext());
         NSDTextTex.enabled = false;
         RemoveSlow();
@@ -1267,7 +1260,7 @@ public class NSDManager : MinigameManagerBase
             //TrialDialogueManager.EndFU += RestartPanels;
             TrialDialogueManager.instance.PlayFuckUp(fuckUp);
         }
-        
+
     }
     public void RestartPanels()
     {
@@ -1279,7 +1272,7 @@ public class NSDManager : MinigameManagerBase
         inDebate = true;
         ActivateControls();
         NSDTextTex.enabled = true;
-        if(!cyclePass)
+        if (!cyclePass)
             cyclePass = true;
     }
     void TurnOffIndicators()

@@ -1,7 +1,4 @@
-﻿using DG.Tweening;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 
 namespace CharTween
 {
@@ -290,7 +287,7 @@ namespace CharTween
 
                 if (!charInfo.isVisible || !proxy)
                     continue;
-                
+
                 var materialIndex = charInfo.materialReferenceIndex;
                 var vertexIndex = charInfo.vertexIndex;
                 var sourceVertices = _meshCache[materialIndex].vertices;

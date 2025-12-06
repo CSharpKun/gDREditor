@@ -1,12 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using DG.Tweening;
-using static UnityEngine.InputSystem.InputAction;
-using System;
 
 /// <summary>
 /// Start Screen Process for DREditor By: Sweden
@@ -82,7 +78,7 @@ public class DRESplashScreen : MonoBehaviour
         // Graphical Splash Set Up
         splashCanvas.enabled = true;
 
-        foreach(SplashScreen splashScreen in splashScreens)
+        foreach (SplashScreen splashScreen in splashScreens)
         {
             mainImage.sprite = splashScreen.Screen;
 
@@ -109,7 +105,7 @@ public class DRESplashScreen : MonoBehaviour
 
         StartCoroutine(LoadRoutine());
     }
-    
+
     IEnumerator LoadRoutine()
     {
         // Graphical Set up with the canvas
@@ -121,7 +117,7 @@ public class DRESplashScreen : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        
+
 
         // Start Loading the Scene to load
         async = SceneManager.LoadSceneAsync(toSceneOnLoad);

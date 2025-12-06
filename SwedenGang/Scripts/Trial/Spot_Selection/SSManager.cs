@@ -1,14 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TruthBulletSelect;
-using TMPro;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.EventSystems;
-using DREditor.Dialogues;
 using DG.Tweening;
+using DREditor.Dialogues;
+using System.Collections;
 using System.Linq;
 
 public class SSManager : MinigameManagerBase
@@ -40,16 +33,16 @@ public class SSManager : MinigameManagerBase
     [SerializeField] Canvas ansCanvas = null;
     [SerializeField] Animator ansAnimator = null;
     [SerializeField] string ansAnimName = "IGotIt";
-    [SerializeField]AudioClip ansSound;
-    [SerializeField]AudioClip ansVO;
+    [SerializeField] AudioClip ansSound;
+    [SerializeField] AudioClip ansVO;
     [Tooltip("How long the game waits until it plays the \"I Got It\" animation")]
     [SerializeField] float menuFadeWaitTime = 0.5f;
 
     Collider2D spot = null;
     TrialTimer timer => GetComponentInChildren<TrialTimer>();
     private SSBuilder ssb = null;
-    
-    
+
+
     private SSBuilder.Spot Chosen = null;
 
 #if ENABLE_INPUT_SYSTEM
@@ -130,9 +123,9 @@ public class SSManager : MinigameManagerBase
         canvas.enabled = true;
         SoundManager.instance.PlaySFX(startSound);
         yield return new WaitForSeconds(Time.deltaTime);
-        
+
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        
+
 
         if (timer != null)
         {
@@ -144,7 +137,7 @@ public class SSManager : MinigameManagerBase
 
         }
         yield return new WaitForSecondsRealtime(0.25f);
-        if(questionToggle != null)
+        if (questionToggle != null)
         {
             questionToggle.SetQuestion(ssb.question);
 
@@ -163,7 +156,7 @@ public class SSManager : MinigameManagerBase
 
     void InitializeSpots()
     {
-        for(int i = 0; i < ssb.spots.Count; i++)
+        for (int i = 0; i < ssb.spots.Count; i++)
         {
             SSBuilder.Spot s = ssb.spots[i];
             GameObject g = new GameObject();
@@ -177,7 +170,7 @@ public class SSManager : MinigameManagerBase
             b.offset = s.center;
         }
     }
-    
+
     void SubmitSpot(CallbackContext ctx)
     {
         //Debug.Log("Called Submit!");
@@ -209,7 +202,7 @@ public class SSManager : MinigameManagerBase
         reticle.ShowReticle();
         confirmUI.Show(); // The Menu Group will auto select it for us
                           //confirmAnimator.Play(showString);
-        
+
 
         yield break;
     }
@@ -234,7 +227,7 @@ public class SSManager : MinigameManagerBase
     void FinishedLeave()
     {
         confirmUI.choiceGroup.EndEvents.RemoveListener(FinishedLeave);
-        
+
     }
     IEnumerator LeaveConfirm()
     {
@@ -265,7 +258,7 @@ public class SSManager : MinigameManagerBase
     SSBuilder.Spot GetChosen()
     {
         return ssb.spots.Where(n => n.spotName == spot.gameObject.name).ElementAt(0);
-        
+
     }
     bool CheckAnswer()
     {
@@ -274,7 +267,7 @@ public class SSManager : MinigameManagerBase
                 return ssb.spots[i].isAnswer;
         return false;
     }
-    
+
     void OnCorrect()
     {
         /* Display "I Got It" Animation
@@ -313,12 +306,12 @@ public class SSManager : MinigameManagerBase
     }
     void Restart()
     {
-        
+
         // Show Visuals
         CG.DOFade(1, 0.5f);
         timer.Anim(1, 1);
         questionToggle.Activate();
-        if(!reticle.enabled)
+        if (!reticle.enabled)
             reticle.enabled = true;
         reticle.ShowReticleOverride(true);
         StartCoroutine(ResumeTimer());

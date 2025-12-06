@@ -1,12 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Utility.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using MultipleChoice;
-using UnityEngine.UI;
-
 [CustomEditor(typeof(SSBuilder))]
 public class SSBuilderEditor : Editor
 {
@@ -28,7 +20,7 @@ public class SSBuilderEditor : Editor
 
         BuildTools();
 
-        
+
         using (new GUILayout.HorizontalScope())
         {
             EditorGUILayout.LabelField("Room Image: ", GUILayout.Width(100));
@@ -39,7 +31,7 @@ public class SSBuilderEditor : Editor
         {
             GUILayout.Label("", GUILayout.Width(120));
         }
-        if(ssb.spots.Count > 0)
+        if (ssb.spots.Count > 0)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -79,7 +71,7 @@ public class SSBuilderEditor : Editor
             GUILayout.Space(5);
             using (new GUILayout.HorizontalScope())
             {
-                
+
                 EditorGUILayout.LabelField("Is Answer: ", GUILayout.Width(70));
                 ssb.spots[i].isAnswer = EditorGUILayout.Toggle(ssb.spots[i].isAnswer);
 
@@ -97,7 +89,7 @@ public class SSBuilderEditor : Editor
                 ssb.spots[i].wrongDialogue = null;
             }
             GUILayout.Space(10);
-            if (GUILayout.Button("Remove Spot", GUILayout.Width(100)) 
+            if (GUILayout.Button("Remove Spot", GUILayout.Width(100))
                 && EditorUtility.DisplayDialog("Remove Spot", "Are you sure you want to remove this spot?", "Yes", "No"))
             {
                 ssb.spots.RemoveAt(i);
@@ -105,7 +97,7 @@ public class SSBuilderEditor : Editor
 
             GUILayout.Space(25);
         }
-        
+
         if (GUILayout.Button("Add Spot", GUILayout.Width(100)))
         {
             ssb.spots.Add(new SSBuilder.Spot());
@@ -125,13 +117,13 @@ public class SSBuilderEditor : Editor
 
     void BuildTools()
     {
-        
+
         GUILayout.Label("Testing Tools", GUILayout.Width(50));
         using (new EditorGUILayout.HorizontalScope())
         {
             GUILayout.Label("Test Canvas: ", GUILayout.Width(90));
             ssb.testCanvas = EditorGUILayout.TextField(ssb.testCanvas, GUILayout.Width(125));
-            
+
             if (GUILayout.Button("Export Spots", GUILayout.Width(100)))
             {
                 for (int i = 0; i < ssb.spots.Count; i++)
@@ -153,7 +145,7 @@ public class SSBuilderEditor : Editor
                 cg.texture = ssb.texture;
             }
         }
-        
+
     }
     void ExportSpot(SSBuilder.Spot spot)
     {
@@ -194,7 +186,7 @@ public class SSBuilderEditor : Editor
     void Import(SSBuilder.Spot s)
     {
         BoxCollider2D c = Selection.gameObjects[0].GetComponent<BoxCollider2D>();
-        if(c != null)
+        if (c != null)
         {
             s.center = c.offset;
             s.size = c.size;

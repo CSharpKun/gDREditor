@@ -1,11 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using System;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class UIOptionGroup : MonoBehaviour
 {
@@ -27,7 +22,7 @@ public class UIOptionGroup : MonoBehaviour
             lastOption = options[0];
             //lastOption.Select();
             UIDisplayChanger op = lastOption.GetComponent<UIDisplayChanger>();
-            
+
             if (op)
             {
                 op.Select();
@@ -35,7 +30,7 @@ public class UIOptionGroup : MonoBehaviour
         }
         setup = true;
     }
-    
+
     public void UnSetupGroup()
     {
         UIHandler.instance.OnChange.RemoveListener(Eval);
@@ -64,9 +59,9 @@ public class UIOptionGroup : MonoBehaviour
             {
                 //Debug.LogError("Did you forget to add SetUp Group to the Menu Group's Start Event?");
             }
-            
+
         }
-        
+
     }
     public void Eval()
     {
@@ -120,7 +115,7 @@ public class UIOptionGroup : MonoBehaviour
                 {
                     nav.group.ChangeGroupNav(lastOption, nav.direction);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.LogError(e.Message);
                     Debug.LogError(gameObject.name + " this happened on");
@@ -163,7 +158,7 @@ public class UIOptionGroup : MonoBehaviour
 
                 break;
         }
-        
+
     }
     void ChangeNavSelects(Selectable on, Selectable to, Direction direction) // Overload for selectables
     {

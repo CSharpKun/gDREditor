@@ -1,4 +1,4 @@
-﻿//
+//
 // EventObjects - A scriptable-object based messaging system for Unity
 //
 // Copyright (c) 2019 Bart Heijltjes (Wispfire)
@@ -23,8 +23,6 @@
 //
 
 using System;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace DREditor.EventObjects
 {

@@ -1,8 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Gates;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 [System.Serializable]
 [CreateAssetMenu(menuName = "DREditor/Trials/Trial Builder Asset", fileName = "Trial Asset")]
 public class TrialBuilder : ScriptableObject

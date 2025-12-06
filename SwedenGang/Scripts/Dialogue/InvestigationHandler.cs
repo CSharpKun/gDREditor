@@ -2,9 +2,6 @@
 using DREditor.Dialogues.Events;
 using DREditor.PlayerInfo;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class InvestigationHandler : MonoBehaviour
 {
@@ -61,7 +58,7 @@ public class InvestigationHandler : MonoBehaviour
             //return 0;
         }
         //Debug.LogWarning(startAnimator.GetCurrentAnimatorStateInfo(0).length);
-        
+
         //return startAnimator.GetCurrentAnimatorStateInfo(0).length;
     }
     public float GetStartLength() => startAnimator.GetCurrentAnimatorStateInfo(0).length;

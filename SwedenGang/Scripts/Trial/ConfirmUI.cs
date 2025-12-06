@@ -1,8 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
 
 /// <summary>
 /// For Confirming a selection for TBS and other Trial Minigames
@@ -20,7 +17,7 @@ public class ConfirmUI : MonoBehaviour
     IEnumerator ShowRoutine()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        
+
         yield break;
     }
     public void Hide()
@@ -31,7 +28,7 @@ public class ConfirmUI : MonoBehaviour
     IEnumerator HideRoutine()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        
+
         yield break;
     }
 }

@@ -1,12 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Video;
 using DREditor.Dialogues.Events;
-using TMPro;
+using System.Collections;
 /// <summary>
 /// Main Player or Handler for CG's and Animated CG's
 /// Holds Dialogue Events too
@@ -97,7 +92,7 @@ public class CGPlayer : MonoBehaviour
     void SwapActiveUI(bool to) // Swaps the UI the Dialogue Asset Reader between CG and non CG
     {
         DialogueTextConfig.instance.SwapBox(to);
-        
+
         if (GameManager.instance.currentMode == GameManager.Mode.Trial && TrialDialogueManager.instance != null)
         {
             TrialDialogueManager.instance.SwapNamePlate();
@@ -161,7 +156,7 @@ public class CGPlayer : MonoBehaviour
                 GlobalFade.instance.FadeTo(CGStartFadeTime);
                 yield return new WaitForSeconds(CGStartFadeTime);
             }
-            
+
             DialogueAnimConfig.instance.EnableCanvases(false);
             canvas.enabled = true;
             dialogueBox.enabled = false;
@@ -178,7 +173,7 @@ public class CGPlayer : MonoBehaviour
             }
             else
             {
-                
+
                 CGBox.enabled = true;
             }
             if (!visible)
@@ -200,7 +195,7 @@ public class CGPlayer : MonoBehaviour
 
             if (prefabAnimator != null && data.playOnly)
             {
-                
+
                 yield return new WaitForSeconds(prefabAnimator.GetCurrentAnimatorStateInfo(0).length);
             }
         }
@@ -265,13 +260,13 @@ public class CGPlayer : MonoBehaviour
                 //yield return new WaitForSeconds(1);
             }
 
-            
+
 
             if (!(activePrefab != null))
             {
                 SubCG.DOFade(1, 0);
                 SubCG.sprite = sprite;
-                float instant = data.transitionInstant? 0 : 1;
+                float instant = data.transitionInstant ? 0 : 1;
                 CG.DOFade(0, instant);
                 yield return new WaitForSeconds(instant);
                 CG.sprite = sprite;
@@ -301,10 +296,10 @@ public class CGPlayer : MonoBehaviour
 
         if (DialogueAnimConfig.instance.blurTween != null)
             DialogueAnimConfig.instance.StopBlur();
-        
+
         if (endCG && !DialogueAnimConfig.Reset && GameManager.instance.currentMode != GameManager.Mode.Trial)
             DialogueAnimConfig.instance.ShowMainUI();
-        
+
         cgDone = true;
         yield break;
     }
@@ -415,11 +410,11 @@ public class CGPlayer : MonoBehaviour
             FadeBox(true);
             //dialogueBox.enabled = true;
             //if (DialogueAnimConfig.instance.inDialogue)
-                //CGBox.enabled = true;
-            
+            //CGBox.enabled = true;
+
             rt = null;
             inVid = false;
-            
+
         }
         else if (i) // has initial, wait till done and loop main piece
         {
@@ -487,9 +482,9 @@ public class CGPlayer : MonoBehaviour
             {
                 GlobalFade.instance.FadeTo(1);
                 yield return new WaitForSeconds(1);
-                
+
             }
-            
+
             RenderTexture x = new RenderTexture(1920, 1080, 32);
             videoBack.texture = x;
             //videoProjector.texture = x;
@@ -511,7 +506,7 @@ public class CGPlayer : MonoBehaviour
             //cgFade.DOFade(0, 1);
             //yield return new WaitForSeconds(1);
             RenderTexture l = new RenderTexture(1920, 1080, 32);
-            
+
             videoPlayer.targetTexture = l;
             videoPlayer.playbackSpeed = data.speed;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
@@ -546,10 +541,10 @@ public class CGPlayer : MonoBehaviour
 
             GlobalFade.instance.FadeOut(1);
             yield return new WaitForSeconds(1);
-            
+
             videoPlayer.playbackSpeed = data.speed;
             //if (data.eventName != "")
-                //SoundManager.instance.PlaySFX(data.eventName);
+            //SoundManager.instance.PlaySFX(data.eventName);
         }
         if (GlobalFade.instance.IsDark && !DialogueAnimConfig.Reset) // Unfade opening then play
         {
@@ -570,7 +565,7 @@ public class CGPlayer : MonoBehaviour
         }
         if (waitEnd)
         {
-            
+
             yield return new WaitUntil(() => !videoPlayer.isPlaying);
             videoPlayer.frame = (long)Mathf.Lerp(videoPlayer.frame, videoPlayer.clip.frameCount, 1);
             //yield return new WaitUntil(() => videoPlayer.frame == (long)videoPlayer.clip.frameCount);
@@ -624,7 +619,7 @@ public class CGPlayer : MonoBehaviour
     #endregion
 
     #region EndVideo
-    
+
     public void PlayEndVideo(VideoClip v) => StartCoroutine(EndVideoPlay(v));
     IEnumerator EndVideoPlay(VideoClip v)
     {
@@ -725,7 +720,7 @@ public class CGPlayer : MonoBehaviour
         DialogueAssetReader.instance.EnableCGNameplate(false);
         canvas.enabled = true;
 
-        
+
 
         CG.sprite = data.Flashbacks[0];
         CG.DOFade(1, 0);

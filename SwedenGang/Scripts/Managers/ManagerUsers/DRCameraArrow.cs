@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using DREditor.EventObjects;
+using System.Collections;
 
 public class DRCameraArrow : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class DRCameraArrow : MonoBehaviour
     }
     void Evaluate(bool setting)
     {
-        
+
         //Debug.Log("Evaluate called when intpfd is " + setting + " and " + inDialogue.Value);
         if (setting)
         {
@@ -78,7 +75,7 @@ public class DRCameraArrow : MonoBehaviour
         yield return new WaitForSeconds(1);
         TPFDManager.Cancel += CheckCancel;
         TPFDManager.UnCancel += CheckUnCancel;
-        
+
         yield break;
     }
     void Hide()
@@ -97,7 +94,7 @@ public class DRCameraArrow : MonoBehaviour
         yield return new WaitForSeconds(1);
         TPFDManager.Cancel -= CheckCancel;
         TPFDManager.UnCancel -= CheckUnCancel;
-        
+
         yield break;
     }
     void CheckCancel(int d)
@@ -127,11 +124,11 @@ public class DRCameraArrow : MonoBehaviour
         }
         if (!canChange)
             return;
-        to.DOKill(); 
+        to.DOKill();
         from.DOKill();
         // In side of the can change return you could set current = to and that could fix the latency
         //Debug.LogWarning("Icon Changing to: " + to.name + " from: " + from.name + " Can change is: " + canChange);
-        
+
         to.DOFade(1, 0.3f);
         from.DOFade(0, 0.3f);
         current = to;

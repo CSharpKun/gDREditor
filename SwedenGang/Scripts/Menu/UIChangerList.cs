@@ -1,7 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class UIChangerList : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class UIChangerList : MonoBehaviour
 
     public void Select()
     {
-        foreach(UIDisplayChanger c in changers)
+        foreach (UIDisplayChanger c in changers)
         {
             c.Select();
         }

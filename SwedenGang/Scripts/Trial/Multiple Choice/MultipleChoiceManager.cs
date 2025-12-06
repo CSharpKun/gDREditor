@@ -1,13 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
+using MultipleChoice;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using DG.Tweening;
-using UnityEngine.UI;
-using MultipleChoice;
-using UnityEngine.EventSystems;
-using static UnityEngine.InputSystem.InputAction;
 
 public class MultipleChoiceManager : MinigameManagerBase
 {
@@ -91,7 +86,7 @@ public class MultipleChoiceManager : MinigameManagerBase
     }
     private void Update()
     {
-        
+
         if (inSelect && selected != eventSystem.currentSelectedGameObject) // Handles Choice swapping 
         {
             if (eventSystem.currentSelectedGameObject == null)
@@ -137,7 +132,7 @@ public class MultipleChoiceManager : MinigameManagerBase
     IEnumerator BeginChoice(MultipleChoiceBuilder mcb)
     {
         //if (!gameIsOver)
-            //inMC = true;
+        //inMC = true;
         if (mcb.startDialogue != null)
         {
             TrialDialogueManager.instance.UniTrialDialogue(mcb.startDialogue);
@@ -154,23 +149,23 @@ public class MultipleChoiceManager : MinigameManagerBase
         animator.SetTrigger(introTriggerString);
         SoundManager.instance.PlaySFX(startSound);
         yield return new WaitForSeconds(introAnimWaitTime);
-        if(characterEyes != null)
+        if (characterEyes != null)
         {
             characterEyes.SetFade();
             MassImageAnimator.Fade(1, 1);
         }
         questionText.text = mcb.question;
-        for(int i = 0; i < choices.Count; i++)
+        for (int i = 0; i < choices.Count; i++)
         {
             choices[i].choiceText.text = mcb.choices[i].text;
         }
-        
+
         questionText.DOFade(1, 1);
         yield return new WaitForSeconds(1);
         int choicesAmount = 0;
         for (int i = 0; i < choices.Count; i++)
         {
-            if(mcb.choices[i].text != "")
+            if (mcb.choices[i].text != "")
             {
                 choices[i].Show();
                 choicesAmount++;
@@ -179,7 +174,7 @@ public class MultipleChoiceManager : MinigameManagerBase
         }
         yield return new WaitForSeconds(0.2f * choicesAmount);
 
-        if(timer != null)
+        if (timer != null)
         {
             timer.Anim(1, 0.5f);
             mcb.SetTimerBasedOnDifficulty(timer);
@@ -198,7 +193,7 @@ public class MultipleChoiceManager : MinigameManagerBase
 
     MCChoice GetChoice(GameObject ob)
     {
-        foreach(MCChoice choice in choices)
+        foreach (MCChoice choice in choices)
         {
             if (choice.choiceText.gameObject == ob)
                 return choice;
@@ -208,7 +203,7 @@ public class MultipleChoiceManager : MinigameManagerBase
 
     bool CheckAnswer()
     {
-        for(int i = 0; i < mcb.choices.Length; i++)
+        for (int i = 0; i < mcb.choices.Length; i++)
         {
             if (GetChoice(selected).choiceText.text == mcb.choices[i].text)
             {
@@ -224,7 +219,7 @@ public class MultipleChoiceManager : MinigameManagerBase
         HideVisuals();
         if (timer != null)
             timer.PauseTimer();
-        
+
         TrialDialogueManager.instance.PlayFuckUpNonNSD(chosen.wrongDialogue);
     }
     void HideVisuals()
@@ -275,7 +270,7 @@ public class MultipleChoiceManager : MinigameManagerBase
             timer.StopTimer();
             timer.Anim(0, 0.5f);
         }
-        
+
         HideVisuals();
         yield return new WaitForSeconds(0.75f);
         ansAnimator.Play(ansAnimName);

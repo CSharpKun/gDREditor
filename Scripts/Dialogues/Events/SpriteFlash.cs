@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,17 +6,17 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public class SpriteFlash : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
+    [Serializable]
+    public class SpriteFlash : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
 
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent("SpriteFlash");
-		}
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent("SpriteFlash");
+        }
 
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 		public void EditorUI(object value = null)
 		{
 			EditorGUILayout.HelpBox("The current character's sprite will flash at this point.", MessageType.Info, true);
@@ -31,6 +30,6 @@ namespace DREditor.Dialogues.Events
 		{
 			if (_ShowHelp) EditorGUILayout.HelpBox("Make the character's sprite flash.", MessageType.Info, true);
 		}
-		#endif
-	}
+#endif
+    }
 }

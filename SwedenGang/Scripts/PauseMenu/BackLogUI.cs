@@ -1,14 +1,7 @@
 // Author LeotheDev
 using DREditor.EventObjects;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using DREditor.PlayerInfo;
-using static UnityEngine.InputSystem.InputAction;
 
 public class BackLogUI : MonoBehaviour
 {
@@ -22,7 +15,7 @@ public class BackLogUI : MonoBehaviour
     //[SerializeField] GameObject FirstItem = null;
     [SerializeField] MenuGroup backGroup = null;
 
-    struct BacklogEntry 
+    struct BacklogEntry
     {
         public DREditor.Characters.Character character;
         public string text;
@@ -31,7 +24,7 @@ public class BackLogUI : MonoBehaviour
         public Color color;
     };
     [System.Serializable]
-    public class BacklogMugBind 
+    public class BacklogMugBind
     {
         public string charaName;
         public Sprite Mug_ON;
@@ -105,7 +98,7 @@ public class BackLogUI : MonoBehaviour
         for (int i = 0; i < Slots.Length; i++)
         {
             m_cachedTransforms[i] = new Transform[6];
-            for (int j = 0; j < 6; j++) 
+            for (int j = 0; j < 6; j++)
             {
                 m_cachedTransforms[i][j] = Slots[i].GetChild(j);
             }
@@ -119,7 +112,7 @@ public class BackLogUI : MonoBehaviour
     }
     void EvaluateBackLog(CallbackContext context)
     {
-        
+
         if (InMenu.Value || Canvas.enabled || GameManager.instance.cantBeInMenu || Door.inLeaveProcess || ObserveManager.ChangingObserve)
             return;
         StartBackLog();
@@ -140,8 +133,8 @@ public class BackLogUI : MonoBehaviour
 
         //Fetch data
         DREditor.Dialogues.BacklogLines[] l = DialogueAssetReader.Backlog.Lines.ToArray();
-        
-        
+
+
         var lines = l.Reverse().ToArray();
         if (lines.Length == 0)
         {
@@ -172,14 +165,14 @@ public class BackLogUI : MonoBehaviour
     }
     void UnPause(CallbackContext context)
     {
-        
+
         StartCoroutine(Resume());
     }
     IEnumerator Resume()
     {
-        
-        
-        
+
+
+
 
         yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
         _controls.UI.Cancel.started -= UnPause;
@@ -229,14 +222,14 @@ public class BackLogUI : MonoBehaviour
      *   You do not have a Sound Icon Asset yet but please code as if you did
      */
 
-    void RegenerateUI() 
+    void RegenerateUI()
     {
         uint localSelectedIDX = (uint)(m_idx - m_min);
 
         float pr = m_idx / Mathf.Max((float)m_lineCount - 1, 1);
         cursor.transform.localPosition = new Vector3(cursor.transform.localPosition.x, Mathf.Lerp(cursorBounds.x, cursorBounds.y, pr), 0);
 
-        for (uint i = 0; i < Slots.Length; i++) 
+        for (uint i = 0; i < Slots.Length; i++)
         {
             BacklogEntry entry;
             uint globalIDX = (uint)(m_min + i);
@@ -283,7 +276,7 @@ public class BackLogUI : MonoBehaviour
                 cache[0].gameObject.SetActive(true);
                 cache[0].GetComponent<Image>().sprite = mug.Mug_OFF;
             }
-            if(mug == null || (entry.character.FirstName == "Tozu" && entry.aliasIndex == 0))
+            if (mug == null || (entry.character.FirstName == "Tozu" && entry.aliasIndex == 0))
             {
                 cache[4].gameObject.SetActive(false);
                 cache[0].gameObject.SetActive(false);
@@ -297,22 +290,22 @@ public class BackLogUI : MonoBehaviour
         }
     }
 
-    void OnBacklogScroll(CallbackContext ctx) 
+    void OnBacklogScroll(CallbackContext ctx)
     {
         Vector2 val = ctx.ReadValue<Vector2>();
         int off = (int)val.y;
         off = Mathf.Clamp(off, -1, 1);
         int tempIDX = m_idx + off;
         tempIDX = Mathf.Clamp(tempIDX, 0, (int)m_lineCount - 1);
-        if(tempIDX == m_idx) 
+        if (tempIDX == m_idx)
             return;
         m_idx = tempIDX;
-        if(m_idx > m_max) 
+        if (m_idx > m_max)
         {
             m_max++;
             m_min++;
         }
-        if(m_idx < m_min) 
+        if (m_idx < m_min)
         {
             m_max--;
             m_min--;
@@ -323,13 +316,13 @@ public class BackLogUI : MonoBehaviour
         RegenerateUI();
     }
 
-    IEnumerator VoiceLineTimer() 
+    IEnumerator VoiceLineTimer()
     {
         yield return new WaitForSecondsRealtime(voicelineTime);
         m_canPlayVoiceline = true;
     }
 
-    void OnSelect(CallbackContext ctx) 
+    void OnSelect(CallbackContext ctx)
     {
         if (m_lineCount == 0)
             return;

@@ -1,9 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Gardens
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 [RequireComponent(typeof(TMP_Text))]
 public class NSDBullet : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class NSDBullet : MonoBehaviour
     [SerializeField] TMP_Text bText = null;
     [SerializeField] RectTransform brect = null;
 
-    
+
 
     public void FireBullet(Vector3 firePosition, string bulletString)
     {
@@ -47,18 +44,18 @@ public class NSDBullet : MonoBehaviour
         bText.text = bulletString;
         //transform.localRotation = Quaternion.Euler(0, angle, transform.localRotation.x + tilt);
         //0.125
-        
+
         //Debug.Log(zPlane);
-        
+
         firePosition.z = cameraFarPlane;
         //firePosition.z = bulletString.Length * 335;
         StartCoroutine(FireBulletAnimation(firePosition));
     }
-    
+
     IEnumerator FireBulletAnimation(Vector3 firePosition)
     {
         yield return new WaitForSeconds(Time.deltaTime);
-        
+
         Vector2 wid = rect.sizeDelta;
         wid.x = bullet.renderedWidth;
         rect.sizeDelta = wid;
@@ -74,7 +71,7 @@ public class NSDBullet : MonoBehaviour
         if (firePosition.y < 0.23)
             tilt = 20;
         if (firePosition.x < 0)
-            tilt += firePosition.x/10;
+            tilt += firePosition.x / 10;
         Debug.LogWarning("Tilt: " + tilt);
         Debug.LogWarning("Fire PostiionY: " + firePosition.y);
         float angleOffset = 2 * (firePosition.x - (-204)) + 10;
@@ -89,16 +86,16 @@ public class NSDBullet : MonoBehaviour
 
         rect.DOPivotX(pivotX, (duration / 2) * pivotX)
             .SetUpdate(true)
-            .SetDelay(duration-offset);
+            .SetDelay(duration - offset);
         transform.DOMoveZ(firePosition.z + 0.005F + positionZOffset, duration / 2)
             .SetUpdate(true)
-            .SetDelay(duration-offset);
+            .SetDelay(duration - offset);
 
         //Debug.LogWarning("Fire Position Z: " + firePosition.z + 0.005F + positionZOffset);
         //Debug.LogWarning("PivotX: " + pivotX);
-        yield return new WaitForSecondsRealtime(duration - (offset/2));
+        yield return new WaitForSecondsRealtime(duration - (offset / 2));
         // Past here should be the moment the first letter hits the text
-        
+
         RaycastHit hit;
         if (Physics.Raycast(cam.ScreenPointToRay(NSDManager.instance.mousePos), out hit))
         {
@@ -117,14 +114,14 @@ public class NSDBullet : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSecondsRealtime(offset*2);
+                yield return new WaitForSecondsRealtime(offset * 2);
                 NSDManager.instance.CanFire();
                 //Debug.Log("Reloading");
             }
         }
         else
         {
-            yield return new WaitForSecondsRealtime(offset*2);
+            yield return new WaitForSecondsRealtime(offset * 2);
             NSDManager.instance.CanFire();
             //Debug.Log("Reloading");
         }
@@ -132,7 +129,7 @@ public class NSDBullet : MonoBehaviour
     }
     IEnumerator BulletShatter(Vector3 firePosition)
     {
-        
+
         yield return null;
     }
     private void Awake()

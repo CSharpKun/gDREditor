@@ -1,9 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using DREditor.PlayerInfo;
+using System.Collections;
 
 public class UIOptionMessage : MonoBehaviour
 {
@@ -17,7 +14,7 @@ public class UIOptionMessage : MonoBehaviour
         {
             Debug.LogError("UI Option Message does not have a TMP Box!");
         }
-        
+
     }
     public void PlayTextSpeedMessage(string message)
     {
@@ -35,7 +32,7 @@ public class UIOptionMessage : MonoBehaviour
         else
             box.text = message;
     }
-    
+
     public void ClearBox()
     {
         if (coroutine != null)
@@ -46,7 +43,7 @@ public class UIOptionMessage : MonoBehaviour
     IEnumerator DisplayText(string message, float speed)
     {
         char[] letters = message.ToCharArray();
-        foreach(char let in letters)
+        foreach (char let in letters)
         {
             box.text += let;
             yield return new WaitForSecondsRealtime(speed * 0.01f);

@@ -1,15 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.InputSystem;
-using UnityEngine.Events;
 /// <summary>
 /// Handler Singleton to detect everytime a selected object has been changed
 /// References: SoundManager.cs

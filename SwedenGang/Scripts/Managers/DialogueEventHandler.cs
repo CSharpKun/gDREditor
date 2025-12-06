@@ -1,11 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DREditor.Dialogues;
-using System;
-using DREditor.Dialogues.Events;
 using DREditor.Characters;
+using DREditor.Dialogues.Events;
 
 public class DialogueEventHandler : MonoBehaviour
 {
@@ -28,10 +23,10 @@ public class DialogueEventHandler : MonoBehaviour
         if (tuple.all)
         {
             var actors = FindObjectsOfType<Actor>();
-            foreach(Actor a in actors)
+            foreach (Actor a in actors)
             {
                 a.transform.parent.localPosition = tuple.position;
-                if(!GameSaver.LoadingFile && GameManager.instance.currentMode != GameManager.Mode.ThreeD)
+                if (!GameSaver.LoadingFile && GameManager.instance.currentMode != GameManager.Mode.ThreeD)
                     a.transform.parent.localEulerAngles = tuple.rotation;
             }
         }

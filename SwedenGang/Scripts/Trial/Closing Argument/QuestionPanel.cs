@@ -1,6 +1,3 @@
-using UnityEngine;
-using TMPro;
-
 public class QuestionPanel : MonoBehaviour
 {
     public CAStock answer;
@@ -19,10 +16,10 @@ public class QuestionPanel : MonoBehaviour
     {
         anim.SetInteger("Shown", 1);
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(anim.GetInteger("Shown") != -1)
+        if (anim.GetInteger("Shown") != -1)
             anim.SetInteger("Shown", 0);
     }
 }

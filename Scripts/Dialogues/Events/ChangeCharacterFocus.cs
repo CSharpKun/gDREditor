@@ -1,7 +1,6 @@
-﻿//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
+//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
 
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,26 +8,26 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct CCFTuple
-	{
-		public int PanelNum;
-		public Vector3 CamTrans;
-	}
+    [Serializable]
+    public struct CCFTuple
+    {
+        public int PanelNum;
+        public Vector3 CamTrans;
+    }
 
-	[Serializable]
-	public class ChangeCharacterFocus : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
-		public CCFTuple CCFValue;
+    [Serializable]
+    public class ChangeCharacterFocus : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
+        public CCFTuple CCFValue;
 
-		public void TriggerDialogueEvent()
-		{
-			(int, Vector3) values;
-			values = (CCFValue.PanelNum, CCFValue.CamTrans);
+        public void TriggerDialogueEvent()
+        {
+            (int, Vector3) values;
+            values = (CCFValue.PanelNum, CCFValue.CamTrans);
 
-			DialogueEventSystem.TriggerEvent("ChangeFocus", values);
-		}
+            DialogueEventSystem.TriggerEvent("ChangeFocus", values);
+        }
 
 #if UNITY_EDITOR
 		public void EditorUI(object value = null)
@@ -47,5 +46,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Choose which panel would change its focused character.\nNote: Changing the Camera Position values to non-zero would force its camera transform.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

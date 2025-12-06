@@ -1,10 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using UnityEngine.Events;
 /// <summary>
 /// The purpose of this class is to emulate the Toggles in the option's menu in Danganronpa
 /// While using the simplicity of Unity's toggle function with UI
@@ -43,7 +37,7 @@ public class UIToggle : Toggle
     protected override void Start()
     {
         base.Start();
-        
+
     }
     public override void OnSubmit(BaseEventData eventData)
     {
@@ -57,7 +51,7 @@ public class UIToggle : Toggle
         {
             if (EventSystem.current.currentSelectedGameObject != gameObject)
             {
-                
+
             }
         }
         catch
@@ -97,7 +91,7 @@ public class UIToggle : Toggle
 
         }
     }
-    
+
     public void ChangeToggle(bool to) // in case needs to be changed from outside source
     {
         isOn = to;

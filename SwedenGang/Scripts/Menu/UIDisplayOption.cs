@@ -1,10 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Events;
-
 public class UIDisplayOption : UIBehaviour, ISelectHandler, IDeselectHandler
 {
     public UnityEvent Selection;

@@ -1,8 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class SpriteLookAtPlayer : MonoBehaviour
 {
     //Author : Redberd36, edited by Sweden/Zetsis
@@ -24,8 +19,8 @@ public class SpriteLookAtPlayer : MonoBehaviour
             if (GameManager.instance.currentMode == GameManager.Mode.ThreeD)
                 Lookon = true; //Player follow is on
         }
-        
-        
+
+
     }
     void FixedUpdate()
     {
@@ -41,7 +36,7 @@ public class SpriteLookAtPlayer : MonoBehaviour
     }
     void UpdateBillboard(GameManager.Mode mode)
     {
-        if(mode == GameManager.Mode.TPFD)
+        if (mode == GameManager.Mode.TPFD)
         {
             Lookon = false;
             //transform.rotation = new Quaternion(0, 180, 0, 0);

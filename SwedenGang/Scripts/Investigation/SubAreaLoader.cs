@@ -1,8 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public static class SubAreaLoader
 {
@@ -17,10 +15,10 @@ public static class SubAreaLoader
 
         return areaData;
     }
-    
+
     public static void Load(List<SubAreaData> baseData, List<SubAreaData> loadedData = null)
     {
-        if (loadedData != null) 
+        if (loadedData != null)
         {
             //bool done = false;
             for (int z = 0; z < baseData.Count; z++)
@@ -46,7 +44,7 @@ public static class SubAreaLoader
             Debug.Log("INSTANCE SUBAREAS is: " + loadedData.Count);
         }
         var areaList = UnityEngine.Object.FindObjectsOfType<SubAreaManager>();
-        if(loadedData != null)
+        if (loadedData != null)
             for (int i = 0; i < baseData.Count; i++)
                 areaList[i].Load(SubAreaData.MergeInstance(baseData[i], loadedData[i]));
         else

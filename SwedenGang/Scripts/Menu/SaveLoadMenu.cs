@@ -1,12 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 /// <summary>
 /// Requires: MenuGroup & BaseSave
 /// Component Attached to the canvas of the Save Menu
@@ -33,9 +27,9 @@ public class SaveLoadMenu : MonoBehaviour
     public void SetLoadMode() => SaveMode = false;
     public void LoadSlots()
     {
-        for(int i = 0; i < SlotList.Count; i++) // Set Slot Data
+        for (int i = 0; i < SlotList.Count; i++) // Set Slot Data
         {
-            
+
             SaveSlot s = SlotList[i];
             if (SaveSystem.CheckSave("save" + i))
                 FoundSave(s, i);
@@ -57,7 +51,7 @@ public class SaveLoadMenu : MonoBehaviour
             else
                 SelectUpDown(s.Select, SlotList[i - 1].Select, SlotList[i + 1].Select);
         }
-        
+
     }
 
     void FoundSave(SaveSlot slot, int i)
@@ -75,7 +69,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             Debug.LogError("Slot BaseSave data could not be read and written to the GUI");
         }
-        
+
     }
     string EvaluateSaveTitle(GameData s)
     {
@@ -93,7 +87,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             chap = ProgressionManager.instance.GetChapterSaveTitle(s.ProgressionData.chapter);
         }
-        if(s.MainData.addedState != AddState.None)
+        if (s.MainData.addedState != AddState.None)
         {
             added = "(" + s.MainData.addedState.ToString() + ")";
         }
@@ -104,7 +98,7 @@ public class SaveLoadMenu : MonoBehaviour
     void NoSave(SaveSlot slot, int i)
     {
         // Add On click error noise
-        slot.Title.text = "Free Slot " + (i+1);
+        slot.Title.text = "Free Slot " + (i + 1);
         slot.Date.text = "";
         slot.TimeOfSave.text = "";
     }
@@ -143,9 +137,9 @@ public class SaveLoadMenu : MonoBehaviour
         MenuGroup.CanSelect = false;
         EventSystem.current.SetSelectedGameObject(null);
         DialogueAssetReader.ClearSaveData();
-        
+
         ReturnPopUp.RemoveBackInput();
-        
+
         StartCoroutine(FadeToMenu());
     }
     IEnumerator FadeToMenu()
@@ -173,11 +167,11 @@ public class SaveLoadMenu : MonoBehaviour
     /// </summary>
     public void LoadCurrentSlot()
     {
-        
+
         int dataNum = GetSlotNum(currentSlot);
         DialogueAssetReader.ClearSaveData();
         GameSaver.LoadGameFile("save" + dataNum);
-        if (OnPauseMenu) 
+        if (OnPauseMenu)
         {
             MenuGroup.CanSelect = false;
             // Visuals to transition to title screen
@@ -194,7 +188,7 @@ public class SaveLoadMenu : MonoBehaviour
         }
 
         // At this point the static GameSaver.CurrentGameData is set
-        
+
     }
 
     public void SaveCurrentSlot()
@@ -212,7 +206,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     public int GetSlotNum(SaveSlot slot)
     {
-        for(int i = 0; i < SlotList.Count; i++)
+        for (int i = 0; i < SlotList.Count; i++)
         {
             SaveSlot s = SlotList[i];
             if (s == slot)

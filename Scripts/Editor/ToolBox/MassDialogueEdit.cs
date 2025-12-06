@@ -72,7 +72,7 @@ namespace DREditor.Toolbox
 							(BoolWithEvent)EditorGUILayout.ObjectField(Variable.BoolVariable, typeof(BoolWithEvent), false, GUILayout.Width(200));
 					}
 
-					#region Variable With Progression Database
+                    #region Variable With Progression Database
 					using (new EditorGUILayout.VerticalScope())
 					{
 						GUILayout.Label("Add Condition: ");
@@ -162,7 +162,7 @@ namespace DREditor.Toolbox
 								"to use ProgressionDatabase functionality.");
 						}
 					}
-					#endregion
+                    #endregion
 
 					using (new EditorGUILayout.HorizontalScope())
 					{
@@ -195,7 +195,7 @@ namespace DREditor.Toolbox
 					}
 				}
 			}
-			#endregion
+            #endregion
 
 
 
@@ -233,7 +233,7 @@ namespace DREditor.Toolbox
 					for (int i = 0; i < _databaseguids.Length; i++)
 					{
 						string _path = AssetDatabase.GUIDToAssetPath(_databaseguids[i]);
-						EditorGUILayout.LabelField($"	• {_path}");
+						EditorGUILayout.LabelField($"	â€¢ {_path}");
 					}
 					//EditorGUILayout.Space(10);
 					//EditorGUILayout.LabelField("Only one ProgressionDatabase is allowed. Please delete all the duplicates until one remains.");

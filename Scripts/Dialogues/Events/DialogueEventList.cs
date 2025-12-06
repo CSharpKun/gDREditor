@@ -1,4 +1,4 @@
-﻿//Dialogue Event List script by SeleniumSoul for DREditor
+//Dialogue Event List script by SeleniumSoul for DREditor
 //Used to create automatically create a list of all Dialogue Event Scripts
 
 #if UNITY_EDITOR

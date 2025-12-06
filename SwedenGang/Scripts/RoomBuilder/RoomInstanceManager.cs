@@ -1,11 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.SceneManagement;
-using DREditor.Progression;
 using DREditor.Camera;
+using DREditor.Progression;
+using System;
+using System.Collections.Generic;
 
 public class RoomInstanceManager : MonoBehaviour
 {
@@ -54,7 +51,7 @@ public class RoomInstanceManager : MonoBehaviour
                 Debug.Log("Room Instance Data Saved");
             }
         }
-        
+
         /*
          * Make new Room
          * Get the current room we're in and save the name
@@ -64,7 +61,7 @@ public class RoomInstanceManager : MonoBehaviour
     }
     public void LoadRoom(string roomName)
     {
-        if (!GameSaver.LoadingFile && data.CurrentObjective.Description == "" || 
+        if (!GameSaver.LoadingFile && data.CurrentObjective.Description == "" ||
             !GameSaver.LoadingFile && data.CurrentObjective != ProgressionManager.instance.CurrentObjective)
         {
             data = new InstanceData();
@@ -110,12 +107,12 @@ public class RoomInstanceManager : MonoBehaviour
             if (data.Rooms[i].Name == roomName)
                 return i;
         }
-        
+
         return -1; // Shouldn't reach here
     }
     public bool HasRoom(string roomName)
     {
-        for(int i = 0; i < data.Rooms.Count; i++)
+        for (int i = 0; i < data.Rooms.Count; i++)
         {
             if (data.Rooms[i].Name == roomName)
                 return true;
@@ -148,7 +145,7 @@ public class RoomInstanceManager : MonoBehaviour
         }
         Debug.Log(RoomManager.instance != null);
         GameObject system = GameObject.Find("Player");
-        
+
         data.Position = system.transform.position;
         data.Rotation = system.transform.eulerAngles;
         SmoothMouseLook cam = GameObject.Find("Main Camera").GetComponent<SmoothMouseLook>();

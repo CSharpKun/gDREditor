@@ -1,17 +1,15 @@
-﻿using System.Collections;
+using Godot;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 namespace DREditor.Characters
 {
-    
-    [System.Serializable]
-    [CreateAssetMenu(menuName = "DREditor/Characters/Character Database", fileName = "CharacterDatabase")]
-    public class CharacterDatabase : ScriptableObject
-    {
-        [SerializeField]
-        public List<Character> Characters = new List<Character>();
 
+    [GlobalClass]
+    public partial class CharacterDatabase : Resource
+    {
+        [Export]
+        public Godot.Collections.Array<Character> Characters { get; set; } = new();
 
         public List<string> GetNames()
         {
@@ -19,73 +17,34 @@ namespace DREditor.Characters
 
             foreach (var cha in Characters)
             {
+                var name = $"{cha.LastName} {cha.FirstName}";
                 switch (cha)
                 {
                     case Protagonist _:
-                        names.Add(cha.LastName + " " + cha.FirstName + " (Protagonist)");
+                        names.Add(name + " (Protagonist)");
                         break;
                     case Headmaster _:
-                        names.Add(cha.LastName + " " + cha.FirstName + " (Headmaster)");
+                        names.Add(name + " (Headmaster)");
                         break;
-                    case Student _:
-                        names.Add(cha.LastName + " " + cha.FirstName);
+                    default:
+                        names.Add(name);
                         break;
                 }
             }
             return names;
         }
-        public List<int> GetInts()
-        {
-            var ints = new List<int>();
 
-            for (int i = 0; i < Characters.Count; i++)
-            {
-                ints.Add(i);
-            }
-            return ints;
-        }
-        
         public Character GetCharacter(string firstName)
         {
-            if (Characters.Count != 0)
-            {
-                foreach( Character c in Characters)
-                {
-                    if(c.FirstName == firstName)
-                    {
-                        return c;
-                    }
-                }
-            }
-
-            return null;
+            return Characters.FirstOrDefault(c => c.FirstName == firstName, null);
         }
         public Character GetCharacterByContaining(string name)
         {
-            if (Characters.Count != 0)
-            {
-                foreach (Character c in Characters)
-                {
-                    if (name.Contains(c.FirstName))
-                    {
-                        return c;
-                    }
-                }
-            }
-
-            return null;
+            return Characters.FirstOrDefault(c => name.Contains(c.FirstName), null);
         }
         public int GetActorPrefabCount()
         {
-            int count = 0;
-            foreach (Character c in Characters)
-            {
-                if (c.ActorPrefab != null)
-                {
-                    count++;
-                }
-            }
-            return count;
+            return Characters.Count(c => c.ActorPrefab != null);
         }
     }
 }

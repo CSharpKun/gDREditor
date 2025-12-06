@@ -1,20 +1,13 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DG.Tweening;
 using DREditor.Camera;
-using DREditor.FPC;
 using DREditor.EventObjects;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
-using System;
-using UnityEngine.EventSystems;
-using System.Linq;
-using DREditor.Dialogues;
+using DREditor.FPC;
 using DREditor.Gates;
+using System;
+using System.Collections;
+using System.Diagnostics;
+using System.Linq;
+using Debug = UnityEngine.Debug;
 /// <summary>
 /// Singleton that Loads areas.
 /// Requires Global Fade.
@@ -133,7 +126,7 @@ public class RoomLoader : MonoBehaviour
             //LoadRoom(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
 
-        if(DebugLoadRoomAtProgression)
+        if (DebugLoadRoomAtProgression)
             LoadRoom(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
     void GetAssets()
@@ -190,7 +183,7 @@ public class RoomLoader : MonoBehaviour
         //Debug.LogWarning("Checking Gate");
         //Debug.LogWarning(progressionGate);
         //Debug.LogWarning(progressionGate == gate || !(progressionGate != null));
-        if (ProgressionManager.instance != null && ProgressionManager.instance.CheckObjective() && (progressionGate == gate || 
+        if (ProgressionManager.instance != null && ProgressionManager.instance.CheckObjective() && (progressionGate == gate ||
             !(progressionGate != null)))
         {
             Debug.Log("CLEARED INSTANCE DATA AND CHANGING OBJECTIVE");
@@ -210,16 +203,16 @@ public class RoomLoader : MonoBehaviour
                     "or the Room could not be saved.");
             }
         }
-        
-        
+
+
         yield return new WaitForSeconds(0.5f); // Wait for UI to finish animating
-        if (RoomManager.RoomSaved) 
+        if (RoomManager.RoomSaved)
             yield return new WaitUntil(() => RoomManager.RoomSaved);
         // on 7/2 I noticed that the above is supposed to have a ! operator, but it's working correctly so 
         // I don't want to touch it.
         RoomManager.RoomSaved = false;
         // Wait until inDialogue.Value = false;?
-        
+
         if (!(options != null) || !options.blackTransition)
         {
             DialogueAnimConfig.instance.rt = new RenderTexture(Screen.width, Screen.height, 32);
@@ -227,16 +220,16 @@ public class RoomLoader : MonoBehaviour
             DialogueAnimConfig.instance.freezeImage.texture = DialogueAnimConfig.instance.rt;
             Camera.main.Render();
             Camera.main.targetTexture = null;
-            
+
             DialogueAnimConfig.instance.FreezeCanvas.enabled = true;
         }
 
         //yield return new WaitUntil(() => Camera.main.targetTexture == null);
 
-        
+
 
         inLoading.Value = true;
-        
+
         ToGate = gate;
         GateFrom fromG = ToGate.GetFromLocation(SceneManager.GetActiveScene().name);
         if (fromG != null)
@@ -260,7 +253,7 @@ public class RoomLoader : MonoBehaviour
             UnityEngine.Random.Range(0f, 1f),
             UnityEngine.Random.Range(0f, 1f));
 
-            
+
             DialogueAnimConfig.instance.freezeImage.DOColor(background, 1);
             DialogueAnimConfig.instance.freezeBack.DOColor(background, 2);
             yield return new WaitUntil(() => DialogueAnimConfig.instance.freezeBack.color == background);
@@ -292,7 +285,7 @@ public class RoomLoader : MonoBehaviour
         }
 
 
-        
+
         yield break;
     }
     public static bool LoadingStart = false;
@@ -330,7 +323,7 @@ public class RoomLoader : MonoBehaviour
             player.transform.position = StartPosition;
 
             player.transform.localEulerAngles = new Vector2(player.transform.localEulerAngles.x, StartRotation.y);
-            
+
             SetCamCore();
             if (GameSaver.LoadingFile)
                 cam.SetCorePos(GameSaver.CurrentGameData.RoomData.MouseAbs, new Vector2(1.401298e-45f, 1.401298e-45f));
@@ -350,13 +343,13 @@ public class RoomLoader : MonoBehaviour
         {
             ToGate = Door.ADB.GetArea(SceneManager.GetActiveScene().name);
         }
-        
+
         GateIsTPFD();
 
         yield return new WaitForSeconds(0.1f); // Buffer time for the position 
 
         // if there's no Room Builder it'll just load the scene shell
-        if (RoomManager.instance && GameManager.instance.currentMode != GameManager.Mode.Trial) 
+        if (RoomManager.instance && GameManager.instance.currentMode != GameManager.Mode.Trial)
         {
             Debug.Log("Loading Room Instance Managers LoadRoom with Mode at: " + GameManager.instance.currentMode);
             RoomInstanceManager.instance.LoadRoom(SceneManager.GetActiveScene().name);
@@ -415,7 +408,7 @@ public class RoomLoader : MonoBehaviour
                 DialogueAssetReader.LoadDialogue();
                 yield return new WaitUntil(() => DialogueAssetReader.DialogueLoaded);
                 DialogueAssetReader.DialogueLoaded = false;
-                
+
             }
             else
             {
@@ -425,12 +418,12 @@ public class RoomLoader : MonoBehaviour
                 TrialDialogueManager.DialogueLoaded = false;
                 Debug.LogWarning("Loaded Trial Dialogue");
             }
-            
+
         }
 
-        
 
-        
+
+
         yield return new WaitForSeconds(0.3f); // Buffer time for the position 
         if (GameManager.instance.currentMode != GameManager.Mode.Trial && !inDialogue.Value && !GameSaver.LoadingFile)
         {
@@ -471,14 +464,14 @@ public class RoomLoader : MonoBehaviour
             else
                 DialogueAnimConfig.instance.ReticleCanvas.enabled = true;
         }
-        else if(GameManager.instance.currentMode == GameManager.Mode.Trial)
+        else if (GameManager.instance.currentMode == GameManager.Mode.Trial)
         {
             DialogueAnimConfig.instance.EnableReticleCanvas(false);
         }
 
-        
 
-        
+
+
 
         OnLoad?.Invoke();
         Debug.Log("No longer loading");
@@ -489,7 +482,7 @@ public class RoomLoader : MonoBehaviour
             SoundManager.instance.LoadEnv(GameSaver.CurrentGameData.EnvData);
             cam.GetComponent<AudioListener>().enabled = true;
             DialogueAnimConfig.instance.mainCanvas.enabled = true;
-            
+
             if (GlobalFade.instance.IsDark)
             {
                 GlobalFade.instance.FadeOut(0.3f);
@@ -511,7 +504,7 @@ public class RoomLoader : MonoBehaviour
             try
             {
                 wait = DialogueAnimConfig.instance.mainAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-                
+
             }
             catch
             {
@@ -526,7 +519,7 @@ public class RoomLoader : MonoBehaviour
                 GameManager.instance.ChangeMode(GameManager.Mode.TPFD);
                 Debug.LogWarning("Changing Mode to TPFD");
             }
-            else if(!GameSaver.LoadingFile)
+            else if (!GameSaver.LoadingFile)
             {
                 GameManager.instance.ChangeMode(GameManager.Mode.ThreeD);
                 SubAreaManager m = FindObjectOfType<SubAreaManager>();
@@ -544,7 +537,7 @@ public class RoomLoader : MonoBehaviour
         inLoading.Value = false; // Player gets control back
         Door.inLeaveProcess = false;
         inMenu.Value = false;
-        
+
         if (GameSaver.LoadingFile && GameSaver.CurrentGameData.DialogueData.DialogueName == "")
         {
             if (!(GameManager.instance.currentMode == GameManager.Mode.Trial))
@@ -612,7 +605,7 @@ public class RoomLoader : MonoBehaviour
                 PnCCamera pnc = PlayerManager.instance.GetTPFD();
                 PlayerManager.instance.mainCamera.transform.rotation = pnc.GetCalculatedRotation();
 
-                
+
                 if (man.GetInitialHAngle() >= 180)
                     PlayerManager.instance.mainCamera.transform.position = pnc.GetCalculatedPosition();
                 else

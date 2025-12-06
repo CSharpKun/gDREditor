@@ -1,8 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class TrialLoader : MonoBehaviour
 {
@@ -45,7 +42,7 @@ public class TrialLoader : MonoBehaviour
             if (s.MinigameAsset.GetType() == typeof(TrialDiscussion))
             {
                 TrialDiscussion d = (TrialDiscussion)s.MinigameAsset;
-                foreach(TrialDialogue td in d.trialDialogues)
+                foreach (TrialDialogue td in d.trialDialogues)
                 {
                     if (td.name == GameSaver.LoadTrialDialogue.name)
                     {

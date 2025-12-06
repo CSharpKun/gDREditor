@@ -1,7 +1,6 @@
-﻿//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
+//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
 
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -10,25 +9,25 @@ using UnityEditor.Animations;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct CWPTuple
-	{
-		public string PatternName;
-		public int _ParameterIndex;
-	}
+    [Serializable]
+    public struct CWPTuple
+    {
+        public string PatternName;
+        public int _ParameterIndex;
+    }
 
-	[Serializable]
-	public class ChangeWindowPattern : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
-		public CWPTuple CWPValue;
+    [Serializable]
+    public class ChangeWindowPattern : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
+        public CWPTuple CWPValue;
 
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent("ChangeWindowPattern", CWPValue);
-		}
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent("ChangeWindowPattern", CWPValue);
+        }
 
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 		private AnimatorController PanelAnimator;
 		private string[] _Parameters;
 
@@ -75,6 +74,6 @@ namespace DREditor.Dialogues.Events
 
 			return parameterlist;
 		}
-	#endif
-	}
+#endif
+    }
 }

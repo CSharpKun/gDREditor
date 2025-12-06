@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using DREditor.Utility;
 using UnityEditor;
 using UnityEngine;

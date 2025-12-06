@@ -1,9 +1,5 @@
-﻿//Camera Script for DREditor by SeleniumSoul
+//Camera Script for DREditor by SeleniumSoul
 //Edited by Sweden<3 to work with New Unity Input System
-using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
-
 namespace DREditor.Camera
 {
     using Debug = UnityEngine.Debug;
@@ -130,7 +126,7 @@ namespace DREditor.Camera
             CamVAngle = Mathf.Clamp(CamVAngle, -MaxBAngle, MaxTAngle);
 
             FinalAimRotation = Quaternion.Euler(CamVAngle + InitialVAngle, -CamHAngle + InitialHAngle, 0);
-            FinalCamPosition = (TargetFocus - new Vector3(0, CamVAngle / 30f)) - (new Vector3(0,0,1) * CamDistance);
+            FinalCamPosition = (TargetFocus - new Vector3(0, CamVAngle / 30f)) - (new Vector3(0, 0, 1) * CamDistance);
             Debug.LogWarning("PositionZ: " + FinalCamPosition);
             //transform.rotation = FinalAimRotation;
             return FinalCamPosition;
@@ -140,7 +136,7 @@ namespace DREditor.Camera
             ClearPosition();
             TargetObject = null;
             TargetFocus = CharPosition;
-            
+
             CamHAngle += Mathf.Clamp(-_controls.Player.Move.ReadValue<Vector2>().x * invertX, -1, 1) * (CamSpeed * 10) * Time.deltaTime;
             CamVAngle += Mathf.Clamp(-_controls.Player.Move.ReadValue<Vector2>().y, -1, 1) * (CamSpeed * 10) * Time.deltaTime;
             CamHAngle = Mathf.Clamp(CamHAngle, -MaxLAngle, MaxRAngle);
@@ -149,7 +145,7 @@ namespace DREditor.Camera
             FinalAimRotation = Quaternion.Euler(CamVAngle + InitialVAngle, -CamHAngle + InitialHAngle, 0);
             FinalCamPosition = (TargetFocus - new Vector3(0, CamVAngle / 30f)) - (new Vector3(0, 0, 1) * CamDistance);
             Debug.LogWarning(FinalAimRotation.eulerAngles);
-            
+
             //transform.position = FinalCamPosition;
             return FinalAimRotation;
         }

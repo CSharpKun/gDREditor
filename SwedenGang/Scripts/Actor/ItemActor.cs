@@ -1,9 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class ItemActor : MonoBehaviour, IDialogueHolder
 {
@@ -67,7 +65,7 @@ public class ItemActor : MonoBehaviour, IDialogueHolder
             if (trigger.actorName != "")
             {
                 Actor a = GameObject.Find(trigger.actorName).GetComponentInChildren<Actor>();
-                if(a != null)
+                if (a != null)
                 {
                     a.TriggerBool(trigger.convoNum);
                 }
@@ -122,7 +120,7 @@ public class ItemData
         n.iReference = copy.iReference;
         n.iSelectable = copy.iSelectable;
         n.iData = new List<LocalDialogue>();
-        foreach(LocalDialogue l in copy.iData)
+        foreach (LocalDialogue l in copy.iData)
         {
             n.iData.Add((LocalDialogue)l.Clone());
         }

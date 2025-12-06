@@ -1,11 +1,8 @@
+using DREditor.EventObjects;
+using DREditor.PlayerInfo;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using DREditor.PlayerInfo;
-using UnityEngine.InputSystem;
 using System.Linq;
-using DREditor.EventObjects;
 
 public class CAManager : MinigameManagerBase
 {
@@ -28,7 +25,7 @@ public class CAManager : MinigameManagerBase
     public int totalQuestions = 0;
     public TrialTimer gameTimer;
     [SerializeField] int totalAnswered = 0;
-    [SerializeField] List<KeyCode> controls = new List<KeyCode>{KeyCode.Return, KeyCode.Escape, KeyCode.Mouse0, KeyCode.UpArrow, KeyCode.RightArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.Q, KeyCode.E};
+    [SerializeField] List<KeyCode> controls = new List<KeyCode> { KeyCode.Return, KeyCode.Escape, KeyCode.Mouse0, KeyCode.UpArrow, KeyCode.RightArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.Q, KeyCode.E };
     public bool allowInput = true;
     public Animator anim; //animation controller for the correct/incorrect screen and start/end screens
     [SerializeField] Transform hearts; //parent object of the health bar
@@ -51,7 +48,7 @@ public class CAManager : MinigameManagerBase
     [SerializeField] Sprite questionMark;
 
     private int pageDiffCounter; //the difference between the currentIndex and the actual page index
-    [HideInInspector] public Vector3 barEndPos = new Vector3(0,0,0); //end position of the pagebar when a new page is selected 
+    [HideInInspector] public Vector3 barEndPos = new Vector3(0, 0, 0); //end position of the pagebar when a new page is selected 
     [HideInInspector] public Vector3 pageEndPos = new Vector3(0, 0, 0); //endposition of the pages when a new page is selected 
     private Coroutine co; //used with the pagemovement coroutine
     private Coroutine timeCo; //used with coroutines that wait a certain amount of time before performing the action
@@ -60,8 +57,8 @@ public class CAManager : MinigameManagerBase
     [SerializeField] Canvas ansCanvas = null;
     [SerializeField] Animator ansAnimator = null;
     [SerializeField] string ansAnimName = "Conclusion";
-    [SerializeField]AudioClip ansSound;
-    [SerializeField]AudioClip ansVO;
+    [SerializeField] AudioClip ansSound;
+    [SerializeField] AudioClip ansVO;
     [Tooltip("How long the game waits until it plays the \"Here's what happened\" animation")]
     [SerializeField] float menuFadeWaitTime = 0.5f;
 
@@ -177,12 +174,12 @@ public class CAManager : MinigameManagerBase
 
             timerShadow.text = timer.text; //update drop shadow
         }
-        else if(!waitForEnd) //once every question's been answered
+        else if (!waitForEnd) //once every question's been answered
         {
             //allowInput = false;
             //waitForEnd = true;
-            //anim.SetTrigger("End"); //¬`! I don't like this on prinicple but not a huge deal if it can't be fixed.
-            
+            //anim.SetTrigger("End"); //Â¬`! I don't like this on prinicple but not a huge deal if it can't be fixed.
+
             // On Minigame Finished/Passed Code? might be at the below if 
         }
         /*
@@ -222,7 +219,7 @@ public class CAManager : MinigameManagerBase
         int health = PlayerInfo.instance.CurrentHealth;
         int fullHearts = health / 2;
 
-        for (int i = 0; i < fullHearts; i++) //¬`! This for should only exist if we have healing
+        for (int i = 0; i < fullHearts; i++) //Â¬`! This for should only exist if we have healing
         {
             hearts.GetChild(i).GetComponent<SpriteRenderer>().sprite = hearts.GetChild(i).GetComponent<Hearts>().sprites[2];
         }
@@ -231,11 +228,11 @@ public class CAManager : MinigameManagerBase
             hearts.GetChild(i).GetComponent<SpriteRenderer>().sprite = hearts.GetChild(i).GetComponent<Hearts>().sprites[0];
         }
 
-        if(health % 2 == 1)
+        if (health % 2 == 1)
             hearts.GetChild(fullHearts).GetComponent<SpriteRenderer>().sprite = hearts.GetChild(fullHearts).GetComponent<Hearts>().sprites[1];
-        else if(health == 0)
+        else if (health == 0)
         {
-            //¬`!!!lose
+            //Â¬`!!!lose
             TimeUpFunc();
         }
     }
@@ -246,20 +243,20 @@ public class CAManager : MinigameManagerBase
     /// <param name="context">Player Input information.</param>
     public void CallMovePages(InputAction.CallbackContext context) //The input should just call the function but it doesn't work with how I made it so it has to go through this instead. Easy fix for next time though.
     {
-        
+
         if (!context.performed || !allowInput) return;
 
         int dir; //direction for the pages to move. -1 = left, 1 = right.
         if (context.action.name.Substring(context.action.name.Length - 4) == "Left")
         {
-            if (currentIndex + pageDiffCounter == 0) 
+            if (currentIndex + pageDiffCounter == 0)
                 return;
             dir = -1;
             pagebarArrows.GetChild(0).GetComponent<Animator>().SetTrigger("Click");
         }
         else
         {
-            if (currentIndex + pageDiffCounter + 1 == totalPages) 
+            if (currentIndex + pageDiffCounter + 1 == totalPages)
                 return;
             dir = 1;
             pagebarArrows.GetChild(1).GetComponent<Animator>().SetTrigger("Click");
@@ -270,7 +267,7 @@ public class CAManager : MinigameManagerBase
             StopCoroutine(co);
         co = StartCoroutine(MovePages(dir));
         //pagebarArrows.GetChild(0).GetComponent<Animator>().SetTrigger("Click");
-            
+
     }
     public void StopMyPain()
     {
@@ -387,7 +384,7 @@ public class CAManager : MinigameManagerBase
         currentStock.gameObject.GetComponent<Animator>().SetBool("Hovered", true);
 
         //activePanel visual changes
-        activePanelParent.GetComponent<Animator>().SetTrigger("Change"); //¬`!!
+        activePanelParent.GetComponent<Animator>().SetTrigger("Change"); //Â¬`!!
         SpriteRenderer eveBorder = activePanelParent.transform.GetChild(0).GetComponent<SpriteRenderer>();
         eveBorder.sprite = currEveSprs[0];
         PlaySFX(stockScroll);
@@ -402,7 +399,7 @@ public class CAManager : MinigameManagerBase
             activePanelParent.GetComponent<Animator>().SetInteger("State", 1);
         }
 
-        else if(currentStock.remainingLocks == -2) //stock is solved
+        else if (currentStock.remainingLocks == -2) //stock is solved
         {
             activePanelText.text = currentStock.flavourText;
             activePanel.sprite = currentStock.sprite;
@@ -415,15 +412,15 @@ public class CAManager : MinigameManagerBase
         {
             StartCoroutine(StockUnlock());
 
-            /**eventDisplay.GetComponent<Animator>().enabled = true;    ¬`!! This is all just a huge mess lol. look over this again once we have unlock animation
-            //¬`!set the event display border to the default
+            /**eventDisplay.GetComponent<Animator>().enabled = true;    Â¬`!! This is all just a huge mess lol. look over this again once we have unlock animation
+            //Â¬`!set the event display border to the default
             eventDisplay.GetComponent<Animator>().SetTrigger("Unlock");
             if (timeCo != null)
                 StopCoroutine(timeCo);
             timeCo = StartCoroutine(EventUnlock());**/
         }
-    
-        else 
+
+        else
         {
             if (currentStock.remainingLocks == 1)//stock has 1 lock left
                 activePanelText.text = "Solve another panel to unlock.";
@@ -462,13 +459,13 @@ public class CAManager : MinigameManagerBase
         //move the pages and pagebar
         while (pagebar.transform.position.x != barEndPos.x || pages.transform.position.x != pageEndPos.x || currentPage.localScale.x != 0.4f)
         {
-            pagebar.transform.position = Vector3.MoveTowards(pagebar.transform.position, barEndPos, 0.1f*Time.deltaTime*200);
-            pages.transform.position = Vector3.MoveTowards(pages.transform.position, pageEndPos, 0.4f * Time.deltaTime*200);
-            currentPage.localScale = Vector3.MoveTowards(currentPage.localScale, new Vector3(0.4f, 0.4f, 1), 0.1f * Time.deltaTime*200);
-            toBepage.localScale = Vector3.MoveTowards(toBepage.localScale, new Vector3(0.65f, 0.65f, 1), 0.1f * Time.deltaTime*200);
+            pagebar.transform.position = Vector3.MoveTowards(pagebar.transform.position, barEndPos, 0.1f * Time.deltaTime * 200);
+            pages.transform.position = Vector3.MoveTowards(pages.transform.position, pageEndPos, 0.4f * Time.deltaTime * 200);
+            currentPage.localScale = Vector3.MoveTowards(currentPage.localScale, new Vector3(0.4f, 0.4f, 1), 0.1f * Time.deltaTime * 200);
+            toBepage.localScale = Vector3.MoveTowards(toBepage.localScale, new Vector3(0.65f, 0.65f, 1), 0.1f * Time.deltaTime * 200);
             //change the transparency of the page masks
-            currentPageShadow.color = Vector4.MoveTowards(currentPageShadow.color, new Vector4(0, 0, 0, 1), 0.1f * Time.deltaTime*200);
-            toBepageShadow.color = Vector4.MoveTowards(toBepageShadow.color, new Vector4(0, 0, 0, 0), 0.1f * Time.deltaTime*200);
+            currentPageShadow.color = Vector4.MoveTowards(currentPageShadow.color, new Vector4(0, 0, 0, 1), 0.1f * Time.deltaTime * 200);
+            toBepageShadow.color = Vector4.MoveTowards(toBepageShadow.color, new Vector4(0, 0, 0, 0), 0.1f * Time.deltaTime * 200);
             yield return null;
         }
 
@@ -489,7 +486,7 @@ public class CAManager : MinigameManagerBase
         arrows.gameObject.SetActive(true);
         if (currentIndex == 0)
             arrows.GetChild(0).gameObject.SetActive(false);
-        else if (currentIndex == totalPages-1)
+        else if (currentIndex == totalPages - 1)
             arrows.GetChild(1).gameObject.SetActive(false);
         else
         {
@@ -497,7 +494,7 @@ public class CAManager : MinigameManagerBase
             arrows.GetChild(1).gameObject.SetActive(true);
         }
         yield break;
-        
+
     }
 
     #region Presenting Answer
@@ -516,12 +513,12 @@ public class CAManager : MinigameManagerBase
         whitePanel.localScale = new Vector2(0.8f, 0.8f);
         Vector3 targetPos = reticle.selectedPanel.transform.position;
 
-        float speed = ((targetPos - whitePanel.position).magnitude)/0.33333f;
+        float speed = ((targetPos - whitePanel.position).magnitude) / 0.33333f;
         //Shoot stock at panel
-        while(whitePanel.position != targetPos)
+        while (whitePanel.position != targetPos)
         {
-            whitePanel.position = Vector3.MoveTowards(whitePanel.position,targetPos, speed*Time.deltaTime);
-            whitePanel.localScale = Vector3.MoveTowards(whitePanel.localScale,new Vector3(0.2f, 0.2f, 1), 2.7f*Time.deltaTime);
+            whitePanel.position = Vector3.MoveTowards(whitePanel.position, targetPos, speed * Time.deltaTime);
+            whitePanel.localScale = Vector3.MoveTowards(whitePanel.localScale, new Vector3(0.2f, 0.2f, 1), 2.7f * Time.deltaTime);
             yield return null;
         }
         whitePanel.gameObject.SetActive(false);
@@ -534,7 +531,7 @@ public class CAManager : MinigameManagerBase
     /// <summary>
     /// Plays the 'correct' animation. Sets solved stock to correct.
     /// </summary>
-    IEnumerator CorrectAnim() 
+    IEnumerator CorrectAnim()
     {
         anim.SetTrigger("Correct");
         PlaySFX(correct);
@@ -554,13 +551,13 @@ public class CAManager : MinigameManagerBase
         totalAnswered++;
         isSelected = false;
 
-        //set panel and pagebar panel to solved ¬`!
+        //set panel and pagebar panel to solved Â¬`!
         GameObject pageBarPanel = pagebar.transform.GetChild(currentIndex).GetChild(reticle.selectedPanel.transform.GetSiblingIndex() - 1).gameObject;
         pageBarPanel.GetComponent<SpriteMask>().frontSortingOrder = 6;
         pageBarPanel.transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = checkMark;
 
         GameObject pagePanel = reticle.selectedPanel.gameObject;
-        pagePanel.GetComponent<SpriteMask>().frontSortingOrder = 1; 
+        pagePanel.GetComponent<SpriteMask>().frontSortingOrder = 1;
         pagePanel.transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = checkMark;
         pagePanel.GetComponent<Animator>().SetInteger("Shown", -2);
         reticle.selectedPanel.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
@@ -576,7 +573,7 @@ public class CAManager : MinigameManagerBase
             }
         }
 
-        if(totalQuestions == totalAnswered)
+        if (totalQuestions == totalAnswered)
         {
             StartCoroutine(Conclusion());
         }
@@ -631,13 +628,13 @@ public class CAManager : MinigameManagerBase
     }
     public void ResetPanels()
     {
-        
+
         List<QuestionPanel> panels = FindObjectsOfType<QuestionPanel>().ToList();
 
         for (int i = 0; i < panels.Count; i++)
         {
             QuestionPanel panel = panels[i];
-            
+
             SpriteMask[] masks = panel.GetComponentsInChildren<SpriteMask>();
             foreach (SpriteMask mask in masks)
             {
@@ -651,7 +648,7 @@ public class CAManager : MinigameManagerBase
     public void ResetStocks()
     {
         List<CAStock> stocks = FindObjectsOfType<CAStock>().ToList();
-        for(int i = 0; i < stocks.Count; i++)
+        for (int i = 0; i < stocks.Count; i++)
         {
             CAStock stock = stocks[i];
             Animator stockAnim = stock.GetComponent<Animator>();

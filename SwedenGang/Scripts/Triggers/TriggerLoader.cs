@@ -1,12 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Gardens
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 public static class TriggerLoader
 {
@@ -16,7 +11,7 @@ public static class TriggerLoader
         List<EventTrigger> triggers = new List<EventTrigger>();
 
         var actList = UnityEngine.Object.FindObjectsOfType<ActuatorBase>();
-        for(int i = 0; i < actList.Count(); i++)
+        for (int i = 0; i < actList.Count(); i++)
         {
             EventTrigger trigger = new EventTrigger();
             var a = actList[i].GetComponents<MonoBehaviour>().OfType<IActuator>();
@@ -41,7 +36,7 @@ public static class TriggerLoader
             trigger.Subsequent = (Subsequent)Convert.ChangeType(s.Save(), typeof(Subsequent));
             triggers.Add(trigger);
         }*/
-        
+
         return triggers;
     }
 
@@ -50,7 +45,7 @@ public static class TriggerLoader
         if (InstanceTriggers != null) // This is to check whether the save file reversed the instance triggers when saving
         {
             //bool done = false;
-            for (int z = 0; z < Triggers.Count; z++) 
+            for (int z = 0; z < Triggers.Count; z++)
             {
                 try
                 {
@@ -65,19 +60,19 @@ public static class TriggerLoader
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning("MINOR ERROR: A BASE OR INSTANCE PIECE OF DATA COULDN'T BE FOUND on  " + z + "\n" + 
+                    Debug.LogWarning("MINOR ERROR: A BASE OR INSTANCE PIECE OF DATA COULDN'T BE FOUND on  " + z + "\n" +
                         ex.ToString());
                 }
-                
+
             }
             Debug.Log("INSTANCE Trigger is: " + InstanceTriggers.Count);
         }
-        
+
         for (int i = 0; i < Triggers.Count; i++)
         {
             EventTrigger currentTrigger = Triggers[i];
             GameObject g = new GameObject();
-            if(InstanceTriggers != null)
+            if (InstanceTriggers != null)
             {
                 try
                 {
@@ -97,7 +92,7 @@ public static class TriggerLoader
             var x = g.GetComponents<MonoBehaviour>().OfType<IActuator>();
             foreach (IActuator a in x)
             {
-                if(InstanceTriggers != null && InstanceTriggers.Count > 0 && i < InstanceTriggers.Count)
+                if (InstanceTriggers != null && InstanceTriggers.Count > 0 && i < InstanceTriggers.Count)
                     a.Load(InstanceTriggers[i].Actuator);
                 else
                     a.Load(currentTrigger.Actuator.Clone());
@@ -111,11 +106,11 @@ public static class TriggerLoader
                 var iSubs = g.GetComponents<MonoBehaviour>().OfType<ISubsequent>();
 
                 if (InstanceTriggers != null && InstanceTriggers.Count > 0 && i < InstanceTriggers.Count)
-                    iSubs.ElementAt(j).Load(Subsequent.MergeInstance((Subsequent)s.Clone(),InstanceTriggers[i].Subsequents[j]));
+                    iSubs.ElementAt(j).Load(Subsequent.MergeInstance((Subsequent)s.Clone(), InstanceTriggers[i].Subsequents[j]));
                 else
                     iSubs.ElementAt(j).Load(s.Clone());
-                
-                
+
+
             }
 
             /*Type stype = Type.GetType(Triggers[i].Subsequent.Type);
@@ -129,9 +124,9 @@ public static class TriggerLoader
                     s.Load(Triggers[i].Subsequent);
             }*/
         }
-        
-        
-        
+
+
+
     }
 }
 [Serializable]
@@ -168,7 +163,7 @@ public class Actuator // info here is where Actuator Info will be serialized by 
     {
         return MemberwiseClone();
     }
-    
+
 }
 /// <summary>
 /// What the Event Trigger actually does
@@ -208,7 +203,7 @@ public class ActuatorBase : MonoBehaviour
     public virtual void Call()
     {
         var x = GetComponents<MonoBehaviour>().OfType<ISubsequent>();
-        foreach(ISubsequent s in x)
+        foreach (ISubsequent s in x)
         {
             s.Call();
         }

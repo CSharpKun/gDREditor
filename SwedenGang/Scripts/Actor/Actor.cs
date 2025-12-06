@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
 /// <summary>
 /// Requires Dialogue, DialogueAnimConfig, ProgressionManager
 /// Actor script for DR Character
@@ -50,14 +47,14 @@ public class Actor : MonoBehaviour, IDialogueHolder
         else
             ItemDisplayer.instance.DisplayName("???");
     }
-    
+
     public void TriggerBool(int convoNum) => RoomConvo[convoNum].triggered = true;
 
-    
+
 
     public void CheckIfSaveDialogue()
     {
-        foreach(LocalDialogue d in RoomConvo)
+        foreach (LocalDialogue d in RoomConvo)
         {
             if (DialogueData.CheckDialogue(d.dialogue) || DialogueData.CheckDialogue(d.dialogueIfFlagNotMet))
             {
@@ -156,7 +153,7 @@ public class ActorData
     public string aReference;
     public List<LocalDialogue> aData; // Dialogue Array
     public bool identified = true;
-    public Material mat; 
+    public Material mat;
     public string matName = ""; // for searching resources and getting the mat from Char Database
     public object Clone()
     {
@@ -211,7 +208,7 @@ public class TActorData : ActorData
         n.mat = copy.mat;
         n.matName = copy.matName;
         n.identified = copy.identified;
-        
+
         return n;
     }
     public TActorData() { }

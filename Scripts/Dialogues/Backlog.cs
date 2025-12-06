@@ -1,9 +1,8 @@
-﻿//Backlog Scriptable Object script for DREditor by SeleniumSoul
+//Backlog Scriptable Object script for DREditor by SeleniumSoul
 // Edited by Sweden#6386 to use FMOD
-using System.Collections.Generic;
-using UnityEngine;
 using DREditor.Characters;
 using System;
+using System.Collections.Generic;
 
 namespace DREditor.Dialogues
 {

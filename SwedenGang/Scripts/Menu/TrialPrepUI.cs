@@ -1,12 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using TMPro;
-using UnityEngine.SceneManagement;
-using UnityEngine.Video;
-using UnityEngine.UI;
 
 public class TrialPrepUI : MonoBehaviour
 {
@@ -42,7 +35,7 @@ public class TrialPrepUI : MonoBehaviour
         ControlsUI.Override = true;
         SoundManager.instance.PlayMusic(null);
 
-        
+
     }
     private void Start()
     {
@@ -58,7 +51,7 @@ public class TrialPrepUI : MonoBehaviour
     void EndLoad()
     {
         RoomLoader.skipActivateControls = false;
-        
+
     }
     void EndDia()
     {
@@ -73,7 +66,7 @@ public class TrialPrepUI : MonoBehaviour
     bool startedMusic = false;
     public void PlayStartMusic() // called on "No" Option of SavePoint UI's PopUp
     {
-        if(!startedMusic && startMusic != null && !GameSaver.LoadingFile && !SoundManager.instance.CurrentEventInMusicIs(startMusic))
+        if (!startedMusic && startMusic != null && !GameSaver.LoadingFile && !SoundManager.instance.CurrentEventInMusicIs(startMusic))
         {
             startedMusic = true;
             SoundManager.instance.PlayMusic(startMusic);
@@ -85,7 +78,7 @@ public class TrialPrepUI : MonoBehaviour
         if (!GlobalFade.instance.IsDark)
             GlobalFade.instance.FadeTo(0);
         yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
-        
+
         InitializeTrialPrep();
 
         if (GameSaver.LoadingFile)
@@ -162,7 +155,7 @@ public class TrialPrepUI : MonoBehaviour
             RenderTexture x = new RenderTexture(Screen.width, Screen.height, 32);
             videoProjector.texture = x;
             video.targetTexture = x;
-            if(startSound != null)
+            if (startSound != null)
                 SoundManager.instance.PlaySFX(startSound);
             yield return new WaitForSeconds(0.2f);
             GlobalFade.instance.FadeOut(0.2f);

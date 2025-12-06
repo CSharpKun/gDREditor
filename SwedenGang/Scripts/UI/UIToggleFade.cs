@@ -1,9 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class UIToggleFade : MonoBehaviour
 {
@@ -22,7 +19,7 @@ public class UIToggleFade : MonoBehaviour
     }
     IEnumerator Anim()
     {
-        image.DOFade(0, transitionTime/2).SetUpdate(true);
+        image.DOFade(0, transitionTime / 2).SetUpdate(true);
         yield return new WaitForSecondsRealtime(transitionTime / 2);
         image.texture = image.texture == first ? tex : first;
         yield return new WaitForSecondsRealtime(transitionTime / 2);

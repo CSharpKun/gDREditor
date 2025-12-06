@@ -1,14 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TruthBulletSelect;
-using TMPro;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.EventSystems;
 using DREditor.Dialogues;
-using UnityEngine.Events;
+using System.Collections;
+using TruthBulletSelect;
 
 public class TBSelectManager : MinigameManagerBase
 {
@@ -18,7 +11,7 @@ public class TBSelectManager : MinigameManagerBase
     [Tooltip("Turn True if testing in a scene")]
     [SerializeField] bool debugMode = false;
     [SerializeField] TBSelectBuilder debugtbsb = null;
-    
+
 
     [Header("Required")]
     [SerializeField] TruthBulletMenu menu = null;
@@ -65,7 +58,7 @@ public class TBSelectManager : MinigameManagerBase
             StartSelection(debugtbsb);
             GameManager.instance.cantBeInMenu = true;
         }
-        
+
         if (ansCanvas != null && ansCanvas.enabled)
             ansCanvas.enabled = false;
     }
@@ -113,8 +106,8 @@ public class TBSelectManager : MinigameManagerBase
         yield return new WaitForSecondsRealtime(0.25f);
         questionToggle.SetQuestion(tbsb.question);
         questionToggle.Activate();
-        
-        
+
+
         yield break;
     }
     void Test() => inSelect = true;
@@ -137,8 +130,8 @@ public class TBSelectManager : MinigameManagerBase
          * Set Selection to no / yes 
          */
         confirmUI.Show(); // The Menu Group will auto select it for us
-        //confirmAnimator.Play(showString);
-        
+                          //confirmAnimator.Play(showString);
+
     }
     /// <summary>
     /// Called when the player chooses "No" on the Confirmation UI
@@ -152,7 +145,7 @@ public class TBSelectManager : MinigameManagerBase
         confirmUI.Hide();
         //confirmAnimator.Play(hideString);
         EventSystem.current.SetSelectedGameObject(LastButton.gameObject);
-        
+
     }
     /// <summary>
     /// Called when the player chooses "Yes" on the Confirmation UI
@@ -217,7 +210,7 @@ public class TBSelectManager : MinigameManagerBase
     }
     void Restart()
     {
-        
+
         menu.ShowTrial(new CallbackContext());
         timer.Anim(1, 1);
         questionToggle.Activate();

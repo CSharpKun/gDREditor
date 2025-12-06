@@ -1,8 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DREditor.Dialogues.Events;
 
 public class ShowItemImage : MonoBehaviour
@@ -29,14 +25,14 @@ public class ShowItemImage : MonoBehaviour
         if (value != null)
         {
             Texture2D tex = (Texture2D)value;
-            
+
             if (tex != null)
             {
                 if (GameSaver.LoadingFile)
                     animator.Rebind();
                 image.texture = tex;
                 animator.Play(showString);
-                if(!GameSaver.LoadingFile)
+                if (!GameSaver.LoadingFile)
                     SoundManager.instance.PlaySFX(showItemSound);
             }
             else

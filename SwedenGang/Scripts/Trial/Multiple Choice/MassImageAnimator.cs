@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class MassImageAnimator : MonoBehaviour
 {
@@ -15,7 +12,7 @@ public class MassImageAnimator : MonoBehaviour
     public void UnsetFade() => FadeAll -= FadeImages;
     void FadeImages(float to, float time)
     {
-        foreach(Image image in images)
+        foreach (Image image in images)
         {
             image.DOFade(to, time);
         }

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using DREditor.EventObjects;
-using UnityEngine;
+using System.Collections;
 
 namespace DREditor.FPC
 {
@@ -10,7 +8,7 @@ namespace DREditor.FPC
     {
         public AudioSource AudioSource;
         public AudioClip[] StepSounds;
-        
+
         public BoolWithEvent Running;
 
         public float Volume;

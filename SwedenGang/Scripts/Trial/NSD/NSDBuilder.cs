@@ -1,15 +1,10 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Characters;
 using DREditor.Dialogues;
 using DREditor.TrialEditor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using TMPro;
-using UnityEditor;
-using UnityEngine;
 namespace NSD
 {
     [System.Serializable]
@@ -37,7 +32,7 @@ namespace NSD
             {
                 arr[i] = TruthBulletsKind[i].Title;
             }
-            
+
             return arr;
         }
         public string[] LieBulletStrings()
@@ -111,9 +106,9 @@ namespace NSD
             public bool isConsent;
             public void InitializeCurves(Phrase phrase, AnimationClip clip)
             {
-                foreach(PhraseAnimation.AnimData anim in phrase.anim.animations)
+                foreach (PhraseAnimation.AnimData anim in phrase.anim.animations)
                 {
-                    anim.InitializeCurveType(anim,clip);
+                    anim.InitializeCurveType(anim, clip);
                 }
             }
             public Path path = new Path();
@@ -141,7 +136,7 @@ namespace NSD
             public List<AnimData> animations = new List<AnimData>();
             public Vector3 spawnPoint;
             public Vector4 spawnAngle;
-            
+
 
             public enum AnimType : int
             {
@@ -301,8 +296,8 @@ namespace NSD
             return times.Where(n => n.difficulty == GameManager.instance.logicDifficulty).ElementAt(0);
         }
     }
-    
-    
+
+
     #endregion
 }
 /// <summary>

@@ -1,10 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using DREditor.PlayerInfo;
 using DREditor.Dialogues;
+using DREditor.PlayerInfo;
 /// <summary>
 /// Houses Central Mechanisims for loading the game.
 /// Use SaveLoadMenu.cs should call this for saving and loading slots
@@ -86,7 +82,7 @@ public class GameSaver : MonoBehaviour
             return SaveSystem.ReadFromJSON<GameData>(slotNum);
         }
     }
-    
+
     public static void ApplyCurrentData()
     {
         ApplyMainData();

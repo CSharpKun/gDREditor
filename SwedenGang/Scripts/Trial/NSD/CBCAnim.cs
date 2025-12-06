@@ -1,11 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using CharTween;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using CharTween;
-using DG.Tweening;
-using UnityEditor;
 
 namespace NSD
 {
@@ -42,7 +38,7 @@ namespace NSD
             this.phrase = phrase;
             var tweener = text.GetCharTweener();
             // Turns the text invisible
-            
+
             for (var i = 0; i < tweener.CharacterCount; ++i)
             {
                 if (!isVisible)
@@ -70,11 +66,11 @@ namespace NSD
                 {
                     continue;
                 }
-                
-                foreach(AnimModule module in Anims)
+
+                foreach (AnimModule module in Anims)
                 {
                     CastAnim(module, i, tweener);
-                    
+
                 }
                 yield return new WaitForSeconds(0.15f);
 
@@ -121,7 +117,7 @@ namespace NSD
             public float delay;
             public float duration = 1;
             public Ease ease;
-            
+
             public virtual void Animate(int i, CharTweener tweener)
             {
 
@@ -187,12 +183,12 @@ namespace NSD
         {
             public float endValue = 1;
             public NSDBuilder.Phrase phrase;
-            
+
             private bool IsHitableChar(int index)
             {
                 string[] textArr = phrase.phraseText.Split(' ');
                 int charIndex = 0;
-                for(int i = 0; i < phrase.partlyHitableWordStart; i++)
+                for (int i = 0; i < phrase.partlyHitableWordStart; i++)
                 {
                     charIndex += textArr[i].Length;
                 }
@@ -200,7 +196,7 @@ namespace NSD
                 if (index <= charIndex)
                     return false;
 
-                for(int i = 0; i < phrase.partlyHitableWordArray.Length; i++)
+                for (int i = 0; i < phrase.partlyHitableWordArray.Length; i++)
                 {
                     charIndex += phrase.partlyHitableWordArray[i].Length;
                 }
@@ -220,7 +216,7 @@ namespace NSD
                 Color botLeft;
                 Color botRight;
 
-                if(phrase.phraseType == NSDBuilder.Phrase.PhraseType.OnlyHit || 
+                if (phrase.phraseType == NSDBuilder.Phrase.PhraseType.OnlyHit ||
                     (phrase.phraseType == NSDBuilder.Phrase.PhraseType.PartlyHit && IsHitableChar(i)))
                 {
                     topLeft = new Color(0.99607843137f, 0.74901960784f, 0.17647058823f, endValue);
@@ -235,7 +231,7 @@ namespace NSD
                     botLeft = new Color(0.89803921568f, 0.89803921568f, 0.89803921568f, endValue);
                     botRight = new Color(0.72549019607f, 0.72549019607f, 0.72549019607f, endValue);
                 }
-                VertexGradient grad = new VertexGradient(topLeft,topRight,botLeft,botRight);
+                VertexGradient grad = new VertexGradient(topLeft, topRight, botLeft, botRight);
                 var fadeTween = tweener.DOGradient(i, grad, duration)
                     .SetLoops(0)
                     .SetDelay(delay)
@@ -245,6 +241,6 @@ namespace NSD
             }
         }
 
-        
+
     }
 }

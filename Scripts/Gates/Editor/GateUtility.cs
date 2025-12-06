@@ -1,13 +1,7 @@
-using DREditor.Characters;
 using DREditor.Gates;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GateUtility
 {
@@ -25,26 +19,26 @@ public class GateUtility
             string gateName = SceneManager.GetActiveScene().name;
             var db = SetAssetByType<GateDatabase>();
 
-            if(db != null && db.Contains(gateName))
+            if (db != null && db.Contains(gateName))
             {
                 Debug.LogWarning("The Gate " + gateName + " already exists in the current Gate Database!");
                 return;
             }
             Gate gate = ScriptableObject.CreateInstance<Gate>();
-            
+
 
             gate.toAreaName = gateName;
 
             string folder = CreateIntermediateFolders(targetDirectory);
 
-            
+
 
             string gatePath = folder + "/G_" + gateName.Replace("GYM_", "") + ".asset";
             AssetDatabase.CreateAsset(gate, gatePath);
 
 
 
-            
+
             if (db == null)
             {
                 Debug.LogWarning("Couldn't find Gate Database, spawning new one");

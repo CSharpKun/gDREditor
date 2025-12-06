@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class CAStock : MonoBehaviour //just exists to store data
 {

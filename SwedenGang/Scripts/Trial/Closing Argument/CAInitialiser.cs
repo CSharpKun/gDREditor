@@ -1,9 +1,7 @@
-using UnityEngine;
 using DREditor.PlayerInfo;
-using TMPro;
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CAInitialiser : MonoBehaviour
 {
@@ -35,7 +33,7 @@ public class CAInitialiser : MonoBehaviour
     void Start()
     {
         if (debug)
-            InitArgument(toRemove); //¬`! Eventually, this will be called by the main trial manager class, and this can be removed.
+            InitArgument(toRemove); //Â¬`! Eventually, this will be called by the main trial manager class, and this can be removed.
         if (debugTransition)
             PlayCA(toRemove);
     }
@@ -77,7 +75,7 @@ public class CAInitialiser : MonoBehaviour
 
         //Inititalisation of gameplay before the first frame
         Cursor.lockState = CursorLockMode.Locked;//Prevents janky mouse movement at beginning of minigame
-        //cam = Camera.main;//¬`!! set to the trial camera once global events implemented.*
+        //cam = Camera.main;//Â¬`!! set to the trial camera once global events implemented.*
         manager.totalTime = AB.totalTime;
         manager.totalPages = totalPages;
         manager.totalQuestions = totalStock;
@@ -167,7 +165,7 @@ public class CAInitialiser : MonoBehaviour
         qstnPanel.AddComponent<PolygonCollider2D>();
         qstnPanel.GetComponent<PolygonCollider2D>().isTrigger = true;
         qstnPanel.GetComponent<SpriteMask>().sprite = panelData.panelShape;
-        Destroy(qstnPanel.GetComponent<SpriteRenderer>() );
+        Destroy(qstnPanel.GetComponent<SpriteRenderer>());
 
         //Set position of question mark
         Transform symbol = qstnPanel.transform.GetChild(4);
@@ -180,7 +178,7 @@ public class CAInitialiser : MonoBehaviour
         panelComp.questionText = panelData.questionText;
         panelComp.answer = InitStock(panelData);
     }
-    
+
 
     /// <summary>
     /// Creates an panel in the stock. Called by <c>InitPanel()</c> after a question panel's created to create the corresponding stock.
@@ -280,14 +278,14 @@ public class CAInitialiser : MonoBehaviour
 
         totalPages = 0;
         totalStock = 0;
-        
+
         PlayerInfo.instance.CurrentHealth = PlayerInfo.instance.MaxHealth;
 
         manager.pagebar.transform.rotation = Quaternion.Euler(0, 0, 0);
         manager.pages.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         InitArgument(toRemove);
-        
+
 
         //Start the minigame and destroy setup object
         //manager.anim.SetTrigger("Start");
@@ -308,7 +306,7 @@ public class CAInitialiser : MonoBehaviour
         colour.a = 0;
         pageStart.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().color = colour;
 
-        
+
         //SpriteRenderer eveBorder = activePanelParent.transform.GetChild(0).GetComponent<SpriteRenderer>();
         //eveBorder.sprite = currEveSprs[0];
         yield break;

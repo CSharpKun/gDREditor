@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using System.Linq;
 using DREditor.Characters;
-using DREditor.Dialogues;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using DREditor.Gates;
+using System.Linq;
 /// <summary>
 /// This Tool is intended to take in the bare minimum assets and
 /// set up a character for use in dialogue gameplay.
@@ -17,7 +12,7 @@ public class AutoChar : ScriptableWizard
 {
     [SerializeField] string firstName = string.Empty;
     [SerializeField] string lastName = string.Empty;
-    
+
     [SerializeField] Sprite neutralSprite = null;
     [SerializeField] Texture2D nameplate = null;
 
@@ -107,7 +102,7 @@ public class AutoChar : ScriptableWizard
                         "issue will resolve.");
                 }
             }
-            
+
 
             var mats = CreateMats(shader);
 
@@ -117,7 +112,7 @@ public class AutoChar : ScriptableWizard
                 int i = 0;
                 foreach (var x in mats)
                 {
-                    if(x.name == neutralSprite.name)
+                    if (x.name == neutralSprite.name)
                     {
                         Debug.Log("FOUND NEUTRAL SPRITE");
                         i = mats.IndexOf(x);
@@ -126,16 +121,16 @@ public class AutoChar : ScriptableWizard
                 neutralMat = mats[i];
                 mats.Remove(neutralMat);
                 mats.Insert(0, neutralMat);
-                
+
                 blackMat = CreateMats(blackShader, new List<Texture>() { mats[0].mainTexture })[0];
 
                 if (actorPrefab != null)
                 {
                     GameObject g = PrefabUtility.InstantiatePrefab(actorPrefab) as GameObject;
                     Actor a = g.GetComponentInChildren<Actor>();
-                    if(a != null)
+                    if (a != null)
                     {
-                        
+
                         g.name = firstName;
                         a.character.material = mats[0];
                         a.characterb.material = blackMat;
@@ -147,7 +142,7 @@ public class AutoChar : ScriptableWizard
                     }
                 }
             }
-            
+
 
             if (firstName != "")
             {
@@ -173,7 +168,7 @@ public class AutoChar : ScriptableWizard
         stu.FirstName = firstName;
         stu.LastName = lastName;
         stu.Nameplate = nameplate;
-        
+
         AssetDatabase.StopAssetEditing();
         AssetDatabase.SaveAssets();
     }
@@ -183,9 +178,9 @@ public class AutoChar : ScriptableWizard
 
 
         string folder = CreateIntermediateFolders(targetDirectory);
-        
+
         AssetDatabase.StartAssetEditing();
-        
+
         string stuPath = folder + "/" + firstName + ".asset";
         AssetDatabase.CreateAsset(stu, stuPath);
         AssetDatabase.StopAssetEditing();
@@ -222,7 +217,7 @@ public class AutoChar : ScriptableWizard
     {
         var materials = Selection.GetFiltered(typeof(Material), SelectionMode.Assets).Cast<Material>();
         var mats = materials.ToList();
-        if(matList != null)
+        if (matList != null)
         {
             mats = matList;
         }
@@ -243,7 +238,7 @@ public class AutoChar : ScriptableWizard
                     Name = mat.name
                 };
                 stu.Expressions.Add(e);
-                stu.Sprites.Add(new Unlit() { Name = e.Name});//*
+                stu.Sprites.Add(new Unlit() { Name = e.Name });//*
             }
         }
         finally
@@ -253,10 +248,10 @@ public class AutoChar : ScriptableWizard
     }
     private void ImportSprites(Student stu, List<Sprite> spriteList = null)
     {
-        
+
         var sprites = Selection.GetFiltered(typeof(Texture2D), SelectionMode.Assets).Cast<Texture2D>();
         var spr = sprites.ToList();
-        if(spriteList != null)
+        if (spriteList != null)
         {
             spr = spriteList.Cast<Texture2D>().ToList();
             Debug.Log("Used SPRITE LIST");
@@ -295,7 +290,7 @@ public class AutoChar : ScriptableWizard
         {
 
         }
-        
+
     }
 
     public List<Material> CreateMats(Shader shader, List<Texture> spriteList = null)
@@ -306,7 +301,7 @@ public class AutoChar : ScriptableWizard
         {
             AssetDatabase.StartAssetEditing();
             var textures = Selection.GetFiltered(typeof(Texture), SelectionMode.Assets).Cast<Texture>();
-            if(spriteList != null)
+            if (spriteList != null)
             {
                 textures = spriteList;
             }
@@ -327,13 +322,13 @@ public class AutoChar : ScriptableWizard
                 //"Universal Render Pipeline/Unlit"
                 if (shader.name == "Shader Graphs/BlackCutOut")
                 {
-                    mat.SetColor("_Color", new Color(0,0,0));
+                    mat.SetColor("_Color", new Color(0, 0, 0));
                     path = path.Replace(tex.name, tex.name + "b");
                     mat.name += "b";
                 }
                 mat.mainTexture = tex;
                 //mat.color = Color.white;
-                
+
                 if (AssetDatabase.LoadAssetAtPath(path, typeof(Material)) != null)
                 {
                     Debug.LogWarning("Can't create material, it already exists: " + path);

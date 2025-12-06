@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 //Music Playlist script by SeleniumSoul for DREditor
 // Updated by Sweden/Zetsis For EG
 using UnityEditor;

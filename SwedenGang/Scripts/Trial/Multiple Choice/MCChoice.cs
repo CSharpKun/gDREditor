@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using TMPro;
 
 public class MCChoice : MonoBehaviour
 {
@@ -29,7 +24,7 @@ public class MCChoice : MonoBehaviour
         choiceMask.DOSizeDelta(new Vector2(1406.98f, 100), duration)
             .SetDelay(duration);
         choiceText.DOFade(1, duration)
-            .SetDelay(duration*2);
+            .SetDelay(duration * 2);
     }
     public void TempHide()
     {

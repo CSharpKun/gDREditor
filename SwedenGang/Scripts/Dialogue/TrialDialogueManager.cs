@@ -1,23 +1,14 @@
-﻿//Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+//Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Camera;
 using DREditor.Characters;
-using DREditor.Debug;
 using DREditor.Dialogues;
+using DREditor.Dialogues.Events;
+using DREditor.EventObjects;
+using DREditor.PlayerInfo;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
-using DREditor.PlayerInfo;
-using DG.Tweening;
-using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
-using DREditor.EventObjects;
-using UnityEngine.SceneManagement;
 using System.Linq;
-using DREditor.Dialogues.Events;
-using System;
 
 public class TrialDialogueManager : MinigameManagerBase
 {
@@ -127,9 +118,9 @@ public class TrialDialogueManager : MinigameManagerBase
 
         if (dialogueBox != null && DialogueTextConfig.instance != null)
             DialogueTextConfig.instance.SetTrialBox(dialogueBox);
-        
 
-        foreach(Character character in database.Characters)
+
+        foreach (Character character in database.Characters)
         {
             if (character.TrialPosition > 15)
                 continue;
@@ -299,7 +290,7 @@ public class TrialDialogueManager : MinigameManagerBase
                 LoadThrough((TrialDialogue)dial, 0, 0);
             }
         }
-        else if(dial.GetType().Equals(typeof(TrialDiscussion)))
+        else if (dial.GetType().Equals(typeof(TrialDiscussion)))
         {
             if (!GameSaver.LoadingFile)
             {
@@ -335,7 +326,7 @@ public class TrialDialogueManager : MinigameManagerBase
             if (skip > 0)
                 x = skip;
             TrialDialogue currentDialogue = dial.trialDialogues[x];
-            
+
             int lineNum = 0;
             DialogueTextConfig.instance.ClearText();
             for (int i = 0; i < currentDialogue.Lines.Count; i++)
@@ -435,12 +426,12 @@ public class TrialDialogueManager : MinigameManagerBase
 
                 MeshRenderer mesh = null;
 
-                if(currentCharObject != null)
+                if (currentCharObject != null)
                 {
                     mesh = currentCharObject.GetComponentInChildren<MeshRenderer>();
                     currentActor = currentCharObject.GetComponentInChildren<Actor>();
                 }
-                
+
                 currentChar = currentTrialLine.Speaker;
 
                 #region Changing Nameplate and Portrait
@@ -454,7 +445,7 @@ public class TrialDialogueManager : MinigameManagerBase
                 #endregion
 
                 string anim = animNames[currentTrialLine.camAnimIdx];
-                
+
                 if (currentTrialLine.camAnimIdx != 10)
                 {
                     cameraa.CameraAnimator.Rebind();
@@ -488,7 +479,7 @@ public class TrialDialogueManager : MinigameManagerBase
                     else
                         SoundManager.instance.StopSound();
                 }
-                
+
                 #endregion
 
                 #region Displaying Text
@@ -536,7 +527,7 @@ public class TrialDialogueManager : MinigameManagerBase
                     ffMode = false;
                     AudioListener.volume = 1;
                 }
-                if(!ffMode)
+                if (!ffMode)
                     GameManager.instance.cantBeInMenu = false;
 
                 #region Wait for Button Click
@@ -604,7 +595,7 @@ public class TrialDialogueManager : MinigameManagerBase
                     mouseIcon.TurnOff();
                 }
 
-                DialogueAssetReader.Backlog.AddLine(currentChar, DialogueTextConfig.instance.GetBox().text, currentTrialLine.AliasNumber-1 ,
+                DialogueAssetReader.Backlog.AddLine(currentChar, DialogueTextConfig.instance.GetBox().text, currentTrialLine.AliasNumber - 1,
                     DialogueTextConfig.instance.GetBox().color);
                 DialogueTextConfig.instance.ClearText();
                 #endregion
@@ -692,15 +683,15 @@ public class TrialDialogueManager : MinigameManagerBase
         if (currentTrialLine.AliasNumber > 0)
         {
             Debug.Log(currentTrialLine.AliasNumber);
-            charPlate.texture = currentTrialLine.Speaker.Aliases[currentTrialLine.AliasNumber-1].TrialNameplate;
-            charPortrait.texture = currentTrialLine.Speaker.Aliases[currentTrialLine.AliasNumber-1].TrialPortrait;
+            charPlate.texture = currentTrialLine.Speaker.Aliases[currentTrialLine.AliasNumber - 1].TrialNameplate;
+            charPortrait.texture = currentTrialLine.Speaker.Aliases[currentTrialLine.AliasNumber - 1].TrialPortrait;
         }
         else
         {
             charPlate.texture = currentTrialLine.Speaker.TrialNameplate;
             charPortrait.texture = currentTrialLine.Speaker.TrialPortrait;
         }
-        
+
         yield break;
     }
     public void ShowUI()
@@ -757,7 +748,7 @@ public class TrialDialogueManager : MinigameManagerBase
         SaveDirectToNum = GameSaver.CurrentGameData.DialogueData.DirectToNum;
         SaveLineNum = GameSaver.CurrentGameData.DialogueData.LineNum;
         Backlog.Load(GameSaver.CurrentGameData.BackData);
-        
+
     }
     static IEnumerator WaitForActive(TrialDiscussion disc, int skip = 0)
     {
@@ -773,7 +764,7 @@ public class TrialDialogueManager : MinigameManagerBase
         SaveTransitionNum = GameSaver.CurrentGameData.DialogueData.TransitionNum;
         Debug.Log("SaveLine Num is: " + SaveLineNum);
 
-        
+
 
 
         ffMode = true;
@@ -848,8 +839,8 @@ public class TrialDialogueManager : MinigameManagerBase
         else
         {
             Debug.Log("Playing Direct To of: " + dia.name);
-            
-            if(disc != null)
+
+            if (disc != null)
                 StartCoroutine(TrialDialogueBegin(disc, skip));
             else
             {
@@ -884,14 +875,14 @@ public class TrialDialogueManager : MinigameManagerBase
                 }
                 return i;
             }
-            
+
             currentChar = currentLine.Speaker;
 
-            if(currentLine.Speaker != null)
+            if (currentLine.Speaker != null)
             {
                 currentActor = DialogueAnimConfig.instance.FindActor(currentLine.Speaker.FirstName);
             }
-            
+
 
             DialogueEvents(currentLine);
 
@@ -980,7 +971,7 @@ public class TrialDialogueManager : MinigameManagerBase
     public void PlayFuckUpNonNSD(TrialDialogue currentTrialDialogue) => StartCoroutine(FuckUp(currentTrialDialogue, true, true));
     public static void PlayContinue()
     {
-        if(TrialDialogueManager.instance != null)
+        if (TrialDialogueManager.instance != null)
         {
             TrialDialogueManager.instance.DoContinue();
         }
@@ -1028,11 +1019,11 @@ public class TrialDialogueManager : MinigameManagerBase
 
             yield return new WaitForSeconds(0.0015f);
 
-            if(isMistake && currentTrialLine == currentTrialDialogue.Lines[currentTrialDialogue.Lines.Count - 1]) // on final fuck up line
+            if (isMistake && currentTrialLine == currentTrialDialogue.Lines[currentTrialDialogue.Lines.Count - 1]) // on final fuck up line
             {
                 // play sfx, take damage , and then update visuals
 
-                if(TrialStats.Instance != null)
+                if (TrialStats.Instance != null)
                 {
                     if (notNSD)
                         TrialStats.Instance.CalculateColor();
@@ -1040,7 +1031,7 @@ public class TrialDialogueManager : MinigameManagerBase
                     TrialStats.Instance.TakeDamage();
                 }
             }
-            
+
             GameObject currentCharObject = GameObject.Find(currentTrialLine.Speaker.FirstName);
             //For Above: May make a singleton that has the reference of all the characters
 
@@ -1201,11 +1192,11 @@ public class TrialDialogueManager : MinigameManagerBase
             PlayerHasDied?.Invoke();
             yield return new WaitForSeconds(1);
             //MultipleChoiceManager.instance.StartGameOver();
-            if(TrialStats.Instance != null)
+            if (TrialStats.Instance != null)
                 TrialStats.Instance.HideNSDStats();
             yield break;
         }
-        
+
         uiAnimator.SetBool("ShowTDUI", false);
         if (isMistake && TrialStats.Instance != null)
             TrialStats.Instance.HideNSDStats();
@@ -1375,7 +1366,7 @@ public class TrialDialogueManager : MinigameManagerBase
             lineNum += 1;
             lastActor = currentActor;
         }
-        
+
 
         uiAnimator.SetBool("ShowTDUI", false);
 

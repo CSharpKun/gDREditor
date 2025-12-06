@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class AudioVisualizer : MonoBehaviour
 {
     [SerializeField] Image[] blocks;
@@ -21,7 +16,7 @@ public class AudioVisualizer : MonoBehaviour
     void Update()
     {
         float[] spectrum = new float[256];
-        
+
         SoundManager.instance.MusicSource.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
 
         float height;

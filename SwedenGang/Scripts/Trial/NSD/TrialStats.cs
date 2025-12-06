@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DREditor.PlayerInfo;
 using DG.Tweening;
+using DREditor.PlayerInfo;
+using System.Collections.Generic;
 /// <summary>
 /// This file is to visually display the characters HP and Influence Gauge to the player.
 /// The information on player stats is from the singleton PlayerInfo.instance
@@ -88,23 +85,23 @@ public class TrialStats : MonoBehaviour
             currentHealth = PlayerInfo.instance.CurrentHealth;
         }
         catch { Debug.LogError("Either the GameManager or the PlayerInfo Component to the GameManager is Missing!"); return; }
-        
+
         if (currentHealth <= lowHealth)
         {
             // Low Health Change
         }
         RemoveHealthAnim(currentHealth);
     }
-    
+
     void RemoveHealthAnim(int barNum)
     {
-        if(HPBars.Count != PlayerInfo.instance.MaxHealth)
+        if (HPBars.Count != PlayerInfo.instance.MaxHealth)
         {
             Debug.LogError("There's inconsistant health bars, either add more maxhealth in PlayerInfo or add HPBars");
         }
 
         if (HPBorders[0].GetComponentInParent<Mask>().enabled == true)
-                ResetHPMasks();
+            ResetHPMasks();
 
         CalculateColor();
         HPBorders[barNum].transform.DOMoveY(HPBorders[barNum].transform.position.y - 50, 1)
@@ -113,15 +110,15 @@ public class TrialStats : MonoBehaviour
             .SetDelay(LoseHealthDelay);
         HPBars[barNum].DOFade(0, 1)
             .SetDelay(LoseHealthDelay);
-        for(int i = barNum-1; i >= 0; i--)
+        for (int i = barNum - 1; i >= 0; i--)
         {
             float wait = 0;
             HPBars[i].DOColor(CurrentColor, BlinkDuration)
                 .SetDelay(LoseHealthDelay + wait - (BlinkDuration / 2));
 
-            for (int j = 1; j < HealthBlink+1; j++)
+            for (int j = 1; j < HealthBlink + 1; j++)
             {
-                HPBorders[i].transform.DOScale(PulseScaleIn, BlinkDuration/2)
+                HPBorders[i].transform.DOScale(PulseScaleIn, BlinkDuration / 2)
                 .SetDelay(LoseHealthDelay + wait - (BlinkDuration / 2));
                 HPBorders[i].transform.DOScale(PulseScaleOut, BlinkDuration / 2)
                 .SetDelay(LoseHealthDelay + wait);
@@ -130,10 +127,10 @@ public class TrialStats : MonoBehaviour
                 .SetDelay(LoseHealthDelay + BlinkDuration + wait - (BlinkDuration / 2));
                 wait += BlinkDuration * 2;
             }
-            
+
         }
         HPBorders[barNum].transform.DOMoveY(0, 0)
-            .SetDelay(LoseHealthDelay*2);
+            .SetDelay(LoseHealthDelay * 2);
     }
 
     Color DividedColorValue;
@@ -150,7 +147,7 @@ public class TrialStats : MonoBehaviour
             CurrentColor = (EndColor - HealthColor) / PlayerInfo.instance.MaxHealth;
             DividedColorValue = CurrentColor;
             CurrentColor += HealthColor;
-            for(int i = PlayerInfo.instance.MaxHealth-1; i > PlayerInfo.instance.CurrentHealth-1; i--)
+            for (int i = PlayerInfo.instance.MaxHealth - 1; i > PlayerInfo.instance.CurrentHealth - 1; i--)
             {
                 for (int j = 0; j < PlayerInfo.instance.MaxHealth; j++)
                 {
@@ -159,7 +156,7 @@ public class TrialStats : MonoBehaviour
                 CurrentColor += DividedColorValue;
             }
             //Debug.Log(PlayerInfo.instance.CurrentHealth - 1);
-            for (int i = PlayerInfo.instance.MaxHealth-1; i > PlayerInfo.instance.CurrentHealth-1; i--)
+            for (int i = PlayerInfo.instance.MaxHealth - 1; i > PlayerInfo.instance.CurrentHealth - 1; i--)
             {
                 HPBorders[i].DOFade(0, 0);
                 HPBars[i].DOFade(0, 0);
@@ -177,7 +174,7 @@ public class TrialStats : MonoBehaviour
         float wait = 0;
         for (int i = 0; i < HPBorders.Count; i++)
         {
-            
+
             Mask maskMask = HPBorders[i].GetComponentInParent<Mask>();
             RawImage maskImage = maskMask.GetComponent<RawImage>();
             maskMask.enabled = true;
@@ -187,20 +184,20 @@ public class TrialStats : MonoBehaviour
             HPBorders[i].transform.DOLocalMoveY(0, 0);
 
             HPBorders[i].DOFade(1, 0)
-                .SetDelay(RegenDuration/2);
+                .SetDelay(RegenDuration / 2);
             HPBars[i].DOColor(RegenColor, 0)
-                .SetDelay(RegenDuration/2);
+                .SetDelay(RegenDuration / 2);
 
-            HPBorders[i].transform.DOLocalMove(new Vector3(0,0,0), RegenDuration)
+            HPBorders[i].transform.DOLocalMove(new Vector3(0, 0, 0), RegenDuration)
                 .SetDelay(wait);
-            wait += RegenDuration/2;
+            wait += RegenDuration / 2;
         }
         for (int i = 0; i < HPBorders.Count; i++)
         {
             HPBars[i].DOColor(HealthColor, RegenDuration)
                 .SetDelay(wait);
         }
-        
+
     }
 
     void ResetHPMasks()
@@ -227,7 +224,7 @@ public class TrialStats : MonoBehaviour
     public bool StaminaVisualWrong() => influencePosition.x > 0;
     public void RegenStaminaVisual()
     {
-        
+
         InfluenceBar.color = InfluenceColor;
         influencePosition = InfluenceRect.localPosition;
         influencePosition.x += 238 / PlayerInfo.instance.MaxStamina * Time.unscaledDeltaTime * PlayerInfo.instance.StaminaRatio;

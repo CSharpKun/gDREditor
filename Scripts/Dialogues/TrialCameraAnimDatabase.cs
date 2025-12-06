@@ -1,10 +1,9 @@
-﻿/**
+/**
  * Trial Camera Animation Database for DREditor
  * Original Author: KHeartz
  */
 
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Dialogues
 {

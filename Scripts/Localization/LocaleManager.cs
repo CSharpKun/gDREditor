@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
 using DREditor.Characters;
 using DREditor.Dialogues;
+using System.Collections.Generic;
 
 namespace DREditor.Localization
 {
@@ -36,13 +34,13 @@ namespace DREditor.Localization
             }
             DontDestroyOnLoad(gameObject);
         }
-        
+
         public bool LoadLocale(Locale locale)
         {
             bool success = true;
-            if(!locale.Equals(activeLocale))
+            if (!locale.Equals(activeLocale))
             {
-                if(locale.Equals(settings.defaultLocale) && settings.isDefaultEmbeded)
+                if (locale.Equals(settings.defaultLocale) && settings.isDefaultEmbeded)
                 {
                     // We don't need to load any resource for the default locale because the text is embeded
                     // Clean up the dictionaries
@@ -50,7 +48,8 @@ namespace DREditor.Localization
                     localizedDialoguesMap = null;
                     localizedDialogueLinesMap = null;
                     translatablesMap = null;
-                } else
+                }
+                else
                 {
                     LocalizedCharacterDatabase cdb = Resources.Load<LocalizedCharacterDatabase>(settings.baseFolder + "/" + locale.langCode + "/Characters/database");
                     if (cdb != null)
@@ -61,11 +60,11 @@ namespace DREditor.Localization
                     }
                     else
                     {
-                        UnityEngine.Debug.LogWarning("Localized Character Database not found for locale "+locale.langName+"("+locale.langCode+")");
+                        UnityEngine.Debug.LogWarning("Localized Character Database not found for locale " + locale.langName + "(" + locale.langCode + ")");
                         success = false;
                     }
                 }
-                if(success)
+                if (success)
                 {
                     activeLocale = locale;
                     // Clean up the unneded resources after loading the locale
@@ -79,10 +78,11 @@ namespace DREditor.Localization
         {
             bool success = true;
             TranslatableTextDatabase tdb = Resources.Load<TranslatableTextDatabase>(settings.baseFolder + "/" + locale.langCode + "/Texts/TranslatablesDatabase");
-            if(tdb != null)
+            if (tdb != null)
             {
                 translatablesMap = tdb.GetTranslatablesMap();
-            } else
+            }
+            else
             {
                 UnityEngine.Debug.LogWarningFormat("Translatables database not found for locale {0}({1})", locale.langName, locale.langCode);
                 success = false;
@@ -95,30 +95,32 @@ namespace DREditor.Localization
             if (activeLocale.Equals(settings.defaultLocale) && settings.isDefaultEmbeded)
             {
                 // If it's embeded there is no need to load nothing
-            } else
+            }
+            else
             {
                 // Otherwise we will need to load them
                 // First clear up the current maps
                 localizedDialoguesMap = null;
                 localizedDialogueLinesMap = null;
-                if(dialogues != null && dialogues.Length > 0)
+                if (dialogues != null && dialogues.Length > 0)
                 {
                     localizedDialoguesMap = new Dictionary<string, LocalizedDialogue>();
                     localizedDialogueLinesMap = new Dictionary<string, LocalizedDialogueLine>();
                     foreach (Dialogue dia in dialogues)
                     {
                         LocalizedDialogue ld = Resources.Load<LocalizedDialogue>(settings.baseFolder + "/" + activeLocale.langCode + "/Dialogue/" + dia.translationKey);
-                        if(ld != null)
+                        if (ld != null)
                         {
                             localizedDialoguesMap.Add(dia.translationKey, ld);
-                            if(ld.Lines != null && ld.Lines.Count > 0)
+                            if (ld.Lines != null && ld.Lines.Count > 0)
                             {
-                                foreach(LocalizedDialogueLine line in ld.Lines)
+                                foreach (LocalizedDialogueLine line in ld.Lines)
                                 {
                                     localizedDialogueLinesMap.Add(line.translationKey, line);
                                 }
                             }
-                        } else
+                        }
+                        else
                         {
                             UnityEngine.Debug.LogWarningFormat("Localized Dialogue {0} not found for locale {1}({2})", dia.name, activeLocale.langName, activeLocale.langCode);
                         }
@@ -130,13 +132,14 @@ namespace DREditor.Localization
         public LocalizedCharacter GetLocalizedCharacter(Character c)
         {
             LocalizedCharacter found = null;
-            if(localizedDialoguesMap == null)
+            if (localizedDialoguesMap == null)
             {
-                if(!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
+                if (!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
                 {
                     UnityEngine.Debug.LogError("The character database was not loaded for the current locale: " + activeLocale.langName + "(" + activeLocale.langCode + ")");
                 }
-            } else if (!string.IsNullOrEmpty(c.translationKey) && localizedCharactersMap.ContainsKey(c.translationKey))
+            }
+            else if (!string.IsNullOrEmpty(c.translationKey) && localizedCharactersMap.ContainsKey(c.translationKey))
             {
                 found = localizedCharactersMap[c.translationKey];
             }
@@ -146,13 +149,14 @@ namespace DREditor.Localization
         public LocalizedDialogue GetLocalizedDialogue(Dialogue dia)
         {
             LocalizedDialogue found = null;
-            if(localizedDialoguesMap == null || localizedDialogueLinesMap == null)
+            if (localizedDialoguesMap == null || localizedDialogueLinesMap == null)
             {
                 if (!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
                 {
                     UnityEngine.Debug.LogError("The dialogue was not loaded for the current locale: " + activeLocale.langName + "(" + activeLocale.langCode + ")");
                 }
-            } else if (!string.IsNullOrEmpty(dia.translationKey) && localizedDialoguesMap.ContainsKey(dia.translationKey))
+            }
+            else if (!string.IsNullOrEmpty(dia.translationKey) && localizedDialoguesMap.ContainsKey(dia.translationKey))
             {
                 found = localizedDialoguesMap[dia.translationKey];
             }
@@ -162,9 +166,9 @@ namespace DREditor.Localization
         public LocalizedDialogueLine GetLocalizedDialogueLine(Line line)
         {
             LocalizedDialogueLine found = null;
-            if(localizedDialoguesMap == null || localizedDialogueLinesMap == null)
+            if (localizedDialoguesMap == null || localizedDialogueLinesMap == null)
             {
-                if(!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
+                if (!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
                 {
                     UnityEngine.Debug.LogError("The dialogue was not loaded for the current locale: " + activeLocale.langName + "(" + activeLocale.langCode + ")");
                 }
@@ -186,13 +190,14 @@ namespace DREditor.Localization
         public TranslatableText GetLocalizedText(TranslatableText text)
         {
             TranslatableText result = text; // Default to the original text
-            if(translatablesMap == null)
+            if (translatablesMap == null)
             {
                 if (!activeLocale.Equals(settings.defaultLocale) || !settings.isDefaultEmbeded)
                 {
                     UnityEngine.Debug.LogWarningFormat("The translatables map was not loaded for the current locale {0}({1})", activeLocale.langName, activeLocale.langCode);
                 }
-            } else if(!string.IsNullOrEmpty(text.translationKey) && translatablesMap.ContainsKey(text.translationKey))
+            }
+            else if (!string.IsNullOrEmpty(text.translationKey) && translatablesMap.ContainsKey(text.translationKey))
             {
                 result = translatablesMap[text.translationKey];
             }

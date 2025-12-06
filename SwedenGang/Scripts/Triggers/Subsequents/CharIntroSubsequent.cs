@@ -1,9 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 /// <summary>
 /// Subsequent that uses the Scriptable Object as a SceneEvent and the string for the
 /// name of the character's Intro to use to call an character intro animation
@@ -28,7 +24,7 @@ public class CharIntroSubsequent : SubsequentBase, ISubsequent
         s.Type = GetType().ToString();
         if (s.ScriptableObject == null)
             s.ScriptableObject = SceneEvent;
-        
+
         return s;
     }
 
@@ -41,7 +37,7 @@ public class CharIntroSubsequent : SubsequentBase, ISubsequent
         listen.Response = new UnityEvent();
         //Debug.Log(listen.Response == null);
         listen.Response.AddListener(Intro);
-        
+
     }
     public void Intro()
     {

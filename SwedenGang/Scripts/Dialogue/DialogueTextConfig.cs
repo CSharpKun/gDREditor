@@ -1,13 +1,10 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
+using DREditor.PlayerInfo;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TMPro;
-using UnityEngine;
-using DREditor.PlayerInfo;
-using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 public class DialogueTextConfig : MonoBehaviour
 {
@@ -44,7 +41,7 @@ public class DialogueTextConfig : MonoBehaviour
         Box = box;
         TrialBox = box;
     }
-    
+
     public void ResetTrialBox()
     {
         if (TrialBox != null)
@@ -60,7 +57,7 @@ public class DialogueTextConfig : MonoBehaviour
         {
             Box = GameManager.instance.currentMode == GameManager.Mode.Trial && TrialBox != null ? TrialBox : dialogueBox;
         }
-        
+
         /*
         if (GameManager.instance.currentMode == GameManager.Mode.Trial && TrialBox != null)
         {
@@ -104,7 +101,7 @@ public class DialogueTextConfig : MonoBehaviour
         int sCount = 0;
         for (int i = 0; i < _notag.Length && !skipText; i++)
         {
-            
+
             if (i >= 1 && !skipTextStarted)
             {
                 StartCoroutine(SkipText());
@@ -114,15 +111,15 @@ public class DialogueTextConfig : MonoBehaviour
                 //Debug.LogWarning("Did not call skip text!");
             }
 
-            
+
             char letter = text[i];
 
             if (letter == '$')
             {
                 Box.color = internalColor;
-                Box.text = text.Substring(sCount+1);
+                Box.text = text.Substring(sCount + 1);
                 sCount += 1;
-                
+
                 yield return new WaitForSeconds(Time.deltaTime);
                 continue;
             }
@@ -157,12 +154,12 @@ public class DialogueTextConfig : MonoBehaviour
         if (skipText)
         {
             int count = SymbolCount(currentLine.Text);
-            
+
             Box.text = text.Substring(count);
             Box.text = Box.text.Replace("\r", "");
             Box.maxVisibleCharacters = Box.text.Length;
         }
-        
+
         isWaitingForClick = false;
 
         yield return null;
@@ -174,7 +171,7 @@ public class DialogueTextConfig : MonoBehaviour
     private int SymbolCount(string text)
     {
         int count = 0;
-        for(int i = 0; i < symbols.Count; i++)
+        for (int i = 0; i < symbols.Count; i++)
         {
             string symbol = symbols[i];
             if (text.Contains(symbol))
@@ -265,13 +262,13 @@ public class DialogueTextConfig : MonoBehaviour
                 {
                     break;
                 }
-                
+
             }
             if (playerInput.actions["Submit"].triggered)
             {
                 break;
             }
-            
+
             yield return null;
         }
         skipTextStarted = false;

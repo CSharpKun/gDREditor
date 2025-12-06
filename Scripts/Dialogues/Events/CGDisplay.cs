@@ -1,7 +1,6 @@
-﻿//Show CG Dialogue Event script by SeleniumSoul for DREditor. Heavily modified by Sweden#6386 for Eden's Garden
+//Show CG Dialogue Event script by SeleniumSoul for DREditor. Heavily modified by Sweden#6386 for Eden's Garden
 
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,36 +8,35 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	using Debug = UnityEngine.Debug;
-	[Serializable]
-	public struct SCGTuple
-	{
-		public Sprite CG;
-		public bool transitionInstant;
-		public AudioClip eventName;
-		public bool ScreenFadeOut;
-		public bool toDeadly;
-		public GameObject prefab;
-		public bool playOnly;
-		//public float FadeOutTime;
-	}
-	/// <summary>
-	/// For Displaying CG's 
-	/// Script has the Editor Field Class
-	/// </summary>
-	[Serializable]
-	public class CGDisplay : IDialogueEvent
-	{
-		public SCGTuple SCGValue;
-		
+    [Serializable]
+    public struct SCGTuple
+    {
+        public Sprite CG;
+        public bool transitionInstant;
+        public AudioClip eventName;
+        public bool ScreenFadeOut;
+        public bool toDeadly;
+        public GameObject prefab;
+        public bool playOnly;
+        //public float FadeOutTime;
+    }
+    /// <summary>
+    /// For Displaying CG's 
+    /// Script has the Editor Field Class
+    /// </summary>
+    [Serializable]
+    public class CGDisplay : IDialogueEvent
+    {
+        public SCGTuple SCGValue;
 
-		public void TriggerDialogueEvent()
-		{
+
+        public void TriggerDialogueEvent()
+        {
             if (SCGValue.CG != null || SCGValue.prefab != null)
-				DialogueEventSystem.TriggerEvent("ShowCG", SCGValue);
-			else if(!SCGValue.CG && !SCGValue.prefab)
-				DialogueEventSystem.TriggerEvent("HideCG", SCGValue);
-		}
+                DialogueEventSystem.TriggerEvent("ShowCG", SCGValue);
+            else if (!SCGValue.CG && !SCGValue.prefab)
+                DialogueEventSystem.TriggerEvent("HideCG", SCGValue);
+        }
 
 #if UNITY_EDITOR
 		private bool _ShowHelp = false;
@@ -66,7 +64,7 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Show CG pictures. \n\nNote: You'll need the CG Player.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 #if UNITY_EDITOR
 	public static class EditorFields
     {

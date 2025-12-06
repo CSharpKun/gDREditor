@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class TMPMarquee : MonoBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI tmp = null;
@@ -21,7 +17,7 @@ public class TMPMarquee : MonoBehaviour
 
     void Update()
     {
-        if (tmp.rectTransform.localPosition.x  < resetOn + (-tmp.rectTransform.sizeDelta.x * 2))
+        if (tmp.rectTransform.localPosition.x < resetOn + (-tmp.rectTransform.sizeDelta.x * 2))
         {
             tmp.rectTransform.localPosition = new Vector3(resetX,
                 tmp.rectTransform.localPosition.y, tmp.rectTransform.localPosition.z);

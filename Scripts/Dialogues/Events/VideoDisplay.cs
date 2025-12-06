@@ -1,52 +1,49 @@
 //Show CG Dialogue Event script by SeleniumSoul for DREditor. Heavily modified by Sweden#6386 for Eden's Garden
 
 using System;
-using UnityEngine;
-using UnityEngine.Video;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace DREditor.Dialogues.Events
 {
-	using Debug = UnityEngine.Debug;
-	[Serializable]
-	public struct SVTuple
+    [Serializable]
+    public struct SVTuple
     {
-		public VideoClip iniClip;
-		public VideoClip mainClip;
-		public bool isLooping;
-		public float speed;
-		public bool ScreenFadeOut;
-		public bool waitToEnd;
-		public bool playOnly;
-		public bool stopSound;
-		public bool toDeadly;
-		public AudioClip eventName;
-		//[EventRef] public string startSound;
-		
-	}
-	/// <summary>
-	/// For Displaying CG's 
-	/// The Event is used in the CGPlayer.cs
-	/// Script has the Editor Field Class
-	/// </summary>
-	[Serializable]
-	public class VideoDisplay : IDialogueEvent
-	{
-		public SVTuple SVValue;
-		
-		public VideoDisplay()
+        public VideoClip iniClip;
+        public VideoClip mainClip;
+        public bool isLooping;
+        public float speed;
+        public bool ScreenFadeOut;
+        public bool waitToEnd;
+        public bool playOnly;
+        public bool stopSound;
+        public bool toDeadly;
+        public AudioClip eventName;
+        //[EventRef] public string startSound;
+
+    }
+    /// <summary>
+    /// For Displaying CG's 
+    /// The Event is used in the CGPlayer.cs
+    /// Script has the Editor Field Class
+    /// </summary>
+    [Serializable]
+    public class VideoDisplay : IDialogueEvent
+    {
+        public SVTuple SVValue;
+
+        public VideoDisplay()
         {
-			SVValue.speed = 1;
+            SVValue.speed = 1;
         }
-		public void TriggerDialogueEvent()
-		{
-			if (SVValue.mainClip != null)
-				DialogueEventSystem.TriggerEvent("ShowVideo", SVValue);
-			else
-				DialogueEventSystem.TriggerEvent("HideVideo", SVValue);
-		}
+        public void TriggerDialogueEvent()
+        {
+            if (SVValue.mainClip != null)
+                DialogueEventSystem.TriggerEvent("ShowVideo", SVValue);
+            else
+                DialogueEventSystem.TriggerEvent("HideVideo", SVValue);
+        }
 
 #if UNITY_EDITOR
 		private bool _ShowHelp = false;
@@ -96,5 +93,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Shows Videos. for animated CG's \n\nNote: You'll need the CG Player.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

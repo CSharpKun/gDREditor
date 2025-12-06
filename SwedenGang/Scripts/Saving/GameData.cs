@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using DREditor.PlayerInfo;
 using DREditor.Dialogues;
+using DREditor.PlayerInfo;
+using System;
 /// <summary>
 /// The class that holds all data to be written to a save file
 /// </summary>

@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
 namespace DREditor.Characters
 {
     [System.Serializable]
@@ -14,7 +12,7 @@ namespace DREditor.Characters
         public string Likes;
         public string Dislikes;
         public string Notes;
-        public Color Color = new Color(1,1,1,1);
+        public Color Color = new Color(1, 1, 1, 1);
     }
 }
 

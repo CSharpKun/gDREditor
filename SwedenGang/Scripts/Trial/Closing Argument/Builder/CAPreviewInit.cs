@@ -1,12 +1,10 @@
-using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
 
 public class CAPreviewInit : CAInitialiser
 {
     [SerializeField] List<Sprite> currEveSprs = new List<Sprite>(); //list of borders for the activePanel
     [SerializeField] List<Sprite> eveBorders = new List<Sprite>(); //list of borders for stock panels
-    public void InitArgument(ArgumentBuilder AB,int currentPage,int stockIndex) 
+    public void InitArgument(ArgumentBuilder AB, int currentPage, int stockIndex)
     {
         manager.enabled = false;
         foreach (ArgumentBuilder.Page pageData in AB.pages)//initialises each page
@@ -46,7 +44,7 @@ public class CAPreviewInit : CAInitialiser
         manager.pages.transform.rotation = Quaternion.Euler(0, 0, -3.9f);
         //The first page to be displayed is displayed prominently
         MovePages(currentPage);
-        
+
 
 
         //Set up display for which page you're on
@@ -72,7 +70,7 @@ public class CAPreviewInit : CAInitialiser
         manager.timer.text = Mathf.FloorToInt(manager.totalTime / 60).ToString() + ":" + Mathf.FloorToInt(manager.totalTime % 60).ToString();
 
         manager.enabled = true;
-        
+
 
     }
 
@@ -93,11 +91,11 @@ public class CAPreviewInit : CAInitialiser
         panelComp.questionText = panelData.questionText;
         panelComp.answer = InitStock(panelData);
 
-        for (int i = 0; i < qstnPanel.transform.childCount -1; i++)
+        for (int i = 0; i < qstnPanel.transform.childCount - 1; i++)
         {
             qstnPanel.transform.GetChild(i).gameObject.SetActive(false);
         }
-        
+
         totalStock++;
     }
 
@@ -160,16 +158,16 @@ public class CAPreviewInit : CAInitialiser
         }
     }
 
-    protected void MovePages(int pages) 
+    protected void MovePages(int pages)
     {
         Vector3 pagesPosition = manager.pages.transform.position;
-        pagesPosition = new Vector3(pagesPosition.x +  - 9.91f * (pages-1), pagesPosition.y + 0.63f * (pages - 1), 0);
+        pagesPosition = new Vector3(pagesPosition.x + -9.91f * (pages - 1), pagesPosition.y + 0.63f * (pages - 1), 0);
         manager.pages.transform.position = pagesPosition;
         Vector3 barPosition = manager.pagebar.transform.position;
         barPosition = new Vector3(barPosition.x + -2.8f * (pages - 1), barPosition.y + 0.2f * (pages - 1), 0);
         manager.pagebar.transform.position = barPosition;
 
-        if(pages != 1)
+        if (pages != 1)
         {
             Transform currentPage = manager.pages.transform.GetChild(0);
             currentPage.transform.localScale = new Vector3(0.4f, 0.4f, 1);

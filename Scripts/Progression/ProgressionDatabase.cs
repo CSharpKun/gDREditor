@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 namespace DREditor.Progression
 {
     /// <summary>
@@ -13,7 +11,7 @@ namespace DREditor.Progression
     public class ProgressionDatabase : ScriptableObject
     {
         public List<Chapter> Chapters = new List<Chapter>();
-        
+
         public int GetChapterIndex(Chapter c)
         {
             for (int i = 0; i < Chapters.Count; i++)

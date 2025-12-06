@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using DREditor.EventObjects;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace DREditor.FPC
 {
@@ -23,7 +21,7 @@ namespace DREditor.FPC
         public List<MonoBehaviour> MonoBehaviours = new List<MonoBehaviour>();
         public MonoBehaviour RaycastScript;
         public MonoBehaviour TPFDScript;
-        
+
 
         public static ControlMonobehaviours instance = null; //*
         private void Awake()
@@ -59,7 +57,7 @@ namespace DREditor.FPC
                 //LoadBool();
                 inLoadCheck = InLoading.Value;
             }
-            if (!InLoading.Value && (disable != setting || tpfdSetting != InTPFD.Value || (TPFDScript.enabled != InTPFD.Value && !InDialogue.Value 
+            if (!InLoading.Value && (disable != setting || tpfdSetting != InTPFD.Value || (TPFDScript.enabled != InTPFD.Value && !InDialogue.Value
                 && !InMenu.Value))) //  && disable != Test(disable)
             {
                 if (!InTPFD.Value)
@@ -96,7 +94,7 @@ namespace DREditor.FPC
         {
             foreach (var beh in MonoBehaviours)
             {
-                if(beh.enabled != disable)
+                if (beh.enabled != disable)
                     return false;
             }
             return true;
@@ -121,14 +119,14 @@ namespace DREditor.FPC
             for (int i = 0; i < MonoBehaviours.Count; i++)
             {
                 //if (i == 0 || i == 4 )
-                    //continue;
+                //continue;
                 MonoBehaviours[i].enabled = saved[i];
             }
             RaycastScript.enabled = true;
             MonoBehaviours[0].enabled = !InTPFD.Value;
             //MonoBehaviours[2].enabled = !InTPFD.Value;
             MonoBehaviours[4].enabled = !InTPFD.Value;
-            
+
             TPFDScript.enabled = InTPFD.Value;
             saved.Clear();
         }
@@ -140,6 +138,6 @@ namespace DREditor.FPC
         public void EnableTPFD(bool to) => TPFDScript.enabled = to;
     }
 }
-    
-    
+
+
 

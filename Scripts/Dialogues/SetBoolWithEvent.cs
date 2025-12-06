@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using DREditor.EventObjects;
-using UnityEngine;
 
 public class SetBoolWithEvent : MonoBehaviour
 {

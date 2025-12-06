@@ -1,10 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 // Leothedev also helped out a lot
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 public class UIBreak : Graphic
 {
     MeshFilter filter => GetComponent<MeshFilter>();
@@ -32,7 +30,7 @@ public class UIBreak : Graphic
         {
             vh.AddVert(u);
         }
-        
+
         for (int i = 0; (i + 6) <= shatter.uIVertices.Count; i += 6)
         {
             vh.AddTriangle(i, i + 1, i + 2);
@@ -50,7 +48,7 @@ public class UIBreak : Graphic
         List<UIVertex> v = shatter.uIVertices;
         Vector3[] triangleVelocity = new Vector3[v.Count / 3];
         //Vector3[] rotationVelocity = new Vector3[v.Count / 3];
-        for (int i = 0; i < v.Count/3; i++)
+        for (int i = 0; i < v.Count / 3; i++)
         {
             Vector3 a = v[i * 3].position;
             Vector3 b = v[i * 3 + 1].position;
@@ -63,7 +61,7 @@ public class UIBreak : Graphic
         }
         //shatter.uIVertices = v;
         float time = 0;
-        while(time <= explosionTime)
+        while (time <= explosionTime)
         {
             time += Time.deltaTime;
             for (int i = 0; i < v.Count / 3; i++)
@@ -86,7 +84,7 @@ public class UIBreak : Graphic
                 u.position = pos;
                 v[i * 3 + 2] = u;
 
-                triangleVelocity[i] -= triangleVelocity[i] * Time.deltaTime * 1/explosionTime;
+                triangleVelocity[i] -= triangleVelocity[i] * Time.deltaTime * 1 / explosionTime;
                 //Debug.Log(v[i * 3].position);
             }
             shatter.uIVertices = v;
@@ -114,7 +112,7 @@ public class UIBreak : Graphic
         ScreenShatter();
         blackBreakImage.enabled = true;
         breakImage.enabled = true;
-        
+
         breakImage.transform.DOScale(2, 1)
             .SetDelay(1)
             .SetEase(Ease.InFlash);
@@ -122,7 +120,7 @@ public class UIBreak : Graphic
             .SetDelay(1.5f)
             .SetEase(Ease.InFlash);
         yield return new WaitForSeconds(2);
-        
+
         blackBreakImage.DOFade(0, 1)
             .SetDelay(3);
         yield return new WaitForSeconds(2);

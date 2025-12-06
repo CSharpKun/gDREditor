@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using DG.Tweening;
 using System;
 
@@ -25,7 +20,7 @@ public class TrialTimer : MonoBehaviour
     TextMeshPro tex = null;
     private void Awake()
     {
-        if(TimerText == null)
+        if (TimerText == null)
             tex = GetComponent<TextMeshPro>();
     }
     void Update()
@@ -43,7 +38,7 @@ public class TrialTimer : MonoBehaviour
                     timeRemaining = -1;
                     return;
                 }
-                if(tex != null)
+                if (tex != null)
                     tex.text = string.Format("{0:00}:{1:00}.{2:00}", minutes, seconds, milliseconds);
                 else
                     TimerText.text = string.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, milliseconds);
@@ -53,7 +48,7 @@ public class TrialTimer : MonoBehaviour
             {
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
-                if(tex != null)
+                if (tex != null)
                     tex.text = "00:00.000";
                 else
                     TimerText.text = "00:00.000";

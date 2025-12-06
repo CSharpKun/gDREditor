@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using DREditor.Progression;
 
 /// <summary>
 /// Checks if flags are equal to "callIfFlagsAre" and if they are then activates

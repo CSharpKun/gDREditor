@@ -1,8 +1,4 @@
-using DREditor.Camera;
-using System.Collections;
 using System.Collections.Generic;
-
-using UnityEngine;
 
 namespace DREditor.Dialogues
 {
@@ -14,7 +10,7 @@ namespace DREditor.Dialogues
         public string[] GetNames()
         {
             List<string> names = new List<string>();
-            foreach(TCOPreset p in Presets)
+            foreach (TCOPreset p in Presets)
             {
                 names.Add(p.presetName);
             }
@@ -23,7 +19,7 @@ namespace DREditor.Dialogues
         public int[] GetInts()
         {
             int[] nums = new int[Presets.Count];
-            for(int i = 0; i < Presets.Count; i++)
+            for (int i = 0; i < Presets.Count; i++)
             {
                 nums[i] = i;
             }

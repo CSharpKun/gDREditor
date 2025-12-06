@@ -1,6 +1,5 @@
-﻿//CustomEvent Dialogue Event script by SeleniumSoul for DREditor.
+//CustomEvent Dialogue Event script by SeleniumSoul for DREditor.
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,23 +7,23 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct CETuple
-	{
-		public string EventName;
-	}
+    [Serializable]
+    public struct CETuple
+    {
+        public string EventName;
+    }
 
-	[Serializable]
-	public class CustomEvent : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
-		public CETuple CEValue;
+    [Serializable]
+    public class CustomEvent : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
+        public CETuple CEValue;
 
 
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent(CEValue.EventName);
-		}
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent(CEValue.EventName);
+        }
 
 #if UNITY_EDITOR
 		public void EditorUI(object value = null)
@@ -42,5 +41,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Make the Dialogue Event System invoke a custom event using a string.\nDoes not accept custom parameters.\n\nCaution: This is intended to be used as a temporary debugging solution. It is highly recommended to make a new Dialogue Event Script to avoid having the event being forgotten.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

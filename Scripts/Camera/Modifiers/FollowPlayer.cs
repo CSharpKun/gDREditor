@@ -1,6 +1,3 @@
-﻿
-using UnityEngine;
-
 namespace DREditor.Camera
 {
 

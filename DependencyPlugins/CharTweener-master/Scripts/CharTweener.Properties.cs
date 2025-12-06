@@ -1,6 +1,3 @@
-﻿using TMPro;
-using UnityEngine;
-
 namespace CharTween
 {
     public partial class CharTweener : MonoBehaviour

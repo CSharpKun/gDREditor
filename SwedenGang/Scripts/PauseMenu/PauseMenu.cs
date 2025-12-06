@@ -1,14 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.EventObjects;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using DREditor.PlayerInfo;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.Video;
-using UnityEngine.UI;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -123,7 +116,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         EvaluatePauseOptions();
 
-        
+
 
         if (animator)
             animator.SetTrigger("Show");
@@ -133,10 +126,10 @@ public class PauseMenu : MonoBehaviour
     void EvaluatePauseOptions()
     {
         PlayerInfo.Information info = PlayerInfo.instance.Info;
-        
+
         for (int i = 0; i < FirstGroup.butts.Count && i < info.pauseOptions.Length; i++)
         {
-            if (FirstGroup.butts[i] != null && 
+            if (FirstGroup.butts[i] != null &&
                 FirstGroup.butts[i].gameObject.activeSelf != info.pauseOptions[i])
             {
                 FirstGroup.butts[i].gameObject.SetActive(info.pauseOptions[i]);
@@ -178,7 +171,7 @@ public class PauseMenu : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
             MenuGroup[] groups = gameObject.transform.parent.GetComponentsInChildren<MenuGroup>();
-            foreach(MenuGroup group in groups)
+            foreach (MenuGroup group in groups)
             {
                 group.RemoveBackInput();
             }
@@ -191,7 +184,7 @@ public class PauseMenu : MonoBehaviour
     public void HidePauseGroup() => StartCoroutine(Resume());
     IEnumerator Resume()
     {
-        
+
         FirstGroup.Hide();
         SoundManager.instance.PlaySFX(UnPauseSFX);
         if (animator)
@@ -203,26 +196,26 @@ public class PauseMenu : MonoBehaviour
             //Debug.LogWarning("Finished Resume");
 
             //Debug.LogWarning("Animator Found");
-            if(animator.GetCurrentAnimatorStateInfo(0).length == float.PositiveInfinity)
+            if (animator.GetCurrentAnimatorStateInfo(0).length == float.PositiveInfinity)
                 yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).length != float.PositiveInfinity);
             //yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             //Debug.LogWarning("Animator Finished");
         }
 
         yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime * 2);
-        
-        
+
+
         InMenu.Value = false;
-        if(!animator)
+        if (!animator)
             Canvas.enabled = false;
         Time.timeScale = 1;
-        
+
         OnResumeEnd?.Invoke();
         Resuming = false;
         inPause = false;
         yield break;
     }
-    
+
     public void ConfirmSelect()
     {
         Debug.Log("Clicked");

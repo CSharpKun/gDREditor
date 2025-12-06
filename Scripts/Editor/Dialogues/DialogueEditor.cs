@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -142,7 +142,7 @@ namespace DREditor.Dialogues.Editor
 				}
 			}
 
-			#region Debug Mode
+            #region Debug Mode
 			using (new EditorGUILayout.HorizontalScope())
 			{
 				debugMode = HandyFields.Option(debugMode, "Debug Mode: ", 80);
@@ -178,7 +178,7 @@ namespace DREditor.Dialogues.Editor
 			}
 			
 			
-			#endregion
+            #endregion
 
 			EditorStyles.textArea.wordWrap = true;
 			EditorStyles.textField.wordWrap = true;
@@ -348,7 +348,7 @@ namespace DREditor.Dialogues.Editor
 		private void EditLeftPanel(Line currentLine, int i)
         {
 
-			#region Column 1
+            #region Column 1
 			//Column 1
 
 			using (new EditorGUILayout.VerticalScope(GUILayout.MaxWidth(130)))
@@ -463,7 +463,7 @@ namespace DREditor.Dialogues.Editor
 					}
 				}
 
-				#region Options
+                #region Options
 				using (new EditorGUILayout.HorizontalScope())
 				{
 					GUILayout.Label("Options", GUILayout.MaxWidth(50));
@@ -509,11 +509,11 @@ namespace DREditor.Dialogues.Editor
 					}
 				}
 
-				#endregion
+                #endregion
 
 				
 			}
-			#endregion
+            #endregion
 
 		}
 		private void EditExpressionPanel(Line currLine)
@@ -575,7 +575,7 @@ namespace DREditor.Dialogues.Editor
 		private void EditDialogueText(int i)
 		{
 
-			#region Column 3 Text and SFX
+            #region Column 3 Text and SFX
 			//Column 3 Text
 			using (new EditorGUILayout.VerticalScope())
 			{
@@ -609,13 +609,13 @@ namespace DREditor.Dialogues.Editor
 				}
 
 			}
-			#endregion
+            #endregion
 
 		}
 		private void EditDialoguePosition(int i)
         {
 
-			#region Column 4 Side Buttons
+            #region Column 4 Side Buttons
 			//Column 4
 			using (new EditorGUILayout.VerticalScope(GUILayout.MaxWidth(25)))
 			{
@@ -707,7 +707,7 @@ namespace DREditor.Dialogues.Editor
 
 				GUILayout.FlexibleSpace();
 			}
-			#endregion
+            #endregion
 
 		}
 		private void EditLineLower(Line currentLine, int i)
@@ -726,7 +726,7 @@ namespace DREditor.Dialogues.Editor
 				}
 			}
 
-			#region Dialogue Events
+            #region Dialogue Events
 			//DialogueEvents Extension
 			using (new EditorGUILayout.VerticalScope())
 			{
@@ -812,7 +812,7 @@ namespace DREditor.Dialogues.Editor
 				}
 			}
 
-			#endregion
+            #endregion
 
 		}
 		private void EditFooter()
@@ -893,7 +893,7 @@ namespace DREditor.Dialogues.Editor
 							(BoolWithEvent)EditorGUILayout.ObjectField(dia.Variable.BoolVariable, typeof(BoolWithEvent), false, GUILayout.Width(200));
 					}
 
-					#region Variable With Progression Database
+                    #region Variable With Progression Database
 					using (new EditorGUILayout.VerticalScope())
 					{
 						GUILayout.Label("Add Condition: ");
@@ -983,7 +983,7 @@ namespace DREditor.Dialogues.Editor
 								"to use ProgressionDatabase functionality.");
 						}
 					}
-					#endregion
+                    #endregion
 
 					using (new EditorGUILayout.HorizontalScope())
 					{
@@ -1261,7 +1261,7 @@ namespace DREditor.Dialogues.Editor
 				}
 			}
 
-			#region End Event Buttons
+            #region End Event Buttons
 			using (new EditorGUILayout.HorizontalScope())
 			{
 				if (dia.Choices.Count == 0 && !dia.Variable.Enabled)
@@ -1357,12 +1357,12 @@ namespace DREditor.Dialogues.Editor
 
 				}
 			}
-			#endregion
+            #endregion
 
 			GUILayout.Space(30);
 		}
 
-		#region Private Functions
+        #region Private Functions
 		private int GetCharacterDatabase()
 		{
 			string[] _databaseguids = AssetDatabase.FindAssets("t:CharacterDatabase");
@@ -1529,7 +1529,7 @@ namespace DREditor.Dialogues.Editor
 			}
 			return _foundErrors;
 		}
-		#endregion
+        #endregion
 
 		/// <summary>
 		/// For any Tools that might help during development
@@ -1543,7 +1543,7 @@ namespace DREditor.Dialogues.Editor
 				SplitDialogue(false);
 		}
 
-		#region Test Every Sprite on a Character
+        #region Test Every Sprite on a Character
 		/// <summary>
 		/// Rewrites the dialogue to contain a line for every sprite for the character on the
 		/// first line.
@@ -1594,9 +1594,9 @@ namespace DREditor.Dialogues.Editor
 
 			}
 		}
-		#endregion
+        #endregion
 
-		#region Split Dialogue
+        #region Split Dialogue
 
 		void SplitDialogue(bool top)
         {
@@ -1607,7 +1607,7 @@ namespace DREditor.Dialogues.Editor
 			debugMode = false;
 		}
 
-		#endregion
+        #endregion
 	}
 
 }

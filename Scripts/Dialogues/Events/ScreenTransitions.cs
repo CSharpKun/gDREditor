@@ -1,7 +1,6 @@
-﻿//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
+//Change Character Focus Dialogue Event script by SeleniumSoul for DREditor.
 
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,35 +8,35 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct FTBTuple
-	{
-		public FadeChoices FadeChoice;
-		public float FadeSpeed;
-	}
-	public enum FadeChoices { FadeIn, FadeOut }
+    [Serializable]
+    public struct FTBTuple
+    {
+        public FadeChoices FadeChoice;
+        public float FadeSpeed;
+    }
+    public enum FadeChoices { FadeIn, FadeOut }
 
-	[Serializable]
-	public class ScreenTransitions : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
-		public FTBTuple FTBValue;
+    [Serializable]
+    public class ScreenTransitions : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
+        public FTBTuple FTBValue;
 
-		public void TriggerDialogueEvent()
-		{
-			switch (FTBValue.FadeChoice)
-			{
-				case FadeChoices.FadeIn:
-					DialogueEventSystem.TriggerEvent("FadeOut", FTBValue.FadeSpeed);
-					break;
-				case FadeChoices.FadeOut:
-					DialogueEventSystem.TriggerEvent("FadeToBlack", FTBValue.FadeSpeed);
-					break;
-				default:
-					UnityEngine.Debug.LogError("DREditor (ScreenTransitions): Unable to recognize transition! Please check the transition option in the Dialogue Event if it is empty.");
-					break;
-			}
-		}
+        public void TriggerDialogueEvent()
+        {
+            switch (FTBValue.FadeChoice)
+            {
+                case FadeChoices.FadeIn:
+                    DialogueEventSystem.TriggerEvent("FadeOut", FTBValue.FadeSpeed);
+                    break;
+                case FadeChoices.FadeOut:
+                    DialogueEventSystem.TriggerEvent("FadeToBlack", FTBValue.FadeSpeed);
+                    break;
+                default:
+                    UnityEngine.Debug.LogError("DREditor (ScreenTransitions): Unable to recognize transition! Please check the transition option in the Dialogue Event if it is empty.");
+                    break;
+            }
+        }
 
 #if UNITY_EDITOR
 		public void EditorUI(object value = null)
@@ -55,5 +54,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Make the whole screen fade to black.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

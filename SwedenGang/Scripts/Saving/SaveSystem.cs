@@ -1,14 +1,12 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System.Linq;
-using System;
 
 public static class SaveSystem
 {
-    
+
 
     public static void SaveToJSON<T>(List<T> toSave, string filename)
     {
@@ -52,11 +50,11 @@ public static class SaveSystem
         return res;
 
     }
-    
+
     public static bool CheckSave(string filename)
     {
         string path = GetPath(filename);
-        
+
         if (File.Exists(path))
         {
             string content = ReadFile(GetPath(filename));
@@ -79,14 +77,14 @@ public static class SaveSystem
     {
         CryptHold c = new CryptHold();
         c.Crypt = EncryptionJSON.EncryptJSON(JsonUtility.ToJson(toSave), "CursiveW");
-        
+
         SaveToJSON(c, fileName);
     }
     public static T LoadEncrypt<T>(string fileName)
     {
         CryptHold crypt = ReadFromJSON<CryptHold>(fileName);
         string d = EncryptionJSON.DecryptJSON(crypt.Crypt, "CursiveW");
-        
+
         return (T)JsonUtility.FromJson(d, typeof(T));
     }
     private static string GetPath(string filename)

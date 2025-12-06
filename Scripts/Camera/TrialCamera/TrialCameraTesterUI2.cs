@@ -1,13 +1,10 @@
-﻿/**
+/**
  * Main UI Script for Trial Camera Script for debugging/previewing
  * Original Author: SeleniumSoul
  * Contributing Author: KHeartz
  */
 
-using UnityEngine;
-using UnityEngine.UI;
 using DREditor.Camera;
-using DREditor.Dialogues;
 
 namespace DREditor.Debug
 {

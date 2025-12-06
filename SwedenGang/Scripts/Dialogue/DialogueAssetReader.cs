@@ -1,21 +1,13 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using DREditor.Characters;
 using DREditor.Dialogues;
-using System.Linq;
-using UnityEngine.EventSystems;
-using DREditor.PlayerInfo;
-using UnityEngine.InputSystem;
-using DREditor.EventObjects;
-using static UnityEngine.InputSystem.InputAction;
 using DREditor.Dialogues.Events;
+using DREditor.EventObjects;
+using DREditor.PlayerInfo;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Singleton that reads and uses assets with DialogueAnimConfig

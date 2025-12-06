@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace DREditor.Characters
 {
     [System.Serializable]
-    public class LocalizedStudentCard 
+    public class LocalizedStudentCard
     {
         public Student originalStudent;
 
@@ -17,7 +13,7 @@ namespace DREditor.Characters
             get
             {
                 string retVal = _Talent;
-                if(string.IsNullOrEmpty(retVal) && originalStudent != null
+                if (string.IsNullOrEmpty(retVal) && originalStudent != null
                     && originalStudent.StudentCard != null)
                 {
                     retVal = originalStudent.StudentCard.Talent;

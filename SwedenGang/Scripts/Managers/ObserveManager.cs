@@ -2,14 +2,9 @@
 //Shader That made this possible + Idea by LeoTheDev
 using DREditor.EventObjects;
 using System.Collections;
-using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
-using UnityEngine.Rendering.Universal;
-using static UnityEngine.InputSystem.InputAction;
 
 /// <summary>
 /// Manager that handles the outlining of selectable DR objects
@@ -79,7 +74,7 @@ public class ObserveManager : MonoBehaviour
         {
             RaycastReticle.canSelect = false;
             observing = !observing;
-            
+
             StartCoroutine(ObserveOn(observing));
         }
     }
@@ -89,7 +84,7 @@ public class ObserveManager : MonoBehaviour
         {
             observing = !observing;
             StartCoroutine(ObserveOn(observing));
-            if(Door.inLeaveProcess)
+            if (Door.inLeaveProcess)
                 DialogueAssetReader.OnDialogueEnd += FixRetIssue;
         }
     }
@@ -98,7 +93,7 @@ public class ObserveManager : MonoBehaviour
         DialogueAssetReader.OnDialogueEnd -= FixRetIssue;
         RaycastReticle.canSelect = true;
     }
-    
+
     void SetOff()
     {
         DialogueAssetReader.OnDialogueEnd -= FixRetIssue;
@@ -121,19 +116,19 @@ public class ObserveManager : MonoBehaviour
     {
         Debug.LogWarning("Observe Called " + to);
         ChangingObserve = true;
-        if(!GameSaver.LoadingFile)
+        if (!GameSaver.LoadingFile)
             GlobalFade.instance.FadeTo(fadeToTime);
 
         yield return new WaitForSeconds(fadeToTime);
         renderObject.SetActive(to);
-        if(to)
+        if (to)
             rendererData.opaqueLayerMask &= ~1;
         else
             rendererData.opaqueLayerMask |= 1;
         if (!GameSaver.LoadingFile)
             GlobalFade.instance.FadeOut(fadeOutTime);
         yield return new WaitForSeconds(fadeOutTime);
-        if(!inDialogue.Value)
+        if (!inDialogue.Value)
             RaycastReticle.canSelect = true;
         if (to)
             SoundManager.instance.PlayObserve();

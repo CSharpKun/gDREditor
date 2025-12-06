@@ -1,15 +1,9 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DG.Tweening;
 using DREditor.Dialogues;
 using DREditor.Gates;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using System.Linq;
-using static UnityEngine.InputSystem.InputAction;
 
 public class Door : MonoBehaviour, IDialogueHolder
 {
@@ -40,7 +34,7 @@ public class Door : MonoBehaviour, IDialogueHolder
     public static event DoorDelegate OnLeaveAsk;
     public static event DoorDelegate OnDidntLeave;
     DRControls _controls;
-    
+
     private void Awake()
     {
 #if ENABLE_INPUT_SYSTEM
@@ -95,7 +89,7 @@ public class Door : MonoBehaviour, IDialogueHolder
         if (!inLeaveProcess && !ObserveManager.ChangingObserve)
             LockCheck();
         //else
-            //Debug.LogWarning("In Leave Process");
+        //Debug.LogWarning("In Leave Process");
     }
     void LockCheck()
     {
@@ -118,7 +112,7 @@ public class Door : MonoBehaviour, IDialogueHolder
     {
         // if Locked and has lock dialogue
         //Debug.Log("Bool 1 for checking the lock is: " + (data.lockData.locked) + " " + 
-            //(!data.lockData.IsUnlocked() && data.lockData.lockDialogue.Count > 0));
+        //(!data.lockData.IsUnlocked() && data.lockData.lockDialogue.Count > 0));
         if (data.lockData.locked || !data.lockData.IsUnlocked())
         {
             Debug.Log("Door is Locked and has Lock Dialogue");
@@ -136,7 +130,7 @@ public class Door : MonoBehaviour, IDialogueHolder
             PassedLock();
         }
         //Debug.Log("Bool 2 for checking the lock is: " + data.lockData.IsUnlocked());
-        
+
     }
     void PassedLock()
     {
@@ -182,7 +176,7 @@ public class Door : MonoBehaviour, IDialogueHolder
     void ChangeRoomAtEnd()
     {
         Debug.Log("Changing Room");
-        
+
         ChangeRoom();
         DialogueAssetReader.OnDialogueEnd -= ChangeRoomAtEnd;
     }
@@ -217,7 +211,7 @@ public class Door : MonoBehaviour, IDialogueHolder
         GameObject.Find("Main Camera").GetComponent<DREditor.Camera.SmoothMouseLook>().enabled = false;
         // TO-DO: Wait for this to finish then load the level? Because it kinda freezes when doing this
         //DialogueAnimConfig.instance.ReticleCanvas.enabled = false;
-        
+
         RoomLoader.instance.ChangeRoom(setGateway, data.options);
     }
     void DummyNoOption()
@@ -228,7 +222,7 @@ public class Door : MonoBehaviour, IDialogueHolder
         inLeaveProcess = false;
         OnDidntLeave?.Invoke();
     }
-    
+
     public DoorData Save()
     {
         data.doorName = gameObject.name;
@@ -260,7 +254,7 @@ public class Door : MonoBehaviour, IDialogueHolder
 
     public void CheckIfSaveDialogue()
     {
-        if(data.lockData != null)
+        if (data.lockData != null)
         {
             foreach (LocalDialogue d in data.lockData.lockDialogue)
             {
@@ -287,7 +281,7 @@ public class DoorData
     {
         DoorData copy = (DoorData)baseD.Clone();
         copy.identified = ins.identified;
-        
+
         return copy;
     }
     public object Clone()

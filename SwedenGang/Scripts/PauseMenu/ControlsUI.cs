@@ -1,14 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.EventObjects;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using DREditor.PlayerInfo;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
-using TMPro;
+using System.Collections;
 
 public class ControlsUI : MonoBehaviour
 {
@@ -61,7 +54,7 @@ public class ControlsUI : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(gameObject);
-        
+
 #if ENABLE_INPUT_SYSTEM
         _controls = new DRControls();
 #endif
@@ -96,7 +89,7 @@ public class ControlsUI : MonoBehaviour
         Canvas.enabled = false;
     }
 
-    ControlsUIPanel FetchActivePanel() 
+    ControlsUIPanel FetchActivePanel()
     {
         //Get teh active paanel here
         // return database.GetPanel(ControlsName);
@@ -119,7 +112,7 @@ public class ControlsUI : MonoBehaviour
     void EvaluateControls(CallbackContext context)
     {
         //Debug.LogWarning("Evaluate Pause Called");
-        if (PlayerInfo.instance.Info.pauseAccess && !TrialManager.InMinigame && !Canvas.enabled && !GameManager.instance.cantBeInMenu 
+        if (PlayerInfo.instance.Info.pauseAccess && !TrialManager.InMinigame && !Canvas.enabled && !GameManager.instance.cantBeInMenu
             && !Door.inLeaveProcess
             && !InMenu.Value && !ObserveManager.ChangingObserve && !Override)
         {
@@ -129,7 +122,7 @@ public class ControlsUI : MonoBehaviour
     void Activate()
     {
         m_activePanel = FetchActivePanel();
-        if(m_activePanel == null)
+        if (m_activePanel == null)
         {
             Debug.LogWarning("ACTIVE PANEL FOR CONTROLS UI WAS NULL");
             return;
@@ -152,7 +145,7 @@ public class ControlsUI : MonoBehaviour
     }
     IEnumerator Resume()
     {
-        
+
         yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
         _controls.UI.Cancel.started -= UnPause;
         _controls.Minigame.Move.performed -= SwitchMenus;
@@ -171,7 +164,7 @@ public class ControlsUI : MonoBehaviour
         _controls.UI.Controls.started -= EvaluateControls;
         _controls.Minigame.Move.performed -= SwitchMenus;
     }
-    void SwitchMenus(InputAction.CallbackContext context) 
+    void SwitchMenus(InputAction.CallbackContext context)
     {
         if (disableSystemTab)
             return;
@@ -184,7 +177,7 @@ public class ControlsUI : MonoBehaviour
         SoundManager.instance.PlaySFX(SwitchSFX);
         UpdateMenu();
     }
-    void UpdateMenu() 
+    void UpdateMenu()
     {
         if (!m_panelBuilt) //No need to rebuild the panel when switching between Controls and System
         {

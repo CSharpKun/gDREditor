@@ -1,9 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DREditor.TrialEditor;
+using System.Collections.Generic;
 
 namespace TruthBulletSelect
 {
@@ -11,11 +9,11 @@ namespace TruthBulletSelect
     [CreateAssetMenu(menuName = "DREditor/Minigames/Truth Bullet Select", fileName = "TBS Asset")]
     public class TBSelectBuilder : MinigameBuilderBase
     {
-        [Range(0,6)]
+        [Range(0, 6)]
         public int chapter = 0;
         public int damageOnWrong = 1;
         public float timerMinutes;
-        [Range(0,59)]
+        [Range(0, 59)]
         public float timerSeconds;
         public string question;
         //public TrialDialogue endDialogue;

@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using DREditor.Utility.Editor;
 [CustomEditor(typeof(TrialBuilder))]
 public class TrialBuilderEditor : Editor
 {
@@ -32,7 +27,7 @@ public class TrialBuilderEditor : Editor
             return;
         }
 
-        if(tb.TrialSequences.Count == 0)
+        if (tb.TrialSequences.Count == 0)
         {
             if (GUILayout.Button("Add a new part of the trial!"))
             {
@@ -60,14 +55,14 @@ public class TrialBuilderEditor : Editor
                 tb.TrialSequences.Add(new TrialBuilder.TrialSequence());
             }
         }
-        
+
         tb.EndSceneName = HandyFields.StringField("End Scene Name: ", tb.EndSceneName, null, 130);
         using (new EditorGUILayout.HorizontalScope())
         {
             GUILayout.Label("End Gate: ");
             tb.EndGate = HandyFields.UnityField(tb.EndGate, 120, 30);
         }
-        
+
     }
 
     public void ShowSequenceInfo(TrialBuilder.TrialSequence sequence, int i)
@@ -93,7 +88,7 @@ public class TrialBuilderEditor : Editor
             {
                 GUILayout.Label("Minigame Asset: ", GUILayout.Width(100));
                 sequence.MinigameAsset = HandyFields.UnityField<ScriptableObject>(sequence.MinigameAsset, 180, 20);
-                
+
             }
 
             /*
@@ -164,7 +159,7 @@ public class TrialBuilderEditor : Editor
             GUILayout.Space(25f);
             GUILayout.FlexibleSpace();
 
-            
+
 
             if (GUILayout.Button(new GUIContent("+", "Add a new Line below."), GUILayout.Width(20)))
             {

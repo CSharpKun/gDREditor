@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using TMPro;
-
 using DREditor.Localization;
+using System.Collections.Generic;
 
 namespace DREditor.UI
 {
@@ -25,7 +20,7 @@ namespace DREditor.UI
         public TranslatableText GetTranslatableForLabel(TMP_Text label)
         {
             TranslatableText result = null;
-            if(labelTextMap != null && labelTextMap.ContainsKey(label))
+            if (labelTextMap != null && labelTextMap.ContainsKey(label))
             {
                 result = labelTextMap[label];
             }
@@ -39,12 +34,12 @@ namespace DREditor.UI
 
         private void InitMap()
         {
-            if(labelMapList != null && labelMapList.Count > 0)
+            if (labelMapList != null && labelMapList.Count > 0)
             {
                 labelTextMap = new Dictionary<TMP_Text, TranslatableText>();
-                foreach(var item in labelMapList)
+                foreach (var item in labelMapList)
                 {
-                    if(item != null && item.label != null && item.text != null)
+                    if (item != null && item.label != null && item.text != null)
                     {
                         labelTextMap[item.label] = item.text;
                     }

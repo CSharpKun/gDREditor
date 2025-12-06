@@ -1,6 +1,5 @@
-﻿
+
 using DREditor.EventObjects;
-using UnityEngine;
 
 
 namespace DREditor.Camera

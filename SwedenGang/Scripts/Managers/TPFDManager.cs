@@ -1,8 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Camera;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// Manipulates the PnC Camera On the player, should be on separate game object in the scene
@@ -39,7 +36,7 @@ public class TPFDManager : MonoBehaviour
     public static event IntDel Cancel;
     public static event IntDel UnCancel;
     public static bool SetCamAtStart = false;
-    
+
     public void StartEarly() => Start();
     private void Start()
     {
@@ -49,7 +46,7 @@ public class TPFDManager : MonoBehaviour
         cam = mainCamera.GetComponent<PnCCamera>();
         protag = GameObject.Find("Protag Camera").GetComponent<Camera>();
         SetCamera();
-        if(setProtag)
+        if (setProtag)
             SetProtag();
     }
     private void Update()
@@ -68,7 +65,7 @@ public class TPFDManager : MonoBehaviour
         Do(Down, 1);
         Do(Left, 2);
         Do(Right, 3);
-        
+
     }
     private void Do(bool b, int d)
     {

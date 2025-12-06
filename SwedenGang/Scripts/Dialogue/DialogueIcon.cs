@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class DialogueIcon : MonoBehaviour
 {
     //[SerializeField] Image image = null;
@@ -28,7 +23,7 @@ public class DialogueIcon : MonoBehaviour
     }
     public void ResetAnimator()
     {
-        if(animator != null)
+        if (animator != null)
             animator.Rebind();
     }
 

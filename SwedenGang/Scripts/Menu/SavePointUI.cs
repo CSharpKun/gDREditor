@@ -1,10 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class SavePointUI : MonoBehaviour
@@ -28,8 +25,8 @@ public class SavePointUI : MonoBehaviour
     {
         GameManager.instance.cantBeInMenu = true;
         //if (GameManager.instance.currentMode != GameManager.Mode.Trial)
-            //GameManager.instance.ChangeMode(GameManager.Mode.Trial);
-        
+        //GameManager.instance.ChangeMode(GameManager.Mode.Trial);
+
 #if ENABLE_INPUT_SYSTEM
         _controls = new DRControls();
 #endif
@@ -47,7 +44,7 @@ public class SavePointUI : MonoBehaviour
         _controls.Disable();
 #endif
     }
-#endregion
+    #endregion
 
     void Start()
     {
@@ -56,7 +53,7 @@ public class SavePointUI : MonoBehaviour
             foreach (SavePoint s in savePoints)
                 saves.Add(s.objective, s.scene);
         }
-        
+
 
         if (debugMode)
             StartSavePoint();
@@ -99,7 +96,7 @@ public class SavePointUI : MonoBehaviour
             group.OnBack.AddListener(a);
             group.OnBack.AddListener(b);
         }
-        
+
     }
     public void EvaluateSaveDirection()
     {
@@ -109,7 +106,7 @@ public class SavePointUI : MonoBehaviour
     IEnumerator MoveToPoint()
     {
         string scene = menuSceneName;
-        
+
         try
         {
             scene = saves[ProgressionManager.instance.CurrentObjective.Description];
@@ -132,7 +129,7 @@ public class SavePointUI : MonoBehaviour
             EvaluateSavePointSettings();
             SceneManager.LoadSceneAsync(scene);
         }
-        
+
         yield break;
     }
     public void EvaluateSavePointSettings()

@@ -1,13 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using DG.Tweening;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
 public class PopUp : MenuGroup
 {
@@ -23,14 +15,14 @@ public class PopUp : MenuGroup
     [SerializeField] Selectable One;
     [SerializeField] Selectable Two;
     //[SerializeField] Animator animator = null;
-    
+
 
     public override void Start()
     {
         One.enabled = false;
         Two.enabled = false;
         UIHandler.ToTitle += RemoveBackInput;
-        
+
     }
     public MenuGroup GetBackGroup() => backGroup;
     public override void Reveal()
@@ -51,7 +43,7 @@ public class PopUp : MenuGroup
         EventSystem.current.SetSelectedGameObject(First);
         UIHandler.instance.current = First;
         AddBackInput();
-        
+
         SoundManager.instance.PlayPopUp();
         StartEvents?.Invoke();
     }
@@ -69,7 +61,7 @@ public class PopUp : MenuGroup
         Question.DOFade(0, 1).SetUpdate(true);
         ChoiceOne.DOFade(0, 1).SetUpdate(true);
         ChoiceTwo.DOFade(0, 1).SetUpdate(true);
-        
+
         RemoveBackInput();
 
         if (backGroup)
@@ -78,7 +70,7 @@ public class PopUp : MenuGroup
             backGroup.EvaluateSelect();
             //EventSystem.current.SetSelectedGameObject(backGroup.first);
         }
-        
+
         EndEvents?.Invoke();
     }
     public override void BackGroup(InputAction.CallbackContext context)

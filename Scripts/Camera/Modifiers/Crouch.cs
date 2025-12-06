@@ -1,12 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
-using UnityEngine.InputSystem;
-
 namespace DREditor.Camera
 {
-    
+
     [RequireComponent(typeof(CharacterController))]
     public class Crouch : MonoBehaviour
     {
@@ -29,7 +23,7 @@ namespace DREditor.Camera
             _controls = new DRControls();
 #endif
         }
-        
+
         private void OnEnable()
         {
 #if ENABLE_INPUT_SYSTEM
@@ -70,7 +64,7 @@ namespace DREditor.Camera
 
         void Update()
         {
-            
+
             _characterController.height = Mathf.Lerp(_characterController.height, targetHeight, CrouchOmega * Time.deltaTime);
 
             //ETween.Step(_characterController.height, targetHeight, CrouchOmega);

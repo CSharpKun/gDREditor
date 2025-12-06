@@ -1,8 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class HitboxActuator : ActuatorBase, IActuator
 {
@@ -37,7 +34,7 @@ public class HitboxActuator : ActuatorBase, IActuator
     public void Load(object ob)
     {
         Actuator = (Actuator)Convert.ChangeType(ob, typeof(Actuator));
-        
+
         Debug.Log(Actuator.Triggered);
         transform.position = Actuator.position;
         Hitbox = gameObject.AddComponent<BoxCollider>();

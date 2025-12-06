@@ -1,12 +1,9 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Characters;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using UnityEngine;
 using DREditor.Progression;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -103,8 +100,8 @@ public class RoomManager : MonoBehaviour
                 SubAreaLoader.Load(room.subAreas);
                 DoorLoader.Load(room.doorDatas);
             }
-            
-            
+
+
             MoveLoader.Load(room.moveDatas);
         }
 
@@ -127,7 +124,7 @@ public class RoomManager : MonoBehaviour
         {
             Debug.Log("Couldn't find Base Room data for Objective: " + pValue.Description +
                 " , Checking for Room Shell.");
-            if(Builder.Shell.Count != 0)
+            if (Builder.Shell.Count != 0)
             {
                 Debug.Log("Shell Data has been found! Loading Shell...");
                 baseRoom = Builder.Shell[0];
@@ -247,7 +244,7 @@ public class RoomManager : MonoBehaviour
         for (int i = 0; i < x.Length; i++)
         {
             GameObject item = x[i].gameObject;
-            if (item != null) 
+            if (item != null)
             {
                 ItemData a = new ItemData(item, x[i]);
                 itemList.Add((ItemData)a.Clone());
@@ -260,8 +257,8 @@ public class RoomManager : MonoBehaviour
     public void LoadItems(RoomData room, RoomData instanceRoom = null)
     {
         List<ItemData> roomDataItems = room.itemList;
-        
-        
+
+
         ItemActor[] foundItems = (ItemActor[])FindObjectsOfType(typeof(ItemActor));
 
         if (foundItems.Length == 0)
@@ -271,7 +268,7 @@ public class RoomManager : MonoBehaviour
 
         for (int i = 0; i < foundItems.Length; i++)
         {
-            for(int j = 0; j < room.itemList.Count; j++)
+            for (int j = 0; j < room.itemList.Count; j++)
             {
                 if (foundItems[i].gameObject.name == roomDataItems[j].iReference)
                 {
@@ -282,7 +279,7 @@ public class RoomManager : MonoBehaviour
                     if (instanceRoom != null)
                     {
                         Debug.Log("FoundInstanceItem");
-                        for(int l = 0; l < item.RoomConvo.Count; l++)
+                        for (int l = 0; l < item.RoomConvo.Count; l++)
                         {
                             try
                             {
@@ -304,7 +301,7 @@ public class RoomManager : MonoBehaviour
     {
         //GameObject g = new GameObject();
         // when something is built itll take the object and convert it there
-        if(room != null && room.actorList != null && room.actorList.Count != 0)
+        if (room != null && room.actorList != null && room.actorList.Count != 0)
         {
             List<ActorData> actors = room.actorList;
             for (int i = 0; i < actors.Count; i++)
@@ -337,12 +334,12 @@ public class RoomManager : MonoBehaviour
 
             }
         }
-        
+
         Debug.Log("Finished Loading Actors");
     }
     ActorData GetCorrectInst(List<ActorData> instList, string nameLook)
     {
-        for(int i = 0; i < instList.Count; i++)
+        for (int i = 0; i < instList.Count; i++)
         {
             if (instList[i].aReference == nameLook)
                 return instList[i];
@@ -358,7 +355,7 @@ public class RoomManager : MonoBehaviour
         loaded.transform.eulerAngles = actorData.rotation;
         Actor a = loaded.GetComponentInChildren<Actor>();
         a.RoomConvo = new List<LocalDialogue>();
-        for(int i = 0; i < actorData.aData.Count; i++)
+        for (int i = 0; i < actorData.aData.Count; i++)
         {
             a.RoomConvo.Add((LocalDialogue)actorData.aData[i].Clone());
         }
@@ -387,8 +384,8 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }*/
-        
-        
+
+
         if (instanceData != null)
         {
             Character character = DialogueAssetReader.instance.FindChar(actorData.aReference);
@@ -400,12 +397,12 @@ public class RoomManager : MonoBehaviour
                 Debug.Log(i);
                 a.RoomConvo[i].triggered = instanceData.aData[i].triggered;
             }
-            
+
             Debug.Log("MAT NAME WAS: " + instanceData.matName);
             for (int i = 0; i < character.Expressions.Count; i++)
             {
                 Expression exp = character.Expressions[i];
-                
+
                 if (instanceData.matName.Contains(exp.Sprite.name))
                 {
                     Debug.Log(exp.Sprite.name);
@@ -421,7 +418,7 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
-    
+
     public void UnLoadActors(bool inEditor)
     {
         // Add pop up window that says "Are you sure you want to unload actors? this will remove ALL actors in the scene."
@@ -459,7 +456,7 @@ public class RoomManager : MonoBehaviour
             Destroy(b.gameObject);
 #endif
     }
-#endregion
+    #endregion
 
     public List<GameObject> SaveSpawnables()
     {
@@ -519,7 +516,7 @@ public class RoomManager : MonoBehaviour
         // Find game object of type (Monobehavior to spawn)
         // If in editor it should be destroy immediate otherwise destroy
         var spawns = FindObjectsOfType<Spawnable>();
-        foreach(Spawnable s in spawns)
+        foreach (Spawnable s in spawns)
         {
             if (inEditor)
                 DestroyImmediate(s.gameObject);

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using DREditor.EventObjects;
-using UnityEngine;
-using UnityEngine.Events;
 
 public class SceneEventListener : MonoBehaviour
 {
@@ -29,5 +25,5 @@ public class SceneEventListener : MonoBehaviour
         }
         Response.Invoke();
     }
-    
+
 }

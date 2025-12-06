@@ -1,16 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.InputSystem;
 using DREditor.Gates;
 using DREditor.PlayerInfo;
+using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
@@ -24,7 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] MenuGroup firstGroup = null;
     [SerializeField] AudioClip Music = null;
     [SerializeField] AudioClip continueGame = null;
-    
+
     [HideInInspector] public GameObject current;
 
     [SerializeField] int SaveSlotNums = 31;
@@ -42,13 +33,13 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         GameObject o = GameObject.Find(mainUIObject);
-        if(o)
+        if (o)
             o.GetComponent<Animator>().Play("HideMainUI");
 
     }
     private void Start()
     {
-        
+
         GameManager.instance.cantBeInMenu = true;
         UIHandler.ReachedTitleScreen();
         if (!GameSaver.FirstTimeLoaded && GameSaver.CurrentGameData == null) // Not loading from an already started session of the game
@@ -75,18 +66,18 @@ public class MainMenu : MonoBehaviour
             StartCoroutine(IntroAnim());
         }
     }
-    
+
     IEnumerator IntroAnim()
     {
         yield return new WaitForSecondsRealtime(0.5f);
         Time.timeScale = 1;
-        
-        
+
+
         //yield return new WaitForSeconds(1);
         Debug.Log("Animator triggers called");
-        if(LogoAnim)
+        if (LogoAnim)
             LogoAnim.SetTrigger("LogoBG");
-        
+
         SoundManager.instance.ClearText();
         yield return new WaitForSeconds(1f);
         if (GlobalFade.instance.IsDark)
@@ -123,7 +114,7 @@ public class MainMenu : MonoBehaviour
         StartedOnNewGame = true;
         GameManager.StartNewGameFile();
         //if(NewGameT != null)
-            //SelectMenuItem(NewGameT.gameObject);
+        //SelectMenuItem(NewGameT.gameObject);
     }
     public void CheckForLoadFiles()
     {
@@ -188,7 +179,7 @@ public class MainMenu : MonoBehaviour
         GameSaver.ApplyMainData();
         StartCoroutine(FadeIntoLoadedGame());
         SoundManager.instance.PlaySFX(continueGame);
-        
+
         // Fade into game
         // Load the Room of RoomInstanceManager.data.CurrentRoom.name
     }
@@ -218,7 +209,7 @@ public class MainMenu : MonoBehaviour
 
         RoomLoader.instance.SetCurrentRoomData(GameSaver.CurrentGameData.RoomData, ADB.GetArea(RoomInstanceManager.instance.data.CurrentRoom.Name));
         SceneManager.LoadScene(RoomInstanceManager.instance.data.CurrentRoom.Name);
-        
+
         yield break;
     }
     IEnumerator FadeIntoGame() // For New Game Scenario
@@ -234,7 +225,7 @@ public class MainMenu : MonoBehaviour
         RoomLoader.instance.RoomsCanLoad();
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(GoToScene);
         Debug.Log(asyncOperation.priority);
-        
+
         yield break;
     }
     public void StartNewGame()
@@ -274,7 +265,7 @@ public class MainMenu : MonoBehaviour
     }
     bool LoadGameCheck()
     {
-        for(int i = 0; i < SaveSlotNums; i++)
+        for (int i = 0; i < SaveSlotNums; i++)
         {
             if (SaveSystem.CheckSave("save" + i))
                 return true;

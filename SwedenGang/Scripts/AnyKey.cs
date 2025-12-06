@@ -1,12 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.InputSystem.Utilities;
-
 public class AnyKey : MonoBehaviour
 {
     //bool m_ButtonPressed = false;
@@ -22,17 +14,17 @@ public class AnyKey : MonoBehaviour
         //bool m_ButtonPressed = false;
         if (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
             return;
-        
+
         var controls = device.allControls;
         var buttonPressPoint = InputSystem.settings.defaultButtonPressPoint;
         for (var i = 0; i < controls.Count; ++i)
         {
             var control = controls[i] as ButtonControl;
-            if(control != null)
+            if (control != null)
             {
                 control.ReadValueFromEvent(eventPtr, out var test);
                 //Debug.Log("value: " + test);
-                
+
             }
             if (control == null || control.synthetic || control.noisy)
                 continue;
@@ -45,8 +37,8 @@ public class AnyKey : MonoBehaviour
                 break;
             }
         }
-        
-        
+
+
     }
     public void Hide()
     {

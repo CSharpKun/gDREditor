@@ -1,9 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DREditor.Dialogues;
 using System;
+using System.Collections.Generic;
 
 public class DialogueSubsequent : SubsequentBase, ISubsequent, IDialogueHolder
 {
@@ -11,7 +9,7 @@ public class DialogueSubsequent : SubsequentBase, ISubsequent, IDialogueHolder
 
     public void CheckIfSaveDialogue()
     {
-        foreach(Dialogue d in dialogues)
+        foreach (Dialogue d in dialogues)
         {
             DialogueData.CheckDialogue(d);
         }

@@ -1,8 +1,3 @@
-using DREditor.Utility.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using MultipleChoice;
 
 [CustomEditor(typeof(MultipleChoiceBuilder))]
@@ -41,7 +36,7 @@ public class MultipleChoiceBuilderEditor : Editor
                 mcb.choices[i].text = HandyFields.StringField("Choice Text: ", mcb.choices[i].text);
                 EditorGUILayout.LabelField("Is Answer: ", GUILayout.Width(70));
                 mcb.choices[i].isAnswer = EditorGUILayout.Toggle(mcb.choices[i].isAnswer);
-                
+
             }
             if (!mcb.choices[i].isAnswer)
             {
@@ -51,7 +46,7 @@ public class MultipleChoiceBuilderEditor : Editor
                     mcb.choices[i].wrongDialogue = HandyFields.UnityField(mcb.choices[i].wrongDialogue, 170, 25);
                 }
             }
-            else if(mcb.choices[i].isAnswer && mcb.choices[i].wrongDialogue != null)
+            else if (mcb.choices[i].isAnswer && mcb.choices[i].wrongDialogue != null)
             {
                 mcb.choices[i].wrongDialogue = null;
             }

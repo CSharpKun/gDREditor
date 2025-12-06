@@ -1,21 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using DREditor.EventObjects;
-using UnityEngine;
-using DREditor;
-using UnityEngine.InputSystem;
 
 
 namespace DREditor.Camera
 {
     public class CameraBehaviour : MonoBehaviour
     {
-        public bool DR_Style => PlayerInfo.PlayerInfo.instance != null?
+        public bool DR_Style => PlayerInfo.PlayerInfo.instance != null ?
             PlayerInfo.PlayerInfo.instance.settings.DRCameraPan : DR_Cam;
         [SerializeField] bool DR_Cam = false;
         public Crouch CrouchModifier;
         public Headbobbing HeadbobbingModifier;
-        public bool HeadbobbingEnabled => PlayerInfo.PlayerInfo.instance != null?
+        public bool HeadbobbingEnabled => PlayerInfo.PlayerInfo.instance != null ?
             PlayerInfo.PlayerInfo.instance.settings.MovementBob : Bobbing;
         [SerializeField] bool Bobbing = true;
         public FollowPlayer FollowPlayerModifier;

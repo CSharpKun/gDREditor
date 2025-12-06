@@ -1,12 +1,9 @@
-using DREditor.TrialEditor;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
-using static UnityEngine.InputSystem.InputAction;
 
-public class RegulationsMenu : MonoBehaviour { // Code by Willy Bee
+public class RegulationsMenu : MonoBehaviour
+{ // Code by Willy Bee
 
     [SerializeField] List<Regulation> regulations = null;
     [SerializeField] int regIndex;
@@ -20,35 +17,42 @@ public class RegulationsMenu : MonoBehaviour { // Code by Willy Bee
     private void Awake() => _controls = new DRControls();
     private void OnEnable() => _controls.Enable();
     private void OnDisable() => _controls.Disable();
-    
+
     public void ActivateControls() => _controls.UI.Navigate.performed += changeRegulation;
     public void DeactivateControls() => _controls.UI.Navigate.performed -= changeRegulation;
 
-    private void Start() {
+    private void Start()
+    {
         regulations = MasterDatabase.GetRegulations();
         resetIndex();
     }
 
-    public void resetIndex() {
+    public void resetIndex()
+    {
         regIndex = 0;
         setArrows();
         ruleImg.sprite = regulations[0].regulationImg;
         ruleDesc.sprite = regulations[0].regulationDesc;
     }
 
-    private void changeRegulation(CallbackContext context) {
+    private void changeRegulation(CallbackContext context)
+    {
         Vector2 nav = _controls.UI.Navigate.ReadValue<Vector2>();
-        
-        if (nav.x > 0.5f && regIndex < regulations.Count - 1) {
+
+        if (nav.x > 0.5f && regIndex < regulations.Count - 1)
+        {
             StartCoroutine(changeRegSequence(1));
-        } else if (nav.x < -0.5f && regIndex > 0) {
+        }
+        else if (nav.x < -0.5f && regIndex > 0)
+        {
             StartCoroutine(changeRegSequence(-1));
         }
     }
 
-    public IEnumerator changeRegSequence(int direction) {
+    public IEnumerator changeRegSequence(int direction)
+    {
         _controls.Disable();
-        
+
         yield return new WaitForEndOfFrame();
 
         ruleImg.transform.DOLocalMoveX(direction * -50f, 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
@@ -76,17 +80,25 @@ public class RegulationsMenu : MonoBehaviour { // Code by Willy Bee
         _controls.Enable();
     }
 
-    public void setArrows() {
-        if (regulations.Count < 2) { 
+    public void setArrows()
+    {
+        if (regulations.Count < 2)
+        {
             leftArrow.DOFade(0.3f, 0.3f).SetUpdate(true);
             rightArrow.DOFade(0.3f, 0.3f).SetUpdate(true);
-        } else if (regIndex == 0) {
+        }
+        else if (regIndex == 0)
+        {
             leftArrow.DOFade(0.3f, 0.3f).SetUpdate(true);
             rightArrow.DOFade(1f, 0.3f).SetUpdate(true);
-        } else if (regIndex == regulations.Count - 1) {
+        }
+        else if (regIndex == regulations.Count - 1)
+        {
             leftArrow.DOFade(1f, 0.3f).SetUpdate(true);
             rightArrow.DOFade(0.3f, 0.3f).SetUpdate(true);
-        } else {
+        }
+        else
+        {
             leftArrow.DOFade(1f, 0.3f).SetUpdate(true);
             rightArrow.DOFade(1f, 0.3f).SetUpdate(true);
         }

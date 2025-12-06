@@ -1,8 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 /// <summary>
 /// A Subsequent for Locking down an entire area (Global Lock)
@@ -22,7 +19,7 @@ public class LockSubsequent : SubsequentBase, ISubsequent
             InnerCall();
         }
         //else if (manager.GlobalLock)
-            //manager.GlobalLock = null;
+        //manager.GlobalLock = null;
         // Above Else If statement may need to be changed if there's a problem loading a file
         // Where the room has two global locks, one triggered, one not
     }

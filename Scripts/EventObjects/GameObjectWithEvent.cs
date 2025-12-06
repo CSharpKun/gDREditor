@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 namespace DREditor.EventObjects
 {

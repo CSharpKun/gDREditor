@@ -1,14 +1,12 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using DREditor.Dialogues;
 using DREditor.Progression;
+using System;
+using System.Collections.Generic;
 /// <summary>
 /// Serialize Actor data in the scene to be loaded later at runtime based on a progression value
 /// </summary>
-[Serializable][CreateAssetMenu(fileName = "Room", menuName = "RoomBuilder")]
+[Serializable]
+[CreateAssetMenu(fileName = "Room", menuName = "RoomBuilder")]
 public class RoomBuilder : ScriptableObject
 {
     public List<RoomData> Shell = new List<RoomData>();
@@ -30,7 +28,7 @@ public class RoomBuilder : ScriptableObject
                 }
                 */
             }
-            
+
         }
         catch
         {
@@ -39,7 +37,7 @@ public class RoomBuilder : ScriptableObject
         }
     }
 
-    
+
 }
 [Serializable]
 public class RoomSection

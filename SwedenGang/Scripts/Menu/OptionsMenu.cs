@@ -1,11 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.PlayerInfo;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -101,7 +96,7 @@ public class OptionsMenu : MonoBehaviour
         {
             PlayVoice();
         }
-        
+
         PlayerInfo.instance.settings.VoiceVolume = num;
     }
 

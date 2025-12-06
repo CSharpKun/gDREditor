@@ -1,10 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Camera;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
 /// <summary>
 /// Spot Selection Reticle
 /// </summary>
@@ -20,14 +14,14 @@ public class SSReticle : MonoBehaviour
     [SerializeField] bool locked = true;
     [SerializeField] bool useIconBool = false;
     [SerializeField] string iconString = "ItemIcon";
-    
+
     public static Vector3 Position = Vector3.zero;
     [SerializeField] string keyboardScheme = "KeyboardMouse";
     [SerializeField] float controllerSensitivity = 175;
     [SerializeField] string appearString = "Appear";
     [SerializeField] string hoverString = "IsSelected";
 
-    
+
     [SerializeField] AudioClip hoverSound = null;
 
 
@@ -106,7 +100,7 @@ public class SSReticle : MonoBehaviour
     }
     private void Start()
     {
-        
+
         if (debugMode)
             ShowReticle();
     }
@@ -120,9 +114,9 @@ public class SSReticle : MonoBehaviour
     {
         if (!locked)
             SetPosition();
-        
-        
-        
+
+
+
     }
     void SetPosition()
     {
@@ -132,16 +126,16 @@ public class SSReticle : MonoBehaviour
         }
         else
         {
-            
+
             Vector3 m = _controls.Player.Look.ReadValue<Vector2>() * controllerSensitivity; // read value
             Vector3 v = transform.position + m; // predicted
-            
+
             if (v.x < Screen.width && v.x > 0)
                 transform.position = new Vector3(v.x, transform.position.y, 0);
 
             if (v.y < Screen.height && v.y > 0)
                 transform.position = new Vector3(transform.position.x, v.y, 0);
-            
+
         }
 
         Position = transform.position;
@@ -169,7 +163,7 @@ public class SSReticle : MonoBehaviour
     public void HoverReticle(bool to)
     {
         isHovering = to;
-        if(isHovering && isShown)
+        if (isHovering && isShown)
             SoundManager.instance.PlaySFX(hoverSound);
         animator.SetBool(hoverString, isHovering);
         if (useIconBool)
@@ -177,7 +171,7 @@ public class SSReticle : MonoBehaviour
     }
     public void SetOptionals()
     {
-        
+
     }
     //public static void ShowOrHide() => ShowHideReticle?.Invoke();
     //public static void SetHover() => SetReticleHover?.Invoke();

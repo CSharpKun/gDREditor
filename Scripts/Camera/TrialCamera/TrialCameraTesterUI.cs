@@ -1,6 +1,4 @@
-﻿//Main UI Script for Trial Camera Script for debugging.
-using UnityEngine;
-using UnityEngine.UI;
+//Main UI Script for Trial Camera Script for debugging.
 using DREditor.Camera;
 
 namespace DREditor.Debug

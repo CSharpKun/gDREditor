@@ -1,11 +1,3 @@
-﻿using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Core.Easing;
-using DG.Tweening.Core.Enums;
-using DG.Tweening.Plugins.Core;
-using DG.Tweening.Plugins.Options;
-using TMPro;
-
 namespace CharTween
 {
     /// <summary>
@@ -18,7 +10,7 @@ namespace CharTween
 
         }
 
-        public override void SetFrom(TweenerCore<VertexGradient, VertexGradient, NoOptions> t,  bool isRelative)
+        public override void SetFrom(TweenerCore<VertexGradient, VertexGradient, NoOptions> t, bool isRelative)
         {
             var prevEndVal = t.endValue;
             t.endValue = t.getter();

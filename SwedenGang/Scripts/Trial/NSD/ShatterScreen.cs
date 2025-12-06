@@ -1,9 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 // LeotheDev also helped out a lot
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class ShatterScreen : MonoBehaviour
 {
@@ -21,9 +19,9 @@ public class ShatterScreen : MonoBehaviour
 
         // Compute Vertices
         List<Vector3> vertices = new List<Vector3>();
-        for(int x = 0; x < hResolution; x++)
+        for (int x = 0; x < hResolution; x++)
         {
-            for(int y = 0; y < vResolution; y++)
+            for (int y = 0; y < vResolution; y++)
             {
                 Vector3 offset = new Vector3(w * x, h * y);
                 Vector3[] v = GenerateQuad(w, h, offset - new Vector3(horizontalSize / 2, verticleSize / 2, 0)
@@ -31,14 +29,14 @@ public class ShatterScreen : MonoBehaviour
                 vertices.AddRange(v);
             }
         }
-        
+
 
         float asize = w + h / 2;
         RandomizeMesh(hResolution, vResolution, asize, vertices);
         mesh.vertices = vertices.ToArray();
 
         List<Vector2> uVs = new List<Vector2>();
-        for(int i = 0; i<vertices.Count; i++)
+        for (int i = 0; i < vertices.Count; i++)
         {
             Vector3 a = vertices[i];
             Vector2 b = GetUV(vertices[i]);
@@ -57,7 +55,7 @@ public class ShatterScreen : MonoBehaviour
 
         mesh.RecalculateBounds();
         targetMeshFilter.mesh = mesh;
-        
+
     }
 
     Vector3[] GenerateQuad(float w, float h, Vector3 offset)
@@ -85,7 +83,7 @@ public class ShatterScreen : MonoBehaviour
         int validConnections = (hRes - 1) * (vRes - 1);
         int a = vRes - 2;
         float localMaxOffset = maxOffset * averageSize;
-        for(int i = 0; i < validConnections; i++)
+        for (int i = 0; i < validConnections; i++)
         {
             // The vertices that we are suppose to move at each intersection
             int[] idxes = new int[6];
@@ -98,7 +96,7 @@ public class ShatterScreen : MonoBehaviour
             idxes[4] = vertIdx + idxOffset + 4;
             idxes[5] = vertIdx + idxOffset + 7;
             Vector3 point = (Vector3)Random.insideUnitCircle * localMaxOffset;
-            for(int x = 0; x < 6; x++)
+            for (int x = 0; x < 6; x++)
             {
                 int idx = idxes[x];
                 vertices[idx] += point;
@@ -129,5 +127,5 @@ public class ShatterScreen : MonoBehaviour
         return a / new Vector2(horizontalSize, verticleSize);
     }
 
-    
+
 }

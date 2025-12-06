@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Localization
 {
@@ -15,9 +13,9 @@ namespace DREditor.Localization
         public Dictionary<string, TranslatableText> GetTranslatablesMap()
         {
             Dictionary<string, TranslatableText> map = new Dictionary<string, TranslatableText>();
-            if(translatables != null && translatables.Count > 0)
+            if (translatables != null && translatables.Count > 0)
             {
-                foreach(TranslatableText text in translatables)
+                foreach (TranslatableText text in translatables)
                 {
                     map.Add(text.translationKey, text);
                 }
@@ -28,10 +26,10 @@ namespace DREditor.Localization
         public string[] GetTexts()
         {
             string[] texts = null;
-            if(translatables != null && translatables.Count > 0)
+            if (translatables != null && translatables.Count > 0)
             {
                 texts = new string[translatables.Count];
-                for(int i=0;i<translatables.Count;i++)
+                for (int i = 0; i < translatables.Count; i++)
                 {
                     texts[i] = translatables[i].Text;
                 }
@@ -46,7 +44,7 @@ namespace DREditor.Localization
             {
                 for (int i = 0; i < translatables.Count; i++)
                 {
-                    if(translationKey.Equals(translatables[i].translationKey))
+                    if (translationKey.Equals(translatables[i].translationKey))
                     {
                         index = i;
                         break;

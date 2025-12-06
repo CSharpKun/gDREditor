@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace DREditor.Characters
 {
     [System.Serializable]
-    public class LocalizedCharacter : ScriptableObject 
+    public class LocalizedCharacter : ScriptableObject
     {
         public Character original;
         public string translationKey;
@@ -19,7 +15,7 @@ namespace DREditor.Characters
             get
             {
                 string retVal = _FirstName;
-                if(string.IsNullOrEmpty(retVal) && original != null)
+                if (string.IsNullOrEmpty(retVal) && original != null)
                 {
                     retVal = original.FirstName;
                 }

@@ -1,11 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
 using DREditor.Dialogues.Events;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
-using System;
 
 [RequireComponent(typeof(Camera))]
 public class DiaCamEvents : MonoBehaviour
@@ -28,7 +24,7 @@ public class DiaCamEvents : MonoBehaviour
     {
         UIHandler.ToTitle -= ResetCamEvents;
     }
-    void CamToPosition(object values = null) 
+    void CamToPosition(object values = null)
     {
         CTPTuple data = (CTPTuple)values;
         GameObject obj = GameObject.Find(data.objectName);
@@ -59,7 +55,7 @@ public class DiaCamEvents : MonoBehaviour
                 dialogueCamera.transform.DORotate(obj.transform.eulerAngles, 1);
             }
         }
-        else 
+        else
         {
             // Figure out a way to make sure we're not in the middle of loading a scene
             Debug.LogWarning("Couldn't find object \"" + data.objectName + "\" In the current Scene: " + SceneManager.GetActiveScene().name);

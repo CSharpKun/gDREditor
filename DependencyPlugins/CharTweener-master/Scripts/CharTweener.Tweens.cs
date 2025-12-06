@@ -1,6 +1,4 @@
-﻿using DG.Tweening;
-using TMPro;
-using UnityEngine;
+using DG.Tweening;
 
 namespace CharTween
 {
@@ -14,7 +12,7 @@ namespace CharTween
             for (var i = 0; i < tweenPath.Length; ++i)
             {
                 var theta = Mathf.Lerp(0, 2 * Mathf.PI, i / (float)(tweenPath.Length - 1));
-                tweenPath[i] = new Vector3(radius*Mathf.Cos(theta), radius*Mathf.Sin(theta), 0);
+                tweenPath[i] = new Vector3(radius * Mathf.Cos(theta), radius * Mathf.Sin(theta), 0);
             }
 
             tweenPath[tweenPath.Length - 1] = new Vector3(radius, 0, 0);

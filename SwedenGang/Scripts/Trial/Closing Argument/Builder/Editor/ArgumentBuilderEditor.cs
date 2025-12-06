@@ -1,6 +1,3 @@
-using UnityEngine;
-using UnityEditor;
-
 [CustomEditor(typeof(ArgumentBuilder))]
 public class ArgumentBuilderEditor : Editor
 {
@@ -13,7 +10,7 @@ public class ArgumentBuilderEditor : Editor
     private int currentStock = 1; //Stock currently being previewed
 
 
-    
+
     private void OnEnable() => AB = target as ArgumentBuilder;
 
     #region Preview
@@ -23,9 +20,9 @@ public class ArgumentBuilderEditor : Editor
         return true;
     }
 
-    private void InitPreview() 
+    private void InitPreview()
     {
-        if (updatePreview) 
+        if (updatePreview)
         {
             if (_previewScene != null)
             {
@@ -41,7 +38,7 @@ public class ArgumentBuilderEditor : Editor
             cam.farClipPlane = 1000;
 
             var obj = Resources.Load<GameObject>("Trial/Closing Argument/PCA");
-            if(obj == null)
+            if (obj == null)
             {
                 return;
             }
@@ -51,19 +48,19 @@ public class ArgumentBuilderEditor : Editor
         }
     }
 
-    private Texture CreatePreviewTexture(GameObject obj) 
+    private Texture CreatePreviewTexture(GameObject obj)
     {
         _previewScene.BeginPreview(new Rect(0, 0, 1920, 1080), GUIStyle.none);
 
         var joe = _previewScene.InstantiatePrefabInScene(obj);
         joe.transform.position = new Vector3(0, 0, 0);
-        if( AB.pages.Count > 0 )
-            joe.transform.GetChild(0).GetComponent<CAPreviewInit>().InitArgument(AB,currentPage,currentStock);
+        if (AB.pages.Count > 0)
+            joe.transform.GetChild(0).GetComponent<CAPreviewInit>().InitArgument(AB, currentPage, currentStock);
         _previewScene.camera.Render();
         return _previewScene.EndPreview();
     }
 
-    private int GetTotalStock() 
+    private int GetTotalStock()
     {
         int stockCount = 0;
         for (int i = 0; i < AB.pages.Count; i++)
@@ -84,7 +81,7 @@ public class ArgumentBuilderEditor : Editor
             for (int j = 0; j < AB.pages[i].stock.Count; j++)
             {
                 stockCount++;
-                if(AB.pages[i].stock[j].Equals(stock))
+                if (AB.pages[i].stock[j].Equals(stock))
                 {
                     return stockCount;
                 }
@@ -93,7 +90,7 @@ public class ArgumentBuilderEditor : Editor
         return -1;
     }
 
-    private int GetStockIndex(ArgumentBuilder.Page page,bool first)
+    private int GetStockIndex(ArgumentBuilder.Page page, bool first)
     {
         int stockCount = 0;
         for (int i = 0; i < AB.pages.Count; i++)
@@ -121,11 +118,11 @@ public class ArgumentBuilderEditor : Editor
     {
         if (Event.current.type == EventType.Repaint && _previewTexture != null)
         {
-            GUI.DrawTexture(r, _previewTexture,ScaleMode.ScaleToFit,false);
+            GUI.DrawTexture(r, _previewTexture, ScaleMode.ScaleToFit, false);
         }
     }
 
-    public override void OnPreviewSettings() 
+    public override void OnPreviewSettings()
     {
         using (new EditorGUILayout.HorizontalScope())
         {
@@ -156,7 +153,7 @@ public class ArgumentBuilderEditor : Editor
                 GUILayout.Label("Previewing page " + currentPage);
             }
 
-            if (totalStock == 0) 
+            if (totalStock == 0)
             {
                 GUILayout.Label("No Stock to Preview");
             }
@@ -184,7 +181,7 @@ public class ArgumentBuilderEditor : Editor
             }
 
         }
-        
+
     }
 
     #endregion
@@ -239,7 +236,7 @@ public class ArgumentBuilderEditor : Editor
                 AB.pages.Add(new ArgumentBuilder.Page());
                 updatePreview = true;
             }
-            
+
         }
     }
 
@@ -299,8 +296,8 @@ public class ArgumentBuilderEditor : Editor
                                     int stockIndex = GetStockIndex(panel); //get index of removed stock
                                     page.stock.Remove(panel);
                                     updatePreview = true;
-                                    
-                                    if(currentStock !=1 && stockIndex < currentStock)
+
+                                    if (currentStock != 1 && stockIndex < currentStock)
                                         currentStock--;
                                 }
                             }
@@ -325,7 +322,7 @@ public class ArgumentBuilderEditor : Editor
                 if (currentPage != 1 && (pageNumber < currentPage || currentPage == AB.pages.Count))
                     currentPage -= 1;
 
-                if(currentStock != 1)
+                if (currentStock != 1)
                 {
                     int highPage;
                     if (currentStock > (highPage = GetStockIndex(page, false)))
@@ -338,7 +335,7 @@ public class ArgumentBuilderEditor : Editor
                 }
 
                 AB.pages.Remove(page);
-                if(currentStock <= 0)
+                if (currentStock <= 0)
                 {
                     currentStock = 1;
                 }
@@ -361,7 +358,7 @@ public class ArgumentBuilderEditor : Editor
         }
         GUILayout.Label(AssetPreview.GetAssetPreview(panel.panelShape));
 
-        EditorGUILayout.LabelField("Comic Panel", EditorStyles.helpBox,GUILayout.Width(70));
+        EditorGUILayout.LabelField("Comic Panel", EditorStyles.helpBox, GUILayout.Width(70));
 
         using (new EditorGUILayout.HorizontalScope())
         {
@@ -379,13 +376,13 @@ public class ArgumentBuilderEditor : Editor
             GUILayout.Space(15);
             EditorStyles.textField.wordWrap = true;
             GUILayout.Label(new GUIContent("Hint:", "Text displayed when the question panel is hovered."), GUILayout.Width(30));
-            
-            panel.questionText = EditorGUILayout.TextField(panel.questionText,GUILayout.Width(200),GUILayout.Height(35));
+
+            panel.questionText = EditorGUILayout.TextField(panel.questionText, GUILayout.Width(200), GUILayout.Height(35));
         }
 
         GUILayout.Space(10);
 
-        EditorGUILayout.LabelField("Stock Panel", EditorStyles.helpBox,GUILayout.Width(68));
+        EditorGUILayout.LabelField("Stock Panel", EditorStyles.helpBox, GUILayout.Width(68));
 
         using (new EditorGUILayout.HorizontalScope())
         {

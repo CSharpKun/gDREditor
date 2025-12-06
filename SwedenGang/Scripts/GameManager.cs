@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using DREditor.EventObjects;
 using System;
 
@@ -84,7 +79,7 @@ public class GameManager : MonoBehaviour
     }
     public void ChangeMode(Mode mode)
     {
-        
+
         currentMode = mode;
         try
         {
@@ -117,7 +112,7 @@ public class GameManager : MonoBehaviour
             InTPFD.Value = false;
         Debug.LogWarning("Setting TPFD to: " + InTPFD.Value);
     }
-    
+
     public bool CheckState(State state)
     {
         return currentState == state;
@@ -152,7 +147,7 @@ public class GameManager : MonoBehaviour
         instance.addState = data.addedState;
         instance.location = data.location;
     }
-    
+
 }
 
 [Serializable]

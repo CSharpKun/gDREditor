@@ -2,10 +2,6 @@
 // because if user has resizable window, then going full screen with alt+tab keeps that window aspect ratio (causes letterboxing, black borders)
 // this script takes highest available monitor resolution for full screen mode
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class FixFullScreenResolution : MonoBehaviour
 {
     int maxWidth = 1280;

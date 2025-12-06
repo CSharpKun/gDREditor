@@ -1,10 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.EventObjects;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 /// <summary>
 /// For selecting in 3D mode
 /// Requires: GameManager, SoundManager, Door 
@@ -180,7 +176,7 @@ public class RaycastReticle : MonoBehaviour
                 ray = characterCamera.ScreenPointToRay(Reticle.transform.position);
                 distance = tpfdDistance;
                 Cursor.visible = false;
-                
+
                 Cursor.lockState = CursorLockMode.Confined;
             }
             else
@@ -189,7 +185,7 @@ public class RaycastReticle : MonoBehaviour
                 distance = 1.5f;
                 Cursor.lockState = CursorLockMode.Locked;
             }
-            
+
             //Debug.LogWarning(ray);
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(ray, out hit, distance, uiLayer))
@@ -208,7 +204,7 @@ public class RaycastReticle : MonoBehaviour
             else if (Physics.Raycast(ray, out hit, distance, dialogueLayer))
             {
                 //Debug.LogWarning("Dialogue Hit");
-                if(!hovering)
+                if (!hovering)
                     SoundManager.instance.PlaySFX(hoverSound);
                 hovering = true;
                 //DialogueAssetReader.instance.reticleIcon.texture = speakIcon;
@@ -230,7 +226,7 @@ public class RaycastReticle : MonoBehaviour
                 hovering = true;
                 SetBool(speak, false);
                 ReticleVisual(hit, item);
-                
+
                 if (_controls.Player.Fire.triggered)
                 {
                     SetBool(confirmSelect, true);
@@ -253,11 +249,11 @@ public class RaycastReticle : MonoBehaviour
                 //Debug.LogWarning("Not hitting Anything");
                 //Physics.Raycast(ray, out hit, distance);
                 //if (hit.transform != null)
-                    //Debug.LogWarning(hit.transform.gameObject.name);
+                //Debug.LogWarning(hit.transform.gameObject.name);
                 if (hovering)
                 {
                     hovering = false;
-                    if(ItemDisplayer.instance)
+                    if (ItemDisplayer.instance)
                         ItemDisplayer.instance.HideName();
 
                 }
@@ -305,7 +301,7 @@ public class RaycastReticle : MonoBehaviour
         {
             SetBool(confirmSelect, true);
             hit.transform.SendMessage(message);
-            if(SoundManager.instance != null)
+            if (SoundManager.instance != null)
                 SoundManager.instance.PlaySFX(confirm);
         }
     }
@@ -327,9 +323,9 @@ public class RaycastReticle : MonoBehaviour
                     Reticle.transform.position = new Vector3(Reticle.transform.position.x, v.y, 0);
                 //Debug.LogWarning(Reticle.transform.position);
             }
-            
+
         }
-        
+
     }
     public void UnSelectVisual()
     {

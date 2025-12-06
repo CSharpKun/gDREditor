@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 /**
  * Utility Functions for DREditor Editors
  * Original Author: Jordi

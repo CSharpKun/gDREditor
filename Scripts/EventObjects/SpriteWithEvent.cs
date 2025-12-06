@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+using System;
 
 namespace DREditor.EventObjects
 {
@@ -8,10 +7,10 @@ namespace DREditor.EventObjects
     {
         public bool Resolve()
         {
-            return Value; 
+            return Value;
         }
     }
 
     [Serializable]
-    public class SpriteVariable : CachedVariable<SpriteWithEvent, Sprite, SpriteEvent> {}
+    public class SpriteVariable : CachedVariable<SpriteWithEvent, Sprite, SpriteEvent> { }
 }

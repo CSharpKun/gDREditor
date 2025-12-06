@@ -1,10 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class ScrollGroup : MenuGroup
 {
@@ -33,7 +29,7 @@ public class ScrollGroup : MenuGroup
         //Debug.LogWarning("Bounds Set");
         StartEvents.AddListener(SetContainerBounds);
         StartEvents.AddListener(AddScroll);
-        
+
         EndEvents.AddListener(RemoveScroll);
     }
     private int resolutionX;
@@ -61,7 +57,7 @@ public class ScrollGroup : MenuGroup
                 origin = container.localPosition;
             Debug.LogWarning("SCREEN WIDTH CHANGED AND SET BOUNDS");
             container.localPosition = Vector2.zero;
-            
+
             StartCoroutine(SetBounds());
 
             //midPoint = container.position.y;
@@ -126,7 +122,7 @@ public class ScrollGroup : MenuGroup
     {
         UIHandler.instance.OnChange.RemoveListener(Scroll);
     }
-    
+
     void Scroll() => Check();
     void Check()
     {
@@ -134,7 +130,7 @@ public class ScrollGroup : MenuGroup
 
         // check if outside the bounds of the mask
 
-        
+
         //Debug.Log(yPos + " " + midPoint + " " + top + " " + bottom + " ");
         if (yPos <= bottom)
             ScrollAnim(false);

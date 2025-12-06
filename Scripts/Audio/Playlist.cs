@@ -11,8 +11,8 @@ namespace gDREditor.Audio
         [Export] public Music[] Musics { get; set; }
 
         public string[] GetAudioTitles()
-        {            
-            return [..Musics.Select(m => m.Title)];
+        {
+            return [.. Musics.Select(m => m.Title)];
         }
 
         public AudioStream GetAudioStream(string title)

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 /**
  * Present Database Editor for DREditor
  * Original Author: KHeartz

@@ -1,10 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Utility.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
 namespace NSD.Editor
 {
     [CustomEditor(typeof(CBCAnim))]
@@ -33,27 +27,27 @@ namespace NSD.Editor
 
             cbc.startPosition = HandyFields.Vector3Field("Start Position: ", cbc.startPosition);
 
-            if(cbc.Anims.Count != 0)
+            if (cbc.Anims.Count != 0)
             {
-                for(int i = 0; i < cbc.Anims.Count; i++)
+                for (int i = 0; i < cbc.Anims.Count; i++)
                 {
                     DisplayAnim(cbc.Anims[i]);
                 }
             }
 
-            if(GUILayout.Button("Add Anim"))
+            if (GUILayout.Button("Add Anim"))
             {
                 cbc.Anims.Add(new CBCAnim.AnimModule());
             }
-            
+
         }
-        
+
         void DisplayAnim(CBCAnim.AnimModule module)
         {
             CBCAnim.CBCType old = module.type;
             module.type = (CBCAnim.CBCType)EditorGUILayout.EnumPopup(module.type);
 
-            if(module.data == null || module.type != old)
+            if (module.data == null || module.type != old)
             {
                 ConfigType(module);
             }
@@ -106,7 +100,7 @@ namespace NSD.Editor
                     module.data = new CBCAnim.FadeData();
                     break;
             }
-            
+
         }
         void DisplayBaseData(CBCAnim.AnimModuleData data)
         {

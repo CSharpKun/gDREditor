@@ -1,10 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Camera;
 using DREditor.FPC;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -34,7 +30,7 @@ public class PlayerManager : MonoBehaviour
     }
     private void Start()
     {
-        
+
         ogPos = protagCam.transform.localPosition;
         ogRot = protagCam.transform.localEulerAngles;
         ResetPlayer += ResetCameras;

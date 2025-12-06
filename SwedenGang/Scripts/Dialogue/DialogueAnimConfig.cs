@@ -1,25 +1,17 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
+using DREditor.Camera;
+using DREditor.Characters;
+using DREditor.Dialogues;
+using DREditor.Dialogues.Events;
+using DREditor.EventObjects;
+using DREditor.Gates;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-using DREditor.Dialogues;
-using DREditor.EventObjects;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Video;
-using DREditor.Characters;
 using System.Diagnostics;
-using System;
 using System.Linq;
 using Debug = UnityEngine.Debug;
-using DREditor.Dialogues.Events;
-using DREditor.Gates;
-using DREditor.Camera;
-using DREditor.FPC;
-using static UnityEngine.InputSystem.InputAction;
 
 public class DialogueAnimConfig : MonoBehaviour
 {
@@ -68,7 +60,7 @@ public class DialogueAnimConfig : MonoBehaviour
     [SerializeField] Volume blurProfile = null;
     bool blurOn = true;
     [SerializeField] Image FlashWhiteImage = null;
-    
+
 
     [Header("Time Floats for Animation Lengths")]
     [SerializeField] float uISpriteChangeTime = 0.185f;
@@ -94,7 +86,7 @@ public class DialogueAnimConfig : MonoBehaviour
     /// due to smoothmouselook script snapping to the loaded value 
     /// </remark>
     bool skipOGCamLook = false;
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -162,7 +154,7 @@ public class DialogueAnimConfig : MonoBehaviour
         freezeImage.DOKill();
         freezeImage.color = new Color(1, 1, 1, 1);
         protagUI.Rebind();
-        
+
     }
     /// <summary>
     /// This function disables multiple canvases and cameras
@@ -228,13 +220,13 @@ public class DialogueAnimConfig : MonoBehaviour
             DialogueAssetReader.instance.autoIcon.TurnOn();
         }
         if (dialogues[0].IsInstant)
-            InstantDialogue(dialogues,inleaving);
+            InstantDialogue(dialogues, inleaving);
         else
             StartCoroutine(BeginDialogue(actor, dialogues, item));
     }
     IEnumerator BeginDialogue(Actor actor, Dialogue[] dialogues, ItemActor item = null)
     {
-        
+
         DialogueAssetReader.CallStart();
         timer.Reset();
         timer.Start();
@@ -255,7 +247,7 @@ public class DialogueAnimConfig : MonoBehaviour
             skipOGCamLook = true;
 
         ogCameraLook = mainCamera.transform.rotation;
-        
+
         EvaluateNameplate(dialogues);
         if (!(GameManager.instance.currentMode == GameManager.Mode.TPFD))
         {
@@ -277,9 +269,9 @@ public class DialogueAnimConfig : MonoBehaviour
         }
 
         freezeImage.DOFade(1, 0);
-        
+
         yield return new WaitForEndOfFrame();
-        
+
         CaptureMain();
 
         reticleAnimator.SetBool("ItemIcon", false);
@@ -305,10 +297,10 @@ public class DialogueAnimConfig : MonoBehaviour
             else
                 Debug.LogWarning("ITEM DOESN'T HAVE A BODY");
         }
-        else if(actor != null)
+        else if (actor != null)
         {
             //Debug.LogWarning("Triggered Look at Actor Body");
-            if(!GameSaver.LoadingFile)
+            if (!GameSaver.LoadingFile)
                 LookDialogue(actor);
             FocusActor(actor);
             DialogueAssetReader.instance.lastActor = actor;
@@ -320,7 +312,7 @@ public class DialogueAnimConfig : MonoBehaviour
         {
             SoundManager.instance.PlaySFX(showUISound); //Fmod
         }
-        
+
         if (!GameSaver.LoadingFile)
         {
             yield return new WaitForSeconds(showUIWaitTime);
@@ -330,7 +322,7 @@ public class DialogueAnimConfig : MonoBehaviour
         {
             //ShowMainUI();
         }
-        
+
         Debug.Log("At Start of Dialogue Loading File is: " + GameSaver.LoadingFile);
         if (GameSaver.LoadingFile)
             DialogueAssetReader.instance.LoadThrough(dialogues[0], 0, 0);
@@ -352,7 +344,7 @@ public class DialogueAnimConfig : MonoBehaviour
             Debug.LogWarning("Main Camera wasn't on before capturing.");
             mainCamera.enabled = true;
         }
-        
+
         rt = new RenderTexture(Screen.width, Screen.height, 32);
         mainCamera.targetTexture = rt;
         freezeImage.texture = rt;
@@ -386,16 +378,16 @@ public class DialogueAnimConfig : MonoBehaviour
     }
     void EvaluateNameplate(Dialogue[] dialogues)
     {
-        foreach(Dialogue d in dialogues)
+        foreach (Dialogue d in dialogues)
         {
-            foreach(Line line in d.Lines)
+            foreach (Line line in d.Lines)
             {
                 Character c = DialogueAssetReader.instance.FindChar(line.Speaker.FirstName);
                 if (c != null)
                 {
                     DialogueAssetReader.instance.namePlate.texture = c.Nameplate;
                     if (line.AliasNumber > 0)
-                        DialogueAssetReader.instance.namePlate.texture = c.Aliases[line.AliasNumber-1].Nameplate;
+                        DialogueAssetReader.instance.namePlate.texture = c.Aliases[line.AliasNumber - 1].Nameplate;
                     return;
                 }
             }
@@ -463,7 +455,7 @@ public class DialogueAnimConfig : MonoBehaviour
                 //Debug.LogWarning("Showing Reticle");
                 ReticleCanvas.enabled = true;
             }
-            
+
             DialogueAssetReader.CallEnd();
             inDialogue.Value = false;
             GameManager.instance.cantBeInMenu = false;
@@ -485,7 +477,7 @@ public class DialogueAnimConfig : MonoBehaviour
             yield return new WaitForSeconds(uiAnimator.GetCurrentAnimatorStateInfo(0).length);
         }
 
-        
+
         HideDialogueUI();
         if (!GlobalFade.instance.IsDark && !MuteEndDialogue && !Reset)
         {
@@ -513,14 +505,14 @@ public class DialogueAnimConfig : MonoBehaviour
         mainCamera.enabled = true;
         Debug.LogWarning("Fading out freezeimage");
         freezeImage.DOFade(0, 0.5f);
-        if(!Reset)
+        if (!Reset)
             yield return new WaitForSecondsRealtime(0.5f);
         FreezeCanvas.enabled = false;
         Debug.LogWarning("Disabled Freeze Canvas");
         if (!Reset)
             yield return new WaitForSecondsRealtime(uiAnimator.GetCurrentAnimatorStateInfo(0).length);
 
-        
+
 
         if (!CGPlayer.inEndVideo)
         {
@@ -528,23 +520,23 @@ public class DialogueAnimConfig : MonoBehaviour
             dialogueCanvas.enabled = false;
         }
 
-        
 
-        
+
+
         DialogueTextConfig.instance.ClearText();
         FinishDialogue();
         yield break;
     }
     void FinishDialogue()
     {
-        
+
         if (GameManager.instance.currentMode != GameManager.Mode.Trial)
             GameManager.instance.cantBeInMenu = false;
 
         DialogueAssetReader.CallEnd();
         Debug.Log("Finish Dialogue Called");
         inDialogue.Value = false;
-        
+
 
         timer.Stop();
         TimeSpan timeTaken = timer.Elapsed;
@@ -573,9 +565,9 @@ public class DialogueAnimConfig : MonoBehaviour
                 fadedActors[i].sprite.DOFade(1, 0);
         fadedActors.Clear();
         DialogueAssetReader.instance.inLeaving = false;
-        if(DialogueAssetReader.instance.diaAutoIcon != null)
+        if (DialogueAssetReader.instance.diaAutoIcon != null)
             DialogueAssetReader.instance.diaAutoIcon.gameObject.SetActive(true);
-        if(DialogueAssetReader.instance.cgAutoIcon != null)
+        if (DialogueAssetReader.instance.cgAutoIcon != null)
             DialogueAssetReader.instance.cgAutoIcon.gameObject.SetActive(true);
         if (GameManager.instance.currentMode == GameManager.Mode.TPFD)
             GameManager.SetControls("tpfd");
@@ -591,7 +583,7 @@ public class DialogueAnimConfig : MonoBehaviour
     {
         //Debug.Log("SETCAMTPFD CALLED");
         //if (!inTPFD.Value)
-            //inTPFD.Value = true;
+        //inTPFD.Value = true;
         TPFDManager tPFDManager = FindObjectOfType<TPFDManager>();
         tPFDManager.StartEarly();
         tPFDManager.Set();
@@ -664,7 +656,7 @@ public class DialogueAnimConfig : MonoBehaviour
     #region Camera Animations
     public void LookAtHead(Actor actor)
     {
-        if(actor.head != null)
+        if (actor.head != null)
             mainCamera.transform.DOLookAt(actor.head.position, lookAtPlayerTime);
         // Put a look at middle of the character THEN the Looking at characters eyes
 
@@ -720,7 +712,7 @@ public class DialogueAnimConfig : MonoBehaviour
     }
     public void ChangeFocus(Actor newActor, Actor oldActor)
     {
-        if(!GameSaver.LoadingFile)
+        if (!GameSaver.LoadingFile)
             LookDialogue(newActor);
         if (newActor != oldActor)
         {
@@ -728,7 +720,7 @@ public class DialogueAnimConfig : MonoBehaviour
             ChangeRender(newActor);
             if (oldActor != null && oldActor.sprite.enabled)
                 ChangeRender(oldActor);
-            
+
             FocusActor(newActor);
             UnFocusActor(oldActor);
         }
@@ -762,7 +754,7 @@ public class DialogueAnimConfig : MonoBehaviour
     {
         if (protagSpeaking)
         {
-            protagCamera.DOShakePosition(shakeDuration,intensity, 15 ,0,true);
+            protagCamera.DOShakePosition(shakeDuration, intensity, 15, 0, true);
         }
         else
         {
@@ -773,7 +765,7 @@ public class DialogueAnimConfig : MonoBehaviour
     {
         // Maybe make a Singleton in the room that we can take/reference from so we don't have to use .Find?
         GameObject o = GameObject.Find(objectName);
-        if(o != null)
+        if (o != null)
         {
             dialogueCamera.transform.DOMove(o.transform.position, 1);
             dialogueCamera.transform.DOLocalRotateQuaternion(o.transform.rotation, 1);
@@ -833,7 +825,7 @@ public class DialogueAnimConfig : MonoBehaviour
                 spriteOneObject.GetComponent<RectTransform>().localPosition = new Vector3(uiSpriteXPos, uiSpriteYPos, 0);//new Vector3(0, -200, 0);
             else
                 spriteOneObject.GetComponent<RectTransform>().localPosition = new Vector3(0, -513, 0);
-            
+
             spriteTwo.texture = tex;
             spriteTwoObject.sizeDelta = new Vector2(tex.width, tex.height);
             spriteOne.texture = tex;
@@ -867,9 +859,9 @@ public class DialogueAnimConfig : MonoBehaviour
             //yield return new WaitForSeconds(0);
             //spriteTwo.DOFade(0, 0f);
             //yield return new WaitForSeconds(0);
-            
+
             yield return new WaitForSeconds(uISpriteChangeTime);
-            
+
             //spriteTwoObject.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(0, -163, 0), new Quaternion());
             yield return new WaitForSeconds(0);
             spriteOne.texture = tex;
@@ -881,9 +873,9 @@ public class DialogueAnimConfig : MonoBehaviour
     #endregion
 
     #region World Space Change Sprite
-    
-    public void WorldSpriteChange(Line currentLine,  Actor actor) => StartCoroutine(WorldChangeSprite(currentLine, actor));
-    IEnumerator WorldChangeSprite(Line currentLine,  Actor currentActor)
+
+    public void WorldSpriteChange(Line currentLine, Actor actor) => StartCoroutine(WorldChangeSprite(currentLine, actor));
+    IEnumerator WorldChangeSprite(Line currentLine, Actor currentActor)
     {
         if (currentLine.Expression.Sprite == null)
         {
@@ -894,7 +886,7 @@ public class DialogueAnimConfig : MonoBehaviour
 
         //Debug.LogWarning(currentActor);
         //Debug.LogWarning(currentActor.displayName);
-        if(currentActor == null)
+        if (currentActor == null)
         {
             Debug.LogWarning("ACTOR WAS NULL for character: " + currentLine.Speaker.FirstName);
             SpriteChanged = true;
@@ -902,10 +894,10 @@ public class DialogueAnimConfig : MonoBehaviour
         }
         SpriteRenderer spriteOne = currentActor.sprite;
         SpriteRenderer spriteTwo = currentActor.spriteb;
-        
+
         //Material currentExpression = currentLine.Expression.Sprite;
         Sprite mySprite = currentLine.Speaker.Sprites[currentLine.ExpressionNumber - 1].Sprite;
-        
+
         if (currentLine.Expression.Sprite != null && currentActor.sprite.sprite.name == mySprite.name)
         {
             //Debug.Log(currentActor.sprite.sprite.name);
@@ -935,20 +927,20 @@ public class DialogueAnimConfig : MonoBehaviour
         {
             currentActor.character.material = currentLine.Expression.Sprite;
             currentActor.characterb.material.mainTexture = currentActor.character.material.mainTexture;
-            
+
 
             spriteTwo.sprite = mySprite;
             spriteTwo.DOFade(1, 0.185f)
                 .SetEase(Ease.Linear);  // Bottom Sprite fade in
             spriteOne.DOFade(0, 0.185f)
                 .SetEase(Ease.Linear);  //Top Sprite fade out
-            
+
             yield return new WaitForSeconds(spriteChangeTime);
 
             spriteOne.sprite = mySprite;
             spriteOne.DOFade(1, 0);
             spriteTwo.DOFade(0, 0);
-            
+
             yield return new WaitForSeconds(0);
         }
         SpriteChanged = true;
@@ -1035,15 +1027,15 @@ public class DialogueAnimConfig : MonoBehaviour
         fading = true;
         CLTuple t = (CLTuple)o;
         //Debug.LogWarning(" Leave Setting is: " + t.current + " " + !DialogueAssetReader.instance.protagSpeaking
-            //+ " " + DialogueAssetReader.instance.currentActor.displayName + " " + t.appear);
-        
+        //+ " " + DialogueAssetReader.instance.currentActor.displayName + " " + t.appear);
+
         if (t.appear)
             if (!t.current)
                 ActorAppear(DialogueAssetReader.instance.lastActor, t.exit);
             else
                 ActorAppear(DialogueAssetReader.instance.currentActor, t.exit);
 
-        else if(t.current && !DialogueAssetReader.instance.protagSpeaking)
+        else if (t.current && !DialogueAssetReader.instance.protagSpeaking)
             ActorLeft(DialogueAssetReader.instance.currentActor, t.exit);
         else
             ActorLeft(DialogueAssetReader.instance.lastActor, t.exit);
@@ -1054,7 +1046,7 @@ public class DialogueAnimConfig : MonoBehaviour
         fadedActors.Add(actor);
         fading = true;
         StartCoroutine(Fading(actor, 0, exit));
-        
+
         if (exit)
         {
             if (!DialogueAssetReader.OnLastLine)
@@ -1095,7 +1087,7 @@ public class DialogueAnimConfig : MonoBehaviour
                     };
                     DialogueAssetReader.delegates.Add(handler);
                     DialogueAssetReader.OnDialogueEndEvent += handler;
-                    
+
                 }
             }
         }
@@ -1126,17 +1118,17 @@ public class DialogueAnimConfig : MonoBehaviour
         //if (CGPlayer.inCG || CGPlayer.inVid)
         //return;
         var actors = FindObjectsOfType<Actor>().Where(n => n.sprite.enabled);
-        foreach(Actor a in actors)
+        foreach (Actor a in actors)
         {
             //Debug.Log("Check Focus is Logging an Actor: " + a.displayName);
             ChangeRender(a);
             UnFocusActor(a);
         }
-        
+
     }
 
     #region Blur Vision Animation
-    
+
     [HideInInspector] public Tweener blurTween;
     VolumeProfile prof;
     float dofValue;
@@ -1215,7 +1207,7 @@ public class DialogueAnimConfig : MonoBehaviour
         //t.DOMoveY(t.localPosition.y - 5, 0);
         t.DOMoveY(to, 1.5f)
             .SetEase(Ease.OutExpo);
-        
+
         yield return new WaitForSeconds(1f);
         actor.sprite.DOFade(1, 0.5f);
         yield return new WaitForSeconds(0.5f);
@@ -1287,14 +1279,14 @@ public class DialogueAnimConfig : MonoBehaviour
         Debug.LogWarning("Disabled Freeze Canvas");
 
         yield return new WaitForSeconds(uiAnimator.GetCurrentAnimatorStateInfo(0).length);
-        
+
 
         if (!CGPlayer.inEndVideo)
         {
             ReticleCanvas.enabled = true;
             dialogueCanvas.enabled = false;
         }
-        
+
         DialogueTextConfig.instance.ClearText();
 
 
@@ -1315,7 +1307,7 @@ public class DialogueAnimConfig : MonoBehaviour
             RoomManager.UnloadEvents();
             RoomManager.instance.LoadRoomInstance(ProgressionManager.instance.CurrentObjective, null);
             yield return new WaitUntil(() => RoomManager.RoomLoaded);
-            
+
         }
         if (GameManager.instance.currentState != GameManager.State.Deadly)
             GameManager.instance.ChangeState(GameManager.State.Deadly);
@@ -1328,7 +1320,7 @@ public class DialogueAnimConfig : MonoBehaviour
         if (InvestigationHandler.Instance != null)
         {
             InvestigationHandler.Instance.InvestigationStart();
-            if(investigationSound != null)
+            if (investigationSound != null)
                 SoundManager.instance.PlaySFX(investigationSound);
             yield return new WaitForEndOfFrame();
             if (InvestigationHandler.Instance.GetStartLength() == float.PositiveInfinity)
@@ -1359,7 +1351,7 @@ public class DialogueAnimConfig : MonoBehaviour
         }
 
 
-        
+
         yield break;
     }
 

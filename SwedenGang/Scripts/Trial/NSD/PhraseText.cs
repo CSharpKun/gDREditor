@@ -1,16 +1,11 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using CharTween;
 using DG.Tweening;
+using DREditor.Camera;
+using DREditor.Dialogues;
+using NSD;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using NSD;
-using DREditor.Camera;
-using System.Reflection;
-using UnityEditor;
-using Cinemachine;
-using DREditor.Dialogues;
 
 public class PhraseText : MonoBehaviour
 {
@@ -36,12 +31,12 @@ public class PhraseText : MonoBehaviour
     {
         textPhrase = phrase;
         //if (textPhrase.isAnswer)
-            //Debug.Log("Answer Bullet: " + phrase.answerBullet.Title);
+        //Debug.Log("Answer Bullet: " + phrase.answerBullet.Title);
         gameObject.transform.localScale = Vector3.one;
         /*
          * Below makes it to where using the dolly track only works once 
          */
-        
+
         if (phrase.anim.spawnPoint == Vector3.zero || phrase.anim.spawnPoint == null)
         {
             //Debug.Log("Set Position");
@@ -52,7 +47,7 @@ public class PhraseText : MonoBehaviour
             //Debug.Log("Set Local");
             gameObject.transform.localPosition = phrase.anim.spawnPoint;
         }
-        
+
         Vector4 rot = phrase.anim.spawnAngle;
         gameObject.transform.localEulerAngles = new Vector3(rot.x, rot.y, rot.z);
         pText.text = phrase.phraseText;
@@ -79,7 +74,7 @@ public class PhraseText : MonoBehaviour
             hitBox.enabled = true;
             string[] arr = pText.text.Split(' ');
             arr[phrase.partlyHitableWordStart] = "<gradient=" + gradientName + ">" + arr[phrase.partlyHitableWordStart];
-            arr[phrase.partlyHitableWordStart + phrase.partlyHitableWordCount-1] += "</gradient>";
+            arr[phrase.partlyHitableWordStart + phrase.partlyHitableWordCount - 1] += "</gradient>";
             pText.text = string.Join(" ", arr);
             pText.autoSizeTextContainer = true;
             pText.ForceMeshUpdate();
@@ -104,7 +99,7 @@ public class PhraseText : MonoBehaviour
     public void StartAnimation(NSDBuilder.Phrase currentPhrase)
     {
         // Try catch loop to set a bool for safety
-        
+
         try
         {
             if (currentPhrase.path.points.Length > 0)
@@ -198,13 +193,13 @@ public class PhraseText : MonoBehaviour
 
         int lineCount = textInfo.GetRealLineCount();
 
-        
+
 
         bool hasOddLineBreaks = lineCount % 2 != 0;
         bool isMultiLine = lineCount > 1;
         bool foundCalled = false;
         bool carryOver = false;
-          
+
         //Debug.Log("Line Length: " + lineInfo.Length);
         /*
         for (int i = 0; i < lineInfo.Length; i++)
@@ -212,7 +207,7 @@ public class PhraseText : MonoBehaviour
             Debug.Log("Line: " + i + " is: " + textInfo.GetLineText(i));
         }
         */
-        
+
         //Debug.Log("Real Line Length is: " + textInfo.GetRealLineCount());
         for (int i = 0; i < lineInfo.Length; i++) // For each line
         {
@@ -225,7 +220,7 @@ public class PhraseText : MonoBehaviour
             //Debug.Log("Starting New Line: " + i);
 
             TMP_LineInfo line = lineInfo[i];
-            
+
 
             float colliderWidth;
 
@@ -239,7 +234,7 @@ public class PhraseText : MonoBehaviour
                 addedBoxes.Add(collider);
             }
 
-            
+
             float bottomLeft = 0;
             float bottomRight = 0;
             for (int j = 0; j < line.wordCount; j++) // For each word in the line
@@ -272,7 +267,7 @@ public class PhraseText : MonoBehaviour
                 wordInPhrase++;
 
                 // Recognizes this word as the last word in the partly hitable
-                if (wordInPhrase == (phrase.partlyHitableWordStart + phrase.partlyHitableWordCount)) 
+                if (wordInPhrase == (phrase.partlyHitableWordStart + phrase.partlyHitableWordCount))
                 {
                     //Debug.Log("Found Hit End: " + word.GetWord());
                     foundHitEnd = true;
@@ -321,9 +316,9 @@ public class PhraseText : MonoBehaviour
                             }
                         }
                         */
-                        
+
                         //if (yCenterRatio < 0)
-                            //yDist *= -1;
+                        //yDist *= -1;
 
                         //Debug.Log("After Calc: " + yCenterRatio);
                         //yCenterRatio -= 1;
@@ -350,7 +345,7 @@ public class PhraseText : MonoBehaviour
                     collider.center = new Vector3(xCenter, evenDist, -0.09f); // even
                 else
                     collider.center = new Vector3(xCenter, line.lineHeight * yCenterRatio, -0.09f);
-                collider.size = new Vector3(colliderWidth , line.lineHeight, 0.2f);
+                collider.size = new Vector3(colliderWidth, line.lineHeight, 0.2f);
             }
         }
 
@@ -359,7 +354,7 @@ public class PhraseText : MonoBehaviour
         //Debug.Log("End of Setting Phrase");
         yield break;
     }
-    
+
     #region Fade Animation
     public void PlayFade(NSDBuilder.PhraseAnimation.AnimData data, AnimationCurve curve)
     {
@@ -368,7 +363,7 @@ public class PhraseText : MonoBehaviour
 
     IEnumerator Fade(NSDBuilder.PhraseAnimation.AnimData data, AnimationCurve curve)
     {
-        if(data.fStruct.startTime != 0)
+        if (data.fStruct.startTime != 0)
         {
             yield return new WaitForSeconds(data.fStruct.startTime);
             pText.color = new Color(pText.color.r, pText.color.g, pText.color.b, data.fStruct.startFade);
@@ -377,7 +372,7 @@ public class PhraseText : MonoBehaviour
         {
             pText.color = new Color(pText.color.r, pText.color.g, pText.color.b, data.fStruct.startFade);
         }
-        
+
         if (data.fStruct.endFade != 0)
         {
             pText.DOFade(data.fStruct.endFade, data.fStruct.duration).SetEase(curve);
@@ -386,7 +381,7 @@ public class PhraseText : MonoBehaviour
         {
             pText.DOFade(data.fStruct.endFade, data.fStruct.duration);
         }
-        
+
         yield return null;
     }
     #endregion
@@ -443,7 +438,7 @@ public class PhraseText : MonoBehaviour
                 NSDManager.instance.StopPanels(true, dia);
             }
         }
-        
+
 
         yield return null;
     }
@@ -452,7 +447,7 @@ public class PhraseText : MonoBehaviour
     {
         Destroy(GetComponent<CharTweener>());
         phraseAnim.Stop();
-        
+
 
         GetComponent<TMProShatter>().Shatter(hitPoint - transform.position);
     }
@@ -475,9 +470,9 @@ public class PhraseText : MonoBehaviour
         GetComponent<TMProShatter>().ResetMesh();
         pText.text = "";
         hitBox.enabled = false;
-        
-        
-        
+
+
+
         pText.autoSizeTextContainer = false;
         GameObject par = gameObject.transform.parent.gameObject;
         TestCart c = par.GetComponent<TestCart>();
@@ -499,10 +494,10 @@ public static class Exten
         TMP_LineInfo[] lineInfo = textInfo.lineInfo;
         TMP_WordInfo[] wordInfos = textInfo.wordInfo;
         int wordInPhrase = 0;
-        
 
-        
-        
+
+
+
         for (int i = 0; i < lineInfo.Length; i++) // For each line
         {
             TMP_LineInfo line = lineInfo[i];
@@ -516,7 +511,7 @@ public static class Exten
                 wordInPhrase++;
             }
         }
-        
+
         return lineText;
     }
     public static int GetRealLineCount(this TMP_TextInfo textInfo)

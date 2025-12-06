@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 public static class EncryptionJSON
 {

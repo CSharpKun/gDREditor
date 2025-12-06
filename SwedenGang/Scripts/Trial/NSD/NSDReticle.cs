@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
 public class NSDReticle : MonoBehaviour
 {
     Animator animator => GetComponent<Animator>();
@@ -104,7 +99,7 @@ public class NSDReticle : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, v.y, 0);
             Debug.LogWarning(transform.position);
         }
-        
+
         Position = transform.position;
     }
     void ShowReticle()

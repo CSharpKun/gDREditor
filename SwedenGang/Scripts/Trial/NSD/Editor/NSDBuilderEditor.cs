@@ -1,22 +1,13 @@
-﻿//Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-
+//Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DREditor.Camera;
 using DREditor.Characters;
-using DREditor.Utility;
-using DREditor.Utility.Editor;
 using DREditor.Dialogues;
-using DREditor.Editor;
+using DREditor.Dialogues.Events;
 using DREditor.TrialEditor;
-using DG.Tweening;
+using DREditor.Utility;
 using NSD;
 using System;
-using DREditor.Dialogues.Editor;
-using DREditor.Dialogues.Events;
-using DREditor.Camera;
-using Cinemachine;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(NSDBuilder))]
 public class NSDBuilderEditor : DialogueEditorBase
@@ -91,7 +82,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 }
             }
         }
-        
+
         if (editPanelMode)
         {
             EditPanelModeWindow();
@@ -331,7 +322,7 @@ public class NSDBuilderEditor : DialogueEditorBase
         }
         GUI.backgroundColor = color;
     }
-    
+
     private void EditPanels()
     {
         if (dia.PanelGroup == null)
@@ -346,9 +337,9 @@ public class NSDBuilderEditor : DialogueEditorBase
         {
             for (int i = 0; i < dia.PanelGroup.Count; i++)
             {
-                
+
                 EditLine(i);
-                
+
             }
         }
 
@@ -365,7 +356,7 @@ public class NSDBuilderEditor : DialogueEditorBase
         {
             EditLeftPanel(currLine, i);
             EditExpressionPanel(currLine);
-            
+
             EditDialogueText(i);
             EditDialoguePosition(i);
             if (i >= propLines.arraySize || i >= dia.PanelGroup.Count)
@@ -439,7 +430,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 {
                     testLine = i;
                 }
-                
+
             }
             if (GUILayout.Button("Edit Panel", GUILayout.Width(70)))
             {
@@ -534,7 +525,7 @@ public class NSDBuilderEditor : DialogueEditorBase
             currLine.Events.Add(CreateInstance<SceneEvent>());
         }
     }
-    
+
     private void EditCamAnim(NSDBuilder.Panel currLine)
     {
         using (new EditorGUILayout.HorizontalScope())
@@ -559,7 +550,7 @@ public class NSDBuilderEditor : DialogueEditorBase
             }
         }
     }
-    
+
     private void EditExpressionPanel(NSDBuilder.Panel currLine)
     {
         if (currLine.Speaker != null && !IsProtagonist(currLine.Speaker))
@@ -624,7 +615,7 @@ public class NSDBuilderEditor : DialogueEditorBase
             return;
         using (new EditorGUILayout.VerticalScope())
         {
-            
+
             var propLine = propLines.GetArrayElementAtIndex(i);
             var propLineText = propLine.FindPropertyRelative("Text");
             propLineText.stringValue = EditorGUILayout.TextArea(propLineText.stringValue, GUILayout.Height(62));
@@ -687,7 +678,7 @@ public class NSDBuilderEditor : DialogueEditorBase
     }
     private void EditFooter()
     {
-        
+
         if (GUILayout.Button("New Line", GUILayout.Width(100)))
         {
             dia.PanelGroup.Add(new NSDBuilder.Panel());
@@ -725,7 +716,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 EditorGUILayout.PropertyField(sfxListProperty, new GUIContent(""), GUILayout.MinWidth(270));
             }
         }
-        
+
         /*
         #region Dialogue Events
         //DialogueEvents Extension
@@ -922,9 +913,9 @@ public class NSDBuilderEditor : DialogueEditorBase
     {
         //DebugCharacterSprites();
         //if (GUILayout.Button("Remove top half of Lines"))
-            //SplitDialogue(true);
+        //SplitDialogue(true);
         //if (GUILayout.Button("Remove bottom half of Lines"))
-            //SplitDialogue(false);
+        //SplitDialogue(false);
         if (GUILayout.Button("Randomize Camera Anims"))
             RandomizeCamAnim();
         DebugApplyTCOToChar();
@@ -977,7 +968,7 @@ public class NSDBuilderEditor : DialogueEditorBase
         {
             EditorGUILayout.LabelField("Convert Trial Dia :", GUILayout.Width(120));
             trialDia = HandyFields.UnityField(trialDia, 170, 20);
-            
+
         }
         if (trialDia != null && GUILayout.Button("Apply Conversion", GUILayout.Width(130))
                 && EditorUtility.DisplayDialog("Convert", "Are you sure you want to Apply these lines to this NSD?" +
@@ -988,10 +979,10 @@ public class NSDBuilderEditor : DialogueEditorBase
     }
     void ConversionProcess(TrialDialogue tri)
     {
-        for(int i = 0; i < tri.Lines.Count; i++)
+        for (int i = 0; i < tri.Lines.Count; i++)
         {
             TrialLine line = tri.Lines[i];
-            if(i >= dia.PanelGroup.Count)
+            if (i >= dia.PanelGroup.Count)
             {
                 dia.PanelGroup.Add(new NSDBuilder.Panel());
             }
@@ -1098,13 +1089,13 @@ public class NSDBuilderEditor : DialogueEditorBase
             editPanelMode = false;
             dia.PanelGroup[editPanelNum].edit = editPanelMode;
         }
-        
+
         dia.PanelGroup[editPanelNum].PanelText = dia.PanelGroup[editPanelNum].Text;
         dia.PanelGroup[editPanelNum].PanelText = HandyFields.StringArea("Panel Text", dia.PanelGroup[editPanelNum].PanelText);
         dia.PanelGroup[editPanelNum].Text = dia.PanelGroup[editPanelNum].PanelText;
 
-        
-        dia.PanelGroup[editPanelNum].waitTime = HandyFields.FloatField("Wait Time after animations finish: ", dia.PanelGroup[editPanelNum].waitTime,20);
+
+        dia.PanelGroup[editPanelNum].waitTime = HandyFields.FloatField("Wait Time after animations finish: ", dia.PanelGroup[editPanelNum].waitTime, 20);
 
         if (GUILayout.Button("Test Panel", GUILayout.Width(80)))
         {
@@ -1150,7 +1141,7 @@ public class NSDBuilderEditor : DialogueEditorBase
         }
         if (dia.PanelGroup[editPanelNum].PhraseGroup.Count != 0)
         {
-            for(int i = 0; i < dia.PanelGroup[editPanelNum].PhraseGroup.Count; i++)
+            for (int i = 0; i < dia.PanelGroup[editPanelNum].PhraseGroup.Count; i++)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
@@ -1164,13 +1155,13 @@ public class NSDBuilderEditor : DialogueEditorBase
                         testPhrase = i;
                     }
                 }
-                
+
                 EditPhrase(dia.PanelGroup[editPanelNum].PhraseGroup[i]);
-                
+
             }
         }
 
-        if(GUILayout.Button("Add Phrase"))
+        if (GUILayout.Button("Add Phrase"))
         {
             dia.PanelGroup[editPanelNum].PhraseGroup.Add(new NSDBuilder.Phrase());
         }
@@ -1184,7 +1175,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 {
                     GUILayout.Label("");
                 }
-                
+
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     GUILayout.Label("White Noise " + (i + 1), GUILayout.Width(120));
@@ -1224,7 +1215,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     testPhrase += 1;
                 }
             }
-            
+
         }
     }
     private void EditTestNoise()
@@ -1252,7 +1243,7 @@ public class NSDBuilderEditor : DialogueEditorBase
     #region Phrase
     private void EditPhrase(NSDBuilder.Phrase currPhrase)
     {
-        
+
         currPhrase.phraseTypeNum = HandyFields.Popup("Phrase Type :", currPhrase.phraseTypeNum, dia.PhraseTypeStrings.ToArray(), 100);
         currPhrase.phraseType = NSDBuilder.PhraseValues[currPhrase.phraseTypeNum];
 
@@ -1278,7 +1269,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     currPhrase.answerBullet = dia.TruthBulletsKind[currPhrase.answerBulletNum];
                 }
             }
-            
+
 
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -1296,12 +1287,12 @@ public class NSDBuilderEditor : DialogueEditorBase
                 }
             }
 
-           
+
 
             using (new EditorGUILayout.HorizontalScope())
             {
                 GUILayout.Label("Fuck up Dialogue", GUILayout.Width(190));
-                currPhrase.fuckUpDialogue = HandyFields.UnityField(currPhrase.fuckUpDialogue,190,20);
+                currPhrase.fuckUpDialogue = HandyFields.UnityField(currPhrase.fuckUpDialogue, 190, 20);
             }
         }
 
@@ -1311,9 +1302,9 @@ public class NSDBuilderEditor : DialogueEditorBase
 
         using (new EditorGUILayout.HorizontalScope())
         {
-            
+
             currPhrase.wordCount = HandyFields.IntField("Words in Phrase: ", currPhrase.wordCount, 20);
-            if(currPhrase.wordCount == 0)
+            if (currPhrase.wordCount == 0)
             {
                 GUILayout.Label("A Phrase cannot have 0 words! (be empty)", GUILayout.Width(270));
                 if (dia.PanelGroup[editPanelNum].wordArray.Length != 0)
@@ -1321,7 +1312,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     dia.PanelGroup[editPanelNum].wordArray = new string[0];
                 }
                 currPhrase.phraseStart = 0;
-                
+
                 currPhrase.phraseText = "";
             }
             else if (string.IsNullOrWhiteSpace(dia.PanelGroup[editPanelNum].PanelText))
@@ -1332,7 +1323,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     dia.PanelGroup[editPanelNum].wordArray = new string[0];
                 }
                 currPhrase.phraseStart = 0;
-                
+
                 currPhrase.phraseText = "";
             }
             else
@@ -1342,7 +1333,7 @@ public class NSDBuilderEditor : DialogueEditorBase
             }
 
         }
-        
+
         if (dia.PanelGroup[editPanelNum].wordArray.Length != 0)
         {
             string[] copy = new string[dia.PanelGroup[editPanelNum].wordArray.Length];
@@ -1368,23 +1359,23 @@ public class NSDBuilderEditor : DialogueEditorBase
                 , 100, 6);
 
 
-            if (dia.PanelGroup[editPanelNum].wordArray.Length-1 == currPhrase.phraseStart && currPhrase.wordCount > 1)
+            if (dia.PanelGroup[editPanelNum].wordArray.Length - 1 == currPhrase.phraseStart && currPhrase.wordCount > 1)
             {
                 GUILayout.Label("Can't end with a word that's before the starting one!", GUILayout.Width(370));
                 currPhrase.phraseStart = 0;
-                
+
                 currPhrase.phraseText = "";
             }
-            else if(currPhrase.wordCount > dia.PanelGroup[editPanelNum].wordArray.Length)
+            else if (currPhrase.wordCount > dia.PanelGroup[editPanelNum].wordArray.Length)
             {
                 GUILayout.Label("Bruh make up your mind", GUILayout.Width(370));
                 currPhrase.phraseStart = 0;
-                
+
                 currPhrase.phraseText = "";
             }
             else
             {
-                if(currPhrase.phraseStart == currPhrase.phraseStart + currPhrase.wordCount)
+                if (currPhrase.phraseStart == currPhrase.phraseStart + currPhrase.wordCount)
                 {
                     currPhrase.phraseText = dia.PanelGroup[editPanelNum].wordArray[currPhrase.phraseStart];
                     GUILayout.Label("==" + currPhrase.phraseText + "==", GUILayout.Width(300));
@@ -1403,10 +1394,10 @@ public class NSDBuilderEditor : DialogueEditorBase
                         currPhrase.phraseText = "";
                     }
                 }
-                
+
             }
         }
-        using(new EditorGUILayout.HorizontalScope())
+        using (new EditorGUILayout.HorizontalScope())
         {
             GUILayout.Label("");
         }
@@ -1465,11 +1456,11 @@ public class NSDBuilderEditor : DialogueEditorBase
                     for (int i = 0; i < copy.Length; i++)
                     {
                         int dupeNum = 1;
-                        for(int j = 0; j < copy.Length; j++)
+                        for (int j = 0; j < copy.Length; j++)
                         {
                             if (i == j)
                                 continue;
-                            if(copy[i] == copy[j])
+                            if (copy[i] == copy[j])
                             {
                                 copy[j] += dupeNum;
                                 dupeNum++;
@@ -1517,7 +1508,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     }
 
                 }
-                
+
             }
         }
 
@@ -1526,18 +1517,18 @@ public class NSDBuilderEditor : DialogueEditorBase
 
         PhraseTrack(currPhrase);
 
-        if(currPhrase.anim.animations.Count > 0)
+        if (currPhrase.anim.animations.Count > 0)
         {
             currPhrase.anim.spawnPoint = HandyFields.Vector3Field("Spawn Point: ", currPhrase.anim.spawnPoint, 200, 7);
             currPhrase.anim.spawnAngle = HandyFields.Vector4Field("Spawn Angle: ", currPhrase.anim.spawnAngle, 200, 7);
 
             //currPhrase.phraseAnim.duration = HandyFields.FloatField("Duration: ", currPhrase.phraseAnim.duration);
 
-            
-            
+
+
             for (int i = 0; i < currPhrase.anim.animations.Count; i++) // Display all Phrase Animation
             {
-                EditPhraseAnimation(currPhrase,currPhrase.anim.animations[i],i);
+                EditPhraseAnimation(currPhrase, currPhrase.anim.animations[i], i);
             }
         }
 
@@ -1568,7 +1559,7 @@ public class NSDBuilderEditor : DialogueEditorBase
     {
         currPhrase.path.position = HandyFields.Vector3Field("Track Position: ", currPhrase.path.position, 200, 7);
         currPhrase.path.rotation = HandyFields.Vector4Field("Track Angle: ", currPhrase.path.rotation, 200, 7);
-        using(new GUILayout.HorizontalScope())
+        using (new GUILayout.HorizontalScope())
         {
             //if (currPhrase.path == (Nullable<typeof(NSDBuilder.Phrase.Path)>))
 
@@ -1588,7 +1579,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 currPhrase.path.points = null;
             }
 
-            if(currPhrase.path.speedCurve == null)
+            if (currPhrase.path.speedCurve == null)
             {
                 ResetTrackCurve(currPhrase);
             }
@@ -1669,11 +1660,11 @@ public class NSDBuilderEditor : DialogueEditorBase
         };
     }
     #region Phrase Anim
-    private void EditPhraseAnimation(NSDBuilder.Phrase currPhrase,NSDBuilder.PhraseAnimation.AnimData anim, int i)
+    private void EditPhraseAnimation(NSDBuilder.Phrase currPhrase, NSDBuilder.PhraseAnimation.AnimData anim, int i)
     {
         using (new EditorGUILayout.VerticalScope("Box"))
         {
-            
+
             EditorGUILayout.LabelField("Animation " + (i + 1) + ": ");
             anim.animTypeNum = EditorGUILayout.Popup(anim.animTypeNum, NSDBuilder.PhraseAnimation.AnimTypeStrings.ToArray(), GUILayout.Width(100));
             anim.currentAnimType = currPhrase.anim.GetAnimType[anim.animTypeNum];
@@ -1690,7 +1681,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 }
             }
         }
-        
+
     }
     private void EditWNPhraseAnimation(NSDBuilder.WhiteNoise currPhrase, NSDBuilder.PhraseAnimation.AnimData anim, int i)
     {
@@ -1720,7 +1711,7 @@ public class NSDBuilderEditor : DialogueEditorBase
         switch (anim.currentAnimType)
         {
             case NSDBuilder.PhraseAnimation.AnimType.Transform:
-                DisplayTransform(anim,currPhrase);
+                DisplayTransform(anim, currPhrase);
                 break;
 
             case NSDBuilder.PhraseAnimation.AnimType.Rotation:
@@ -1745,24 +1736,24 @@ public class NSDBuilderEditor : DialogueEditorBase
     {
         anim.tStruct.startPosition = HandyFields.Vector3Field("Starting Position: ", anim.tStruct.startPosition);
         anim.tStruct.endPosition = HandyFields.Vector3Field("Ending Position: ", anim.tStruct.endPosition);
-        
-        using(new EditorGUILayout.HorizontalScope())
+
+        using (new EditorGUILayout.HorizontalScope())
         {
-            anim.tStruct.startTime = HandyFields.FloatField("Start Time: ", anim.tStruct.startTime,30);
-            if(anim.tStruct.startTime < 0)
+            anim.tStruct.startTime = HandyFields.FloatField("Start Time: ", anim.tStruct.startTime, 30);
+            if (anim.tStruct.startTime < 0)
             {
                 anim.tStruct.startTime = 0;
             }
             float fallBackDuration = anim.tStruct.duration;
-            anim.tStruct.duration = HandyFields.FloatField("Duration: ", anim.tStruct.duration,30);
-            if(anim.tStruct.duration <= 0)
+            anim.tStruct.duration = HandyFields.FloatField("Duration: ", anim.tStruct.duration, 30);
+            if (anim.tStruct.duration <= 0)
             {
                 if (fallBackDuration == 0)
                     anim.tStruct.duration = 1;
                 else
                     anim.tStruct.duration = fallBackDuration;
             }
-            if(anim.animationCurves.Count != 0)
+            if (anim.animationCurves.Count != 0)
             {
                 if (GUILayout.Button("Update Curves"))
                 {
@@ -1804,7 +1795,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                 anim.animationCurves[2] = DisplayCurve(anim.animationCurves[2], anim.tStruct.startPosition.z, anim.tStruct.endPosition.z
                     , anim.tStruct.startTime, anim.tStruct.duration);
             }
-            
+
         }
     }
     private void DisplayRotation(NSDBuilder.PhraseAnimation.AnimData anim, NSDBuilder.Phrase currPhrase)
@@ -1924,7 +1915,7 @@ public class NSDBuilderEditor : DialogueEditorBase
             }
         }
 
-        if(anim.sStruct.startScale == new Vector3(0, 0, 0))
+        if (anim.sStruct.startScale == new Vector3(0, 0, 0))
         {
             anim.sStruct.startScale = new Vector3(1, 1, 1);
             anim.sStruct.endScale = new Vector3(1, 1, 1);
@@ -2012,27 +2003,27 @@ public class NSDBuilderEditor : DialogueEditorBase
     {
         anim.cBCAnim = HandyFields.UnityField<CBCAnim>(anim.cBCAnim, 140, 20);
     }
-    private AnimationCurve UpdateKey(AnimationCurve curve, float start, float end,float startTime, float duration)
+    private AnimationCurve UpdateKey(AnimationCurve curve, float start, float end, float startTime, float duration)
     {
         Keyframe oldStartTimeKey = curve.keys[0];
         Keyframe oldDurationTimeKey = curve.keys[curve.keys.Length - 1];
 
-        
-        
+
+
 
         curve.keys = ValidateCurves(oldStartTimeKey, oldDurationTimeKey, curve, start, end, startTime, duration);
 
 
         return curve;
     }
-    private AnimationCurve DisplayCurve(AnimationCurve curve,float start,float end,float startTime, float duration)
+    private AnimationCurve DisplayCurve(AnimationCurve curve, float start, float end, float startTime, float duration)
     {
-        if(curve.keys.Length == 0)
+        if (curve.keys.Length == 0)
         {
-            curve.AddKey(startTime,start);
-            curve.AddKey(startTime + duration,end);
+            curve.AddKey(startTime, start);
+            curve.AddKey(startTime + duration, end);
         }
-        
+
         curve = EditorGUILayout.CurveField(curve);
         return curve;
     }
@@ -2040,16 +2031,16 @@ public class NSDBuilderEditor : DialogueEditorBase
     {
         Keyframe newStart = new Keyframe(startTime, start);
         Keyframe newDuration = new Keyframe(startTime + duration, end);
-        if(curve.keys[curve.keys.Length - 1].time == newDuration.time && curve.keys[0].time == newStart.time)
+        if (curve.keys[curve.keys.Length - 1].time == newDuration.time && curve.keys[0].time == newStart.time)
         {
-            if(curve.keys[curve.keys.Length-1].value == newDuration.value && curve.keys[0].value == newStart.value)
+            if (curve.keys[curve.keys.Length - 1].value == newDuration.value && curve.keys[0].value == newStart.value)
             {
                 return curve.keys;
             }
             else
             {
                 curve.MoveKey(0, new Keyframe(0, start));
-                curve.MoveKey(curve.keys.Length-1, new Keyframe(startTime+duration, end));
+                curve.MoveKey(curve.keys.Length - 1, new Keyframe(startTime + duration, end));
                 return curve.keys;
             }
         }
@@ -2061,14 +2052,14 @@ public class NSDBuilderEditor : DialogueEditorBase
         {
             for (int i = 1; i <= newKeys.Length - 2; i++)
             {
-                
+
                 if (curve.keys[i].time <= startTime)
                 {
                     //Debug.Log(startOffset);
                     newKeys[i] = new Keyframe(curve.keys[i].time + startOffset, curve.keys[i].value);
                     //Debug.Log("Start Offset Key frame at " + i + " moved to " + newKeys[i].time);
                 }
-                else if(curve.keys[i].time >= startTime + duration)
+                else if (curve.keys[i].time >= startTime + duration)
                 {
                     //Debug.Log(durationOffset);
                     newKeys[i] = new Keyframe(curve.keys[i].time + durationOffset, curve.keys[i].value);
@@ -2206,7 +2197,7 @@ public class NSDBuilderEditor : DialogueEditorBase
                     return;
                 }
             }
-            
+
         }
     }
 
@@ -2219,7 +2210,7 @@ public class BuilderEditor
 {
     public static TimerDiff[] DisplayTimerSettings(TimerDiff[] b)
     {
-        for(int i = 0; i < b.Length; i++)
+        for (int i = 0; i < b.Length; i++)
         {
             EditorGUILayout.LabelField("Time for " + b[i].difficulty.ToString());
             using (new GUILayout.HorizontalScope())

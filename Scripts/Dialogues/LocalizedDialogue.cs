@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Dialogues
 {
@@ -13,9 +11,9 @@ namespace DREditor.Dialogues
         public Dictionary<string, LocalizedDialogueLine> GetLocalizationMap()
         {
             Dictionary<string, LocalizedDialogueLine> map = new Dictionary<string, LocalizedDialogueLine>();
-            if(Lines != null && Lines.Count > 0)
+            if (Lines != null && Lines.Count > 0)
             {
-                foreach(LocalizedDialogueLine line in Lines)
+                foreach (LocalizedDialogueLine line in Lines)
                 {
                     map.Add(line.translationKey, line);
                 }
@@ -39,7 +37,7 @@ namespace DREditor.Dialogues
             get
             {
                 string retVal = _Text;
-                if(string.IsNullOrEmpty(retVal) && original != null)
+                if (string.IsNullOrEmpty(retVal) && original != null)
                 {
                     retVal = original.Text;
                 }

@@ -1,78 +1,71 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using DREditor.PlayerInfo;
-namespace DREditor.Characters
+// Completed edited version by CSharpKun
+using Godot;
+using System.Linq;
+namespace DREditor.Characters;
+
+public partial class Alias : Resource
 {
-	[System.Serializable]
-	public class Alias
-	{
-		public string Name;
-		public Texture2D Nameplate;
-        public Texture2D TrialNameplate;
-        public Texture2D TrialPortrait;
-	}
-    // Any properties marked //* were edits made by Benjamin "Sweden" Jillson : Sweden#6386
-    [System.Serializable]
-    public class Character : ScriptableObject
+    public string Name { get; set; }
+    public Texture2D Nameplate { get; set; }
+    public Texture2D TrialNameplate { get; set; }
+    public Texture2D TrialPortrait { get; set; }
+}
+
+// Any properties marked //* were edits made by Benjamin "Sweden" Jillson : Sweden#6386
+// Again, all properties were remade to Godot standarts, but saved og structure.
+[GlobalClass]
+public partial class Character : Resource
+{
+    public string TranslationKey { get; set; }
+    public string LastName { get; set; } = "";
+    public string FirstName { get; set; } = "";
+    public Texture2D DefaultSprite { get; set; }
+    public Texture2D TrialPortrait { get; set; }
+    public Texture2D NSDPortrait { get; set; } //*
+    public PackedScene ActorPrefab { get; set; } //*
+    #if TOOLS
+    public bool showSprites { get; set; } = false; // For editor window's use
+    #endif
+    public Material BlackExpression { get; set; } //*
+    public Material TrialMaterial { get; set; }
+    public Material MissingMat { get; set; } //*
+    public Texture2D MissingTex { get; set; } //*
+    public Godot.Collections.Array<Expression> Expressions { get; set; } = new();
+    public Godot.Collections.Array<Unlit> Sprites { get; set; } = new(); // for using sprite renderers
+    public Godot.Collections.Array<Alias> Aliases { get; set; } = new();
+    public Texture2D Nameplate { get; set; }
+    public Texture2D Headshot { get; set; }
+    public Texture2D TrialNameplate { get; set; }
+    public float TrialHeight { get; set; } = 7.88f;
+    public int TrialPosition { get; set; } = 0;
+    public bool IsDead = false;
+    public FTEData FriendshipData { get; set; } = new() { FriendshipLvl = 1 };
+
+    // (message to Benjamin "Sweden" Jillson) I still can't understand why would you need massive of indexes... 
+
+    public Texture GetSpriteByName(string name)
     {
-        public string translationKey;
-        public string LastName = "";
-        public string FirstName = "";
-        public Texture2D DefaultSprite;
-        public Texture2D TrialPortrait;
-        public Texture2D NSDPortrait;//*
-        public GameObject ActorPrefab;//*
-#if UNITY_EDITOR
-
-        public bool showSprites = false; // For editor window's use
-#endif
-        public Material BlackExpression;//*
-        public Material TrialMaterial;
-        public Material MissingMat;//*
-        public Sprite MissingTex;//*
-        public List<Expression> Expressions = new List<Expression>();
-        public List<Unlit> Sprites = new List<Unlit>();// for using sprite renderers
-
-        public List<Alias> Aliases = new List<Alias>();
-        public Texture2D Nameplate;
-        public Texture2D Headshot;
-        public Texture2D TrialNameplate;
-        public float TrialHeight = 7.88f;
-        public int TrialPosition = 0;
-        public bool IsDead = false;
-
-        // FTE Stuff below, might make a struct of it later
-        public int FriendshipLvl = 1;
-        
-        public int[] getExpressionIntValues()
+        var sprites = Sprites.Where(u => u.Name == name).FirstOrDefault(null as Unlit);
+        if (sprites == null)
         {
-
-            int[] values = new int[Expressions.Count + 1];
-            for (int i = 0; i < values.Length; i++)
-            {
-                values[i] = i;
-            }
-            return values;
-        }
-        public Texture GetSpriteByName(string name)
-        {
-            foreach(Unlit u in Sprites)
-            {
-                if (u.Name == name)
-                    return u.Sprite.texture;
-            }
-            UnityEngine.Debug.LogWarning("COULDN'T GET SPRITE BY NAME: " + name);
+            GD.PushWarning("COULDN'T GET SPRITE BY NAME: " + name);
             return null;
         }
-        public string GetSpriteLabelByTexName(string name)
-        {
-            foreach (Unlit u in Sprites)
-            {
-                if (u.Sprite.texture.name == name)
-                    return u.Name;
-            }
-            UnityEngine.Debug.LogWarning("COULDN'T GET SPRITE LABEL BY TEX NAME: " + name);
-            return null;
-        }
+        return sprites.Sprite.texture;
     }
+    public string GetSpriteLabelByTexName(string name)
+    {
+        var sprites = Sprites.Where(s => s.Sprite.texture.Name == name).FirstOrDefault(null as Unlit);
+        if (sprites == null)
+        {
+            GD.PushWarning("COULDN'T GET SPRITE LABEL BY TEX NAME: " + name);
+            return null;
+        }
+        return sprites.Name;
+    }
+}
+
+public struct FTEData
+{
+    public int FriendshipLvl;
 }

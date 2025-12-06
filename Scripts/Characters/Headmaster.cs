@@ -1,7 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace DREditor.Characters
 {
     [System.Serializable]
@@ -9,13 +5,13 @@ namespace DREditor.Characters
     public class Headmaster : Character
     {
         //public Character Character;
-        
+
         //void OnEnable()
-       // {
+        // {
         //    if (Character == null)
         //    {
-         //       Character = CreateInstance<Character>();
-         //   }
-       // }
+        //       Character = CreateInstance<Character>();
+        //   }
+        // }
     }
 }

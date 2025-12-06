@@ -1,11 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using DG.Tweening;
 
 public class EG_GameOver : MonoBehaviour
 {
@@ -32,15 +26,15 @@ public class EG_GameOver : MonoBehaviour
         else
         {
             TrialDialogueManager.PlayerHasDied += GameOver;
-            if(TrialDialogueManager.instance != null)
+            if (TrialDialogueManager.instance != null)
             {
                 OnContinue += TrialDialogueManager.PlayContinue;
             }
-            
+
             EnableObjects(false);
         }
     }
-    
+
     public static void DisableTDMContinue()
     {
         /*
@@ -62,7 +56,7 @@ public class EG_GameOver : MonoBehaviour
     }
     void EnableObjects(bool to)
     {
-        
+
         foreach (Canvas c in canvases)
             c.enabled = to;
     }
@@ -83,7 +77,7 @@ public class EG_GameOver : MonoBehaviour
     {
         mat.SetFloat("glitchMag", 0.1f);
         yield return new WaitForSeconds(waitTime);
-        
+
         continueButton.gameObject.SetActive(true);
         giveUpButton.gameObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
@@ -124,9 +118,9 @@ public class EG_GameOver : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.3f);
 
         UIHandler.CallToTitle();
-        
+
         GameSaver.FirstTimeLoaded = true;
-        if(RoomLoader.instance)
+        if (RoomLoader.instance)
             RoomLoader.instance.RoomsCannotLoad();
         //ProgressionManager.instance.ClearLockedDialogue();
 

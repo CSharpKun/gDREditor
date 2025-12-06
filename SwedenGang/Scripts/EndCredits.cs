@@ -1,12 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using DG.Tweening;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.Video;
 
 public class EndCredits : MonoBehaviour
 {
@@ -26,7 +21,7 @@ public class EndCredits : MonoBehaviour
 
     private void Awake()
     {
-        if(GameManager.instance != null)
+        if (GameManager.instance != null)
             GameManager.instance.cantBeInMenu = true;
 #if ENABLE_INPUT_SYSTEM
         _controls = new DRControls();
@@ -74,10 +69,10 @@ public class EndCredits : MonoBehaviour
             {
                 yield return null;
             }
-            if(GlobalFade.instance.IsDark)
+            if (GlobalFade.instance.IsDark)
                 GlobalFade.instance.FadeOut(1);
         }
-        for(int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             SoundManager.instance.PlayMusic(list[i], true);
             yield return new WaitUntil(() => SoundManager.instance.MusisIsPlaying());

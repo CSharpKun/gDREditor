@@ -1,7 +1,5 @@
 using System.Collections;
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 
 public class CAReticle : MonoBehaviour
 {
@@ -50,7 +48,7 @@ public class CAReticle : MonoBehaviour
     IEnumerator WaitForStart()
     {
         yield return new WaitForSeconds(1);
-        allowInput = true; 
+        allowInput = true;
     }
 
     public void GetMovement(InputAction.CallbackContext context)
@@ -65,7 +63,7 @@ public class CAReticle : MonoBehaviour
         if (allowInput)
         {
             Vector3 m = _controls.Player.Look.ReadValue<Vector2>(); // read value
-            Vector2 x = (Vector2)m /2;
+            Vector2 x = (Vector2)m / 2;
             rb.MovePosition(rb.position + x);
             /*
             if (GameManager.instance.GetInput().currentControlScheme == keyboardScheme)
@@ -91,7 +89,7 @@ public class CAReticle : MonoBehaviour
 
             anim.SetBool("Hover", true);
             SoundManager.instance.PlaySFX(panelHover);
-            
+
         }
 
     }
@@ -100,7 +98,7 @@ public class CAReticle : MonoBehaviour
     {
 
         currentColls.Remove(collision);
-        if (currentColls.Count == 0) 
+        if (currentColls.Count == 0)
         {
             anim.SetBool("Hover", false);
             selectedPanel = null;

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.VFX
 {
@@ -8,12 +6,12 @@ namespace DREditor.VFX
     [CreateAssetMenu(menuName = "DREditor/VFX/VFX Database", fileName = "VFXDatabase")]
     public class VFXDatabase : ScriptableObject
     {
-        [SerializeField] 
+        [SerializeField]
         public List<AnimationClip> VFXClips = new List<AnimationClip>();
 
         public AnimationClip FindClip(string name)
         {
-            foreach(AnimationClip clip in VFXClips)
+            foreach (AnimationClip clip in VFXClips)
             {
                 if (clip.name.Equals(name))
                 {

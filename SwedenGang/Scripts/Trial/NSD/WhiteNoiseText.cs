@@ -1,15 +1,9 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using CharTween;
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using NSD;
 using DREditor.Camera;
-using System.Reflection;
-using UnityEditor;
-using Cinemachine;
+using NSD;
+using System.Collections;
 
 public class WhiteNoiseText : MonoBehaviour
 {
@@ -26,7 +20,7 @@ public class WhiteNoiseText : MonoBehaviour
         canShatter = true;
         WNText.text = wn.text;
         WNText.fontSize = wn.size;
-        
+
         transform.parent.rotation = new Quaternion(0, Cam.transform.rotation.y, 0, Cam.transform.rotation.w);
         transform.parent.position = new Vector3(0, Cam.transform.position.y, 0);
         WNText.DOColor(new Color(WNText.color.r, WNText.color.g, WNText.color.b, 1), 0);
@@ -38,7 +32,7 @@ public class WhiteNoiseText : MonoBehaviour
         {
             legacy = true
         };
-        foreach(NSDBuilder.WNAnim wnAnim in wn.anim)
+        foreach (NSDBuilder.WNAnim wnAnim in wn.anim)
         {
             clip.SetCurve(wnAnim.path, typeof(RectTransform), wnAnim.propertyName, wnAnim.curve);
         }

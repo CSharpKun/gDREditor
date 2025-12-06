@@ -1,7 +1,4 @@
 using DREditor.Dialogues;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace MultipleChoice
 {
@@ -14,7 +11,7 @@ namespace MultipleChoice
         public string question = "";
         public int damageOnWrong = 1;
         public float timerMinutes;
-        [Range(0,59)]
+        [Range(0, 59)]
         public float timerSeconds;
         public TrialDialogue startDialogue;
         [System.Serializable]

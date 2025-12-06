@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 /**
  * Trial Camera Animation Database Editor for DREditor
  * Original Author: KHeartz

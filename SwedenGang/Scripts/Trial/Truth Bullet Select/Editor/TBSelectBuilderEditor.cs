@@ -1,11 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TruthBulletSelect;
-using UnityEditor;
-using DREditor.Utility.Editor;
 using DREditor.Dialogues;
+using TruthBulletSelect;
 
 [CustomEditor(typeof(TBSelectBuilder))]
 public class TBSelectBuilderEditor : Editor
@@ -23,9 +18,9 @@ public class TBSelectBuilderEditor : Editor
         {
             return;
         }
-        
-        
-        
+
+
+
         CreateForm();
         EditorUtility.SetDirty(tbsb);
         serializedObject.ApplyModifiedProperties();
@@ -92,7 +87,7 @@ public class TBSelectBuilderEditor : Editor
             }
             //Debug.Log("Cleared Stuff " + tbsb.selections.Count + " " + evidenceDatabase.Evidences[tbsb.chapter].TruthBullets.Count);
             //tbsb.selections.Clear();
-            
+
         }
         using (new GUILayout.HorizontalScope())
         {
@@ -133,7 +128,7 @@ public class TBSelectBuilderEditor : Editor
             {
                 tbsb.selections[i].wrongDialogue = null;
             }
-            
+
             using (new GUILayout.HorizontalScope())
             {
                 GUILayout.Label("", GUILayout.Width(120));

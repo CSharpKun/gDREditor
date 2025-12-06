@@ -564,7 +564,7 @@ namespace DREditor.Toolbox
                     for (int i = 0; i < _databaseguids.Length; i++)
                     {
                         string _path = AssetDatabase.GUIDToAssetPath(_databaseguids[i]);
-                        EditorGUILayout.LabelField($"	• {_path}");
+                        EditorGUILayout.LabelField($"	â€¢ {_path}");
                     }
                     EditorGUILayout.Space(10);
                     EditorGUILayout.LabelField("Only one CharacterDatabase is allowed. Please delete all the duplicates until one remains.");

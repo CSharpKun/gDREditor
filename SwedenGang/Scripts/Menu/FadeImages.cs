@@ -1,9 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class FadeImages : MonoBehaviour
 {
@@ -13,10 +10,10 @@ public class FadeImages : MonoBehaviour
 
     public void FadeImage(float to)
     {
-        foreach(Image i in images)
+        foreach (Image i in images)
         {
             i.DOFade(to, fadeDuration);
         }
     }
-    
+
 }

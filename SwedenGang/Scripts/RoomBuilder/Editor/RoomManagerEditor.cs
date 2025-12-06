@@ -1,12 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Characters;
-using DREditor.Utility.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using DREditor.Progression;
-using System.Linq;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(RoomManager))]
 [CanEditMultipleObjects]
@@ -47,7 +42,7 @@ public class RoomManagerEditor : Editor
         {
             EditorUtility.SetDirty(builder);
         }
-        
+
         serializedObject.ApplyModifiedProperties();
     }
     private void CreateForm()
@@ -71,7 +66,7 @@ public class RoomManagerEditor : Editor
             PrefabReferences();
         //PrefabReferences();
         manager.intChapter = HandyFields.IntField("Chapter: ", manager.intChapter, 30);
-        if(manager.intChapter < 0 || manager.intChapter >= pDB.Chapters.Count)
+        if (manager.intChapter < 0 || manager.intChapter >= pDB.Chapters.Count)
         {
             GUILayout.Label("Please put a valid chapter number");
             return;
@@ -98,7 +93,7 @@ public class RoomManagerEditor : Editor
                 Character c = cDB.Characters[i];
 
             }*/
-            foreach(Character c in cDB.Characters)
+            foreach (Character c in cDB.Characters)
             {
                 if (c.ActorPrefab != null)
                 {
@@ -124,7 +119,7 @@ public class RoomManagerEditor : Editor
             {
                 manager.SaveRoom(pDB.Chapters[manager.intChapter].Objectives[intObjective]);
             }
-            
+
         }
         using (new EditorGUILayout.HorizontalScope())
         {
@@ -164,7 +159,7 @@ public class RoomManagerEditor : Editor
                     builder.Shell.Add(manager.SaveShellRoom());
                 }
             }
-            
+
         }
     }
     #endregion
@@ -181,9 +176,9 @@ public class RoomManagerEditor : Editor
                     "Yes", "No"))
                     ClearAll();
 
-            
+
         }
-        
+
 
         if (clearFold)
         {

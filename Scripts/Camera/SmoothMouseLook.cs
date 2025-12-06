@@ -1,6 +1,4 @@
-﻿using DREditor.EventObjects;
-using UnityEngine;
-using UnityEngine.InputSystem;
+using DREditor.EventObjects;
 
 namespace DREditor.Camera
 {
@@ -8,10 +6,10 @@ namespace DREditor.Camera
     {
         [SerializeField] Vector2 _mouseAbsolute;
         [SerializeField] Vector2 _smoothMouse;
-        public bool XInvert => PlayerInfo.PlayerInfo.instance != null? 
+        public bool XInvert => PlayerInfo.PlayerInfo.instance != null ?
             PlayerInfo.PlayerInfo.instance.settings.InvertX : InvertX;
         [SerializeField] bool InvertX = false;
-        public bool LookInvert => PlayerInfo.PlayerInfo.instance != null?
+        public bool LookInvert => PlayerInfo.PlayerInfo.instance != null ?
             PlayerInfo.PlayerInfo.instance.settings.LookInvert : InvertLook;
         [SerializeField] bool InvertLook = false;
         public Vector2 clampInDegrees = new Vector2(360, 180);

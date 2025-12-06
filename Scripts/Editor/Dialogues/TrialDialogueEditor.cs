@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -68,7 +68,7 @@ namespace DREditor.Editor
 			}
 			
 
-			#region Debug Mode
+            #region Debug Mode
 			using (new EditorGUILayout.HorizontalScope())
 			{
 				debugMode = HandyFields.Option(debugMode, "Debug Mode: ", 80);
@@ -79,7 +79,7 @@ namespace DREditor.Editor
 				DebugMode();
 				return;
 			}
-			#endregion
+            #endregion
 			
             EditorStyles.textArea.wordWrap = true;
             EditorStyles.textField.wordWrap = true;
@@ -576,7 +576,7 @@ namespace DREditor.Editor
         }
         private void EditDialogueText(int i)
         {
-			#region Column 3 Text and SFX
+            #region Column 3 Text and SFX
 			//Column 3 Text
 			if (i >= propLines.arraySize)
 				return;
@@ -610,7 +610,7 @@ namespace DREditor.Editor
 
 			}
 			
-			#endregion
+            #endregion
 		}
 		private void EditDialoguePosition(int i)
         {
@@ -840,7 +840,7 @@ namespace DREditor.Editor
 				}
 			}
 
-			#region End Event Buttons
+            #region End Event Buttons
 			using (new EditorGUILayout.HorizontalScope())
 			{
 				if (!dia.Variable.Enabled)
@@ -912,7 +912,7 @@ namespace DREditor.Editor
 					}
 				}
 			}
-			#endregion
+            #endregion
 
         }
 		void EditLineLower(TrialLine currentLine, int i)
@@ -948,7 +948,7 @@ namespace DREditor.Editor
 				}
 			}
 
-			#region Dialogue Events
+            #region Dialogue Events
 			//DialogueEvents Extension
 			using (new EditorGUILayout.VerticalScope())
 			{
@@ -1034,7 +1034,7 @@ namespace DREditor.Editor
 				}
 			}
 
-			#endregion
+            #endregion
 
 		}
 
@@ -1191,7 +1191,7 @@ namespace DREditor.Editor
 			DebugApplyTCOToChar();
 		}
 
-		#region Test Every Sprite on a Character
+        #region Test Every Sprite on a Character
 		/// <summary>
 		/// Rewrites the dialogue to contain a line for every sprite for the character on the
 		/// first line.
@@ -1242,9 +1242,9 @@ namespace DREditor.Editor
 
 			}
 		}
-		#endregion
+        #endregion
 
-		#region Split Dialogue
+        #region Split Dialogue
 
 		void SplitDialogue(bool top)
 		{
@@ -1255,8 +1255,8 @@ namespace DREditor.Editor
 			debugMode = false;
 		}
 
-		#endregion
-		#region Apply TCO to all lines with this character
+        #endregion
+        #region Apply TCO to all lines with this character
 		bool applytcoDebug = false;
 		TCO coDebug;
 		Character debugSpeaker = null;
@@ -1293,7 +1293,7 @@ namespace DREditor.Editor
             }
 			debugMode = false;
         }
-		#endregion
+        #endregion
 	}
 }
 #endif

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UnityEngine;
+using System.IO;
 namespace DREditor.Utility.Editor
 {
     public static class ResourcesExtension

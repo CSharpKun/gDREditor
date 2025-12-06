@@ -1,11 +1,8 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
+using DG.Tweening;
 using DREditor.Dialogues.Events;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
-using static UnityEngine.InputSystem.InputAction;
 
 public class TrialTutorialManager : MonoBehaviour
 {
@@ -121,7 +118,7 @@ public class TrialTutorialManager : MonoBehaviour
             Debug.Log("FUCK");
             page.DOFade(0, 0);
         }
-        
+
 
         Clear();
         currentCircleIndex = 0;
@@ -139,7 +136,7 @@ public class TrialTutorialManager : MonoBehaviour
     }
     void InitializeCircles()
     {
-        for(int i = 0; i < pages.Count; i++)
+        for (int i = 0; i < pages.Count; i++)
         {
             GameObject g = Instantiate(circlePrefab);
             g.transform.SetParent(layoutGroup.transform, false);
@@ -158,7 +155,7 @@ public class TrialTutorialManager : MonoBehaviour
         Vector2 read = _controls.Player.Move.ReadValue<Vector2>();
         _controls.Player.Move.started -= ChangePage;
         int newIndex = read.x == 1 ? currentCircleIndex + 1 : currentCircleIndex - 1;
-        if(newIndex < 0)
+        if (newIndex < 0)
             newIndex = pages.Count - 1;
         if (newIndex == pages.Count)
             newIndex = 0;

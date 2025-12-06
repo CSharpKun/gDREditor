@@ -1,4 +1,4 @@
-﻿//
+//
 // EventObjects - A scriptable-object based messaging system for Unity
 //
 // Copyright (c) 2019 Bart Heijltjes (Wispfire)
@@ -23,7 +23,6 @@
 //
 
 using System;
-using UnityEngine;
 
 namespace DREditor.EventObjects
 {
@@ -32,10 +31,10 @@ namespace DREditor.EventObjects
     {
         public bool Resolve()
         {
-            return Value; 
+            return Value;
         }
     }
 
     [Serializable]
-    public class BoolVariable : CachedVariable<BoolWithEvent, bool, BoolEvent> {}
+    public class BoolVariable : CachedVariable<BoolWithEvent, bool, BoolEvent> { }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "DREditor/Events/Scene Event", fileName = "New Scene Event")]
 public class SceneEvent : ScriptableObject
@@ -12,7 +11,7 @@ public class SceneEvent : ScriptableObject
         {
             _listeners[i].OnEventRaised();
         }
-        
+
     }
 
     public void RegisterListener(SceneEventListener listener)

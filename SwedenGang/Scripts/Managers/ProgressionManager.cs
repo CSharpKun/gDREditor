@@ -1,12 +1,9 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
 using DREditor.Dialogues;
-using DREditor.Gates;
 using DREditor.Progression;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class ProgressionManager : MonoBehaviour
 {
@@ -68,7 +65,7 @@ public class ProgressionManager : MonoBehaviour
             }
         }*/
 
-        
+
     }
     private void Start()
     {
@@ -93,12 +90,12 @@ public class ProgressionManager : MonoBehaviour
         Data.Clear();
     }
     //public void ClearLockedDialogue() => LockedDialogue = null;
-    
+
     Objective GetBaseObjective(string s)
     {
-        foreach(Objective o in CurrentChapter.Objectives)
+        foreach (Objective o in CurrentChapter.Objectives)
         {
-            if(o.Description == s)
+            if (o.Description == s)
             {
                 return o;
             }
@@ -109,9 +106,9 @@ public class ProgressionManager : MonoBehaviour
     void ClearChapter(Chapter c)
     {
         Debug.Log("Clear Chapter Called");
-        foreach(Objective o in c.Objectives)
+        foreach (Objective o in c.Objectives)
         {
-            foreach(ProgressionFlag flag in o.Flags)
+            foreach (ProgressionFlag flag in o.Flags)
             {
                 flag.triggered = false;
             }
@@ -119,7 +116,7 @@ public class ProgressionManager : MonoBehaviour
     }
     public void NextChapter()
     {
-        for(int i = 0; i < Database.Chapters.Count; i++)
+        for (int i = 0; i < Database.Chapters.Count; i++)
         {
             Chapter c = Database.Chapters[i];
             if (c == CurrentChapter && (i + 1) < Database.Chapters.Count)
@@ -131,7 +128,7 @@ public class ProgressionManager : MonoBehaviour
     }
     Objective GetNextObjective(Objective o)
     {
-        for(int i = 0; i < CurrentChapter.Objectives.Count; i++)
+        for (int i = 0; i < CurrentChapter.Objectives.Count; i++)
         {
             Objective ob = CurrentChapter.Objectives[i];
             if (ob.Description == o.Description)
@@ -150,7 +147,7 @@ public class ProgressionManager : MonoBehaviour
         Debug.Log("GetNextObjective Evaluated Null");
         return null;
     }
-    
+
     /// <summary>
     /// Checks whether given progression flag is triggered
     /// </summary>
@@ -165,7 +162,7 @@ public class ProgressionManager : MonoBehaviour
     public bool CheckObjective()
     {
         int check = 0;
-        foreach(ProgressionFlag flag in CurrentObjective.Flags)
+        foreach (ProgressionFlag flag in CurrentObjective.Flags)
         {
             if (flag.triggered && !flag.optional)
                 check++;
@@ -210,7 +207,7 @@ public class ProgressionManager : MonoBehaviour
         try
         {
             //Chapter c = Database.Chapters[chapter];
-            if (chapter == GetChapterNum() && 
+            if (chapter == GetChapterNum() &&
                 Database.Chapters[chapter].Objectives[objective].Description == CurrentObjective.Description)
             {
                 Objective o = CurrentObjective;
@@ -227,7 +224,7 @@ public class ProgressionManager : MonoBehaviour
             }
             else
             {
-                for(int i = 0; i < flags.Count; i++)
+                for (int i = 0; i < flags.Count; i++)
                 {
                     GetFlag(Database.Chapters[chapter].Objectives[objective].Flags[flags[i]].name).triggered = true;
                 }
@@ -253,9 +250,9 @@ public class ProgressionManager : MonoBehaviour
 
         // Below Searches the previous Objectives the player has gone through that contain the flag 
         // if the flag isn't within the players current objective.
-        foreach(ProgressionInfo i in Data.Info)
+        foreach (ProgressionInfo i in Data.Info)
         {
-            for(int j = 0; j < i.objectives.Count; j++)
+            for (int j = 0; j < i.objectives.Count; j++)
             {
                 Objective o = i.objectives[j];
                 Objective b = GetBaseObjective(o.Description);
@@ -270,11 +267,11 @@ public class ProgressionManager : MonoBehaviour
                             if (f.name == copy.name && copy.triggered)
                                 f.triggered = true;
                     }
-                    
+
                 }
             }
         }
-        IEnumerable<ProgressionInfo> p = 
+        IEnumerable<ProgressionInfo> p =
             Data.Info.Where(n => n.objectives.Where(j => j.GetFlagNames().Contains(flagName)).Count() > 0);
         Debug.Log(p.Count());
 
@@ -284,12 +281,12 @@ public class ProgressionManager : MonoBehaviour
             var o =
                 p.ElementAt(0).objectives.Where(n => n.GetFlagNames().Contains(flagName)).ElementAt(0);
             var f = o.Flags.Where(n => n.name == flagName);
-            
+
             if (f.Count() > 0 && f.ElementAt(0) != null)
                 return f.ElementAt(0);
 
         }
-        
+
         Debug.LogWarning("After Checking this save files previously completed Objectives, that flag couldn't be found. \n" +
             "Which means one has occured: There's been user error building progression, " +
             "The Searched progression flag string used was misspelt, OR the save file never completed or had the objective " +
@@ -308,7 +305,7 @@ public class ProgressionManager : MonoBehaviour
 
         Debug.LogError("After repairing the current save file objective, the current " +
             "flag couldn't be found. Best to contact Sweden for support.");
-        
+
         return null;
     }
     void RepairCurrentObjective()
@@ -334,7 +331,7 @@ public class ProgressionManager : MonoBehaviour
                 return flag;
             }
         }
-        
+
         return null;
     }
     public void TriggerFlag(string flagName)
@@ -358,7 +355,7 @@ public class ProgressionManager : MonoBehaviour
             }
             return true;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogWarning("A CRITICAL ERROR HAS OCCURED EVALUATING DIALOGUE VARIABLE EVALUATION " +
                 "\n PLEASE ENSURE YOU FILL IT OUT CORRECTLY.");
@@ -384,7 +381,7 @@ public class ProgressionManager : MonoBehaviour
                 ob.Flags[i] = dupe;
                 
             }*/
-           foreach (ProgressionFlag flag in ob.Flags)
+            foreach (ProgressionFlag flag in ob.Flags)
                 if (!flag.optional)
                     flag.triggered = true;
             Data.Add(chap, ob);

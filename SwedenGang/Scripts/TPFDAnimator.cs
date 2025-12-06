@@ -1,9 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 /// <summary>
 /// Placed on the animator object that animates a 2.5D Room 
 /// If one isn't present in a tpfd scene nothing should happen

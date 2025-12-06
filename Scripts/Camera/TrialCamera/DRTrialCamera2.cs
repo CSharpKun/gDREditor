@@ -1,11 +1,10 @@
-﻿/**
+/**
  * Main Trial Camera Script for DREditor
  * Original Author: SeleniumSoul
  * Contributing Author: KHeartz
  */
 
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Camera
 {

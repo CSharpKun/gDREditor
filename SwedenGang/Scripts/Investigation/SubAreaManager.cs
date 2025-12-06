@@ -1,21 +1,18 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using DG.Tweening;
+using DREditor.Camera;
 using DREditor.Dialogues;
 using DREditor.EventObjects;
 using DREditor.FPC;
-using DREditor.Camera;
-using DG.Tweening;
-using UnityEngine.EventSystems;
-using static UnityEngine.InputSystem.InputAction;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(BoxCollider))]
 public class SubAreaManager : MonoBehaviour, IDialogueHolder
 {
     // This should be on the layer of dialogueobject
-    
+
     [Header("Everything Showing in Data is only for debug viewing purposes")]
     public SubAreaData Data = new SubAreaData();
     [Header("Fill out Settings")]
@@ -46,7 +43,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
 #if ENABLE_INPUT_SYSTEM
         _controls = new DRControls();
 #endif
-        
+
         if (!inTPFD || !inDialogue)
             Debug.LogError("You need to assign inTPFD or inDialogue in the CorpseManager!");
     }
@@ -113,7 +110,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
         DialogueAssetReader.OnDialogueEnd -= StartUp;
         Data.finishedStart = true;
         Activate();
-        
+
     }
     void Activate(bool to = true)
     {
@@ -133,7 +130,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
         //playerSystem.SaveBool();
         playerSystem.Enable(false);
         playerSystem.enabled = false;
-        if(to)
+        if (to)
             StartCoroutine(Activation());
         else
         {
@@ -153,7 +150,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
     }
     IEnumerator Activation()
     {
-        if(autoStartDialogue && !Data.finishedAuto)
+        if (autoStartDialogue && !Data.finishedAuto)
             yield return new WaitUntil(() => GameManager.instance.cantBeInMenu == false);
         GameManager.instance.cantBeInMenu = true;
         PnCCamera pnc = (PnCCamera)playerSystem.TPFDScript;
@@ -175,7 +172,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
 
         if (autoStartDialogue && !Data.finishedAuto)
         {
-            
+
             //Debug.LogWarning("Auto Start Dialogue Begun");
             Dialogue[] d = new Dialogue[1];
             d[0] = autoStartDialogue;
@@ -188,7 +185,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
             EndOfActivation();
 
 
-        
+
         yield break;
     }
     /// <summary>
@@ -204,7 +201,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
             Data.finishedAuto = true;
             Debug.LogWarning("Finished End of activation");
         }
-        
+
         inDialogue.Value = false;
         inTPFD.Value = true;
         playerSystem.TPFDScript.enabled = true;
@@ -269,7 +266,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
         d[0] = ProgressionManager.instance.LeaveAsk;
         DialogueAssetReader.instance.choice1 = Deactivate;
         DialogueAssetReader.instance.choice2 = DummyNoOption;
-        DialogueAnimConfig.instance.InstantDialogue(d,true);
+        DialogueAnimConfig.instance.InstantDialogue(d, true);
     }
     void DummyNoOption()
     {
@@ -294,7 +291,7 @@ public class SubAreaManager : MonoBehaviour, IDialogueHolder
         //RaycastReticle r = (RaycastReticle)playerSystem.RaycastScript;
         //r.UnSelectVisual();
         //Debug.LogWarning("Started Moving Camera " + Data.returnPosition);
-        
+
         SmoothMouseLook mouse = cam.GetComponent<SmoothMouseLook>();
         //mouse.targetCharacterDirection = Vector2.zero;
         mouse.SetCorePos(Data.returnAbs, new Vector2(1.401298e-45f, 1.401298e-45f));

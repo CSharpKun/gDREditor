@@ -1,13 +1,9 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace DREditor.PlayerInfo
 {
-    
+
     public class PlayerInfo : MonoBehaviour
     {
         public static PlayerInfo instance = null;
@@ -20,7 +16,7 @@ namespace DREditor.PlayerInfo
         }
         private void OnValidate()
         {
-            
+
             // Player Settings
             //UpdatePlayerSettings();
 
@@ -94,7 +90,7 @@ namespace DREditor.PlayerInfo
                     pauseOptions[i] = false;
             }
         }
-        
+
         [Header("Player Settings")]
         public PlayerSettings settings = new PlayerSettings();
         [System.Serializable]
@@ -154,7 +150,7 @@ namespace DREditor.PlayerInfo
                 CurrentStamina = MaxStamina;
                 return;
             }
-                
+
 
             CurrentStamina += StaminaRatio * Time.unscaledDeltaTime;
         }

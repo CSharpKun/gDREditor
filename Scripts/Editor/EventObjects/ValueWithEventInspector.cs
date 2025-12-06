@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 //
 // EventObjects - A scriptable-object based messaging system for Unity
 //

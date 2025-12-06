@@ -1,6 +1,5 @@
-﻿using System;
 using DREditor.EventObjects;
-using UnityEngine;
+using System;
 
 namespace DREditor.Camera
 {
@@ -83,8 +82,8 @@ namespace DREditor.Camera
 
     }
 }
-    
-    
-    
-    
+
+
+
+
 

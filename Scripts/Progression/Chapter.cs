@@ -1,7 +1,5 @@
 using DREditor.Gates;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Progression
 {
@@ -54,7 +52,7 @@ namespace DREditor.Progression
         {
             string[] tmp = new string[Flags.Count];
 
-            for(int i = 0; i < Flags.Count; i++)
+            for (int i = 0; i < Flags.Count; i++)
             {
                 tmp[i] = Flags[i].name;
             }

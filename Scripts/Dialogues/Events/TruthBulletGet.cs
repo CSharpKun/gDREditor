@@ -1,8 +1,7 @@
 //Truth Bullet Get Dialogue Event script by Sweden for DREditor.
 
-using System;
-using UnityEngine;
 using DREditor.TrialEditor;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -10,25 +9,25 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct TBGTuple
-	{
-		public DTBChoice TBChoice;
-		public TruthBullet TB;
-	}
-	/// <summary>
-	/// Found in InvestigationHandler.cs
-	/// </summary>
-	[Serializable]
-	public class TruthBulletGet : IDialogueEvent
-	{
-		public bool _ShowHelp = false;
-		public TBGTuple TBGValue;
+    [Serializable]
+    public struct TBGTuple
+    {
+        public DTBChoice TBChoice;
+        public TruthBullet TB;
+    }
+    /// <summary>
+    /// Found in InvestigationHandler.cs
+    /// </summary>
+    [Serializable]
+    public class TruthBulletGet : IDialogueEvent
+    {
+        public bool _ShowHelp = false;
+        public TBGTuple TBGValue;
 
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent("TruthBulletGet", TBGValue);
-		}
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent("TruthBulletGet", TBGValue);
+        }
 
 #if UNITY_EDITOR
 		public void EditorUI(object value = null)
@@ -45,5 +44,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("Adds the truth bullet to the players found truth bullets.", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

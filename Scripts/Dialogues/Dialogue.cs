@@ -1,13 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DREditor;
-using JetBrains.Annotations;
 using DREditor.Characters;
-using DREditor.VFX;
-using DREditor.EventObjects;
-using UnityEngine.Video;
 using DREditor.Dialogues.Events;
+using DREditor.EventObjects;
+using System.Collections.Generic;
 
 namespace DREditor.Dialogues
 {
@@ -34,7 +28,7 @@ namespace DREditor.Dialogues
         public bool EndVidEnabled = false; //*
         public VideoClip EndVideo; //*
         public bool ClearLock = false; //*
-        
+
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -115,7 +109,7 @@ namespace DREditor.Dialogues
             Dialogue dia = CreateInstance<Dialogue>();
             dia.Lines = Lines;
 
-            
+
             return dia;
         }
     }

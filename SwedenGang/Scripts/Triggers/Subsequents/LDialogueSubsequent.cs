@@ -1,7 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DREditor.Dialogues;
 using System;
 
@@ -70,11 +67,11 @@ public class LDialogueSubsequent : SubsequentBase, ISubsequent, IDialogueHolder
             else
                 dia = l.dialogue;
             l.triggered = true;
-            
+
         }
         Dialogue[] dialogues = new Dialogue[1];
         dialogues[0] = dia;
-        if(dia != null)
+        if (dia != null)
         {
             GameObject tryActor = GameObject.Find(dialogues[0].Lines[0].Speaker.FirstName);
             Actor actor = null;

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,24 +6,24 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	[Serializable]
-	public struct CLTuple
-	{
-		public bool appear;
-		public bool current;
-		public bool exit;
-	}
-	[Serializable]
-	public class CharacterLeave : IDialogueEvent
-	{
-		
-		public CLTuple data;
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent("CharacterLeave", data);
-		}
+    [Serializable]
+    public struct CLTuple
+    {
+        public bool appear;
+        public bool current;
+        public bool exit;
+    }
+    [Serializable]
+    public class CharacterLeave : IDialogueEvent
+    {
 
-		#if UNITY_EDITOR
+        public CLTuple data;
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent("CharacterLeave", data);
+        }
+
+#if UNITY_EDITOR
 		private bool _ShowHelp = false;
 		public void EditorUI(object value = null)
 		{
@@ -46,6 +45,6 @@ namespace DREditor.Dialogues.Events
                 "if the protag is the one speaking on the line)." +
                 "\n Exit Sends the actor to coordinates 0,-10 to hide the character.", MessageType.Info, true);
 		}
-		#endif
-	}
+#endif
+    }
 }

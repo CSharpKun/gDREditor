@@ -1,10 +1,5 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using TMPro;
 /// <summary>
 /// Script that holds DifficultyOptions, for setting up the difficulty settings
 /// </summary>
@@ -31,7 +26,7 @@ public class DifficultyGroup : MonoBehaviour
     public void SetupGroup()
     {
         UIHandler.instance.OnChange.AddListener(Evaluate);
-        if(lastOption == null)
+        if (lastOption == null)
         {
             if (loadCurrent)
             {
@@ -50,8 +45,8 @@ public class DifficultyGroup : MonoBehaviour
     }
     DifficultyOption GetOptionFromDifficulty(GameManager.Difficulty diff)
     {
-        foreach(DifficultyOption o in options)
-            if(o.difficulty == diff)
+        foreach (DifficultyOption o in options)
+            if (o.difficulty == diff)
                 return o;
         Debug.LogWarning("Couldn't find option from Difficulty!");
         return options[0];
@@ -59,7 +54,7 @@ public class DifficultyGroup : MonoBehaviour
     public void StartGroup()
     {
         cover.color = activeColor;
-        if(lastOption != null)
+        if (lastOption != null)
         {
             EventSystem.current.SetSelectedGameObject(lastOption.gameObject);
         }
@@ -137,7 +132,7 @@ public class DifficultyGroup : MonoBehaviour
     {
         if (navUp)
         {
-            foreach(DifficultyOption option in options)
+            foreach (DifficultyOption option in options)
             {
                 UIHelper.SelectOnUp(option, o);
             }

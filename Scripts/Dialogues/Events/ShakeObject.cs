@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using DREditor.Dialogues.Events;
-using DREditor.Characters;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -33,11 +28,11 @@ namespace DREditor.Dialogues.Events
     [Serializable]
     public class ShakeObject : IDialogueEvent
     {
-        
+
         public SOTuple data;
         public ShakeObject()
         {
-            
+
             data.duration = 0.5f;
             data.strength = 4;
             data.vibrato = 10;

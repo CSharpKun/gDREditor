@@ -1,7 +1,4 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using UnityEngine;
-using UnityEngine.UI;
-
 [RequireComponent(typeof(Camera))]
 public class RenderParticlesEffect : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class RenderParticlesEffect : MonoBehaviour
     private void Awake()
     {
         if (!particlesCamera) particlesCamera = GetComponent<Camera>();
-        
+
         renderTexture = new RenderTexture(imageResolution.x, imageResolution.y, 32);
         particlesCamera.targetTexture = renderTexture;
 

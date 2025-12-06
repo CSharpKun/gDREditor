@@ -1,7 +1,5 @@
-﻿// Main Trial Camera Script for DREditor by SeleniumSoul
+// Main Trial Camera Script for DREditor by SeleniumSoul
 using DREditor.Dialogues;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DREditor.Camera
 {
@@ -73,23 +71,25 @@ namespace DREditor.Camera
         {
             if (RadiusLock)
             {
-                if(FocusOnHeadmaster)
+                if (FocusOnHeadmaster)
                 {
                     CameraPivot.transform.localPosition = new Vector3(0, 0, HeadmasterSeatDistance);
-                } else
+                }
+                else
                 {
                     CameraPivot.transform.localPosition = new Vector3(0, 0, SeatRadius);
                 }
-            } 
+            }
         }
 
         void UpdatePositionAndRotation(Vector3 targetPosition, Quaternion targetRotation)
         {
-            if(SmoothFocus)
+            if (SmoothFocus)
             {
                 transform.position = Vector3.Lerp(transform.position, targetPosition, SmoothTransitionTime * Time.deltaTime);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, SmoothTransitionTime * Time.deltaTime);
-            } else
+            }
+            else
             {
                 transform.position = targetPosition;
                 transform.rotation = targetRotation;

@@ -1,13 +1,7 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Dialogues;
-using DREditor.EventObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class TrialManager : MonoBehaviour
 {
@@ -126,16 +120,16 @@ public class TrialManager : MonoBehaviour
     public void StartTrialAtIndex(int startIndex) => StartCoroutine(StartTrial(trials[GameManager.instance.currentChapter], startIndex));
     IEnumerator StartTrial(TrialBuilder trial, int startIndex = 0)
     {
-        for(int i = startIndex; i < trial.TrialSequences.Count; i++)
+        for (int i = startIndex; i < trial.TrialSequences.Count; i++)
         {
-            if(!(skip + i < trial.TrialSequences.Count))
+            if (!(skip + i < trial.TrialSequences.Count))
             {
                 Debug.LogWarning("TOO BIG");
             }
             if (skip > 0 && skip + i < trial.TrialSequences.Count)
             {
                 if (DebugMode)
-                    Debug.Log("At: " + skip + " To: " + (skip+i));
+                    Debug.Log("At: " + skip + " To: " + (skip + i));
 
                 i += skip;
                 skip = 0;
@@ -149,7 +143,7 @@ public class TrialManager : MonoBehaviour
 
             if (seq == null)
                 Instantiate(trialSequence.MinigameType.Prefab);
-            
+
             try
             {
                 trialSequence.MinigameType.manager.Invoke(trialSequence.MinigameAsset);
@@ -169,14 +163,14 @@ public class TrialManager : MonoBehaviour
                 yield return null;
             }
             Debug.Log(trialSequence.SequenceType);
-            if (trialSequence.SequenceType == "Trial Discussion" && i+1 < trial.TrialSequences.Count
-                && trial.TrialSequences[i+1].SequenceType != "Trial Discussion")
+            if (trialSequence.SequenceType == "Trial Discussion" && i + 1 < trial.TrialSequences.Count
+                && trial.TrialSequences[i + 1].SequenceType != "Trial Discussion")
             {
                 TrialDialogueManager.instance.HideUI();
             }
             EndTrialSequence();
 
-            
+
 
             if (onlyFirstSequence && i == 0)
                 break;
@@ -204,11 +198,11 @@ public class TrialManager : MonoBehaviour
 
             yield return new WaitUntil(() => video.isPlaying);
             yield return new WaitUntil(() => video.frame >= 1);
-            
+
             RenderTexture x = new RenderTexture(Screen.width, Screen.height, 32);
             videoProjector.texture = x;
             video.targetTexture = x;
-            if(endSound != null)
+            if (endSound != null)
                 SoundManager.instance.PlaySFX(endSound);
             yield return new WaitForSeconds(0.2f);
             GlobalFade.instance.FadeOut(0.2f);
@@ -241,7 +235,7 @@ public class TrialManager : MonoBehaviour
             DialogueTextConfig.instance.ResetTrialBox();
             PlayerManager.instance.EnableMainCamera(true);
         }
-        
+
         yield break;
     }
     void Out()

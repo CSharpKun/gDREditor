@@ -1,9 +1,7 @@
 //Show CG Dialogue Event script by SeleniumSoul for DREditor. Heavily modified by Sweden#6386 for Eden's Garden
 
 using System;
-using UnityEngine;
 using System.Collections.Generic;
-using DREditor.Dialogues.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,25 +9,24 @@ using UnityEditor;
 
 namespace DREditor.Dialogues.Events
 {
-	using Debug = UnityEngine.Debug;
-	[Serializable]
-	public struct FBTuple
-	{
-		public List<Sprite> Flashbacks;
-	}
-	/// <summary>
-	/// For Displaying Flashbacks
-	/// </summary>
-	[Serializable]
-	public class Flashback : IDialogueEvent
-	{
-		public FBTuple FBValue;
+    [Serializable]
+    public struct FBTuple
+    {
+        public List<Sprite> Flashbacks;
+    }
+    /// <summary>
+    /// For Displaying Flashbacks
+    /// </summary>
+    [Serializable]
+    public class Flashback : IDialogueEvent
+    {
+        public FBTuple FBValue;
 
 
-		public void TriggerDialogueEvent()
-		{
-			DialogueEventSystem.TriggerEvent("Flashback", FBValue);
-		}
+        public void TriggerDialogueEvent()
+        {
+            DialogueEventSystem.TriggerEvent("Flashback", FBValue);
+        }
 
 #if UNITY_EDITOR
 		private bool _ShowHelp = false;
@@ -70,5 +67,5 @@ namespace DREditor.Dialogues.Events
 			if (_ShowHelp) EditorGUILayout.HelpBox("List of Flash Back CG's to input", MessageType.Info, true);
 		}
 #endif
-	}
+    }
 }

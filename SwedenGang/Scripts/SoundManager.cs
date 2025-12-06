@@ -1,10 +1,6 @@
 //Author: Benjamin "Sweden" Jillson : Sweden#6386 For Project Eden's Garden
-using DREditor.Audio;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using System;
+using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
@@ -46,7 +42,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource ObserveSource = null;
     [SerializeField] AudioSource InstantDiaSource = null;
     [SerializeField] AudioSource ChoiceSource = null;
-    
+
     [SerializeField] AudioClip LockedSFX = null;
     public static SoundManager instance = null;
     public string LastPlayedMusic = null;
@@ -104,7 +100,7 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("ERROR OCCURED PLAYING ENVIRONMENT SOUND: " + eventName + "\n " +
                 "With Error: " + e.ToString());
         }
-        
+
     }
     public void StopEnv()
     {
@@ -144,7 +140,7 @@ public class SoundManager : MonoBehaviour
             ResetLastPlayed();
             return;
         }
-        
+
         // code to set boxText name
         if (boxText != null && jukeBox != null)
         {
@@ -156,7 +152,7 @@ public class SoundManager : MonoBehaviour
         MusicSource.Stop();
         MusicSource.clip = eventName;
         MusicSource.Play();
-        if(!skip)
+        if (!skip)
             LastPlayedMusic = eventName.name;
         StartCoroutine(WaitForUpdate());
         Debug.Log("Playing Music, event name is: " + eventName);
@@ -181,7 +177,7 @@ public class SoundManager : MonoBehaviour
     {
         //Debug.LogWarning("Calling Submit Sound");
         //if(!SubmitSource.IsPlaying())
-            PlaySource(SubmitSource);
+        PlaySource(SubmitSource);
     }
     public void PlayCancel() => PlaySource(CancelSource);
     public void PlaySelect() => PlaySource(SelectSource);
@@ -198,7 +194,7 @@ public class SoundManager : MonoBehaviour
             return;
         e.Play();
     }
-    
+
     public void StopSound()
     {
         MusicSource.Stop();
@@ -243,7 +239,7 @@ public class SoundManager : MonoBehaviour
     public void LoadMusic(string name)
     {
         AudioClip loaded = null;
-        
+
         if (jukeBox != null)
             loaded = jukeBox.GetAudioClip(name);
 
@@ -272,7 +268,7 @@ public class SoundManager : MonoBehaviour
             boxText.autoSizeTextContainer = true;
             boxText.ForceMeshUpdate();
         }
-        
+
         MusicSource.clip = loaded;
         MusicSource.Play();
         LastPlayedMusic = name;

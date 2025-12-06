@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Cinemachine;
-using UnityEngine.Serialization;
-
 /// <summary>
 /// This is a very simple behaviour that constrains its transform to a CinemachinePath.  
 /// It can be used to animate any objects along a path, or as a Follow target for 
@@ -13,7 +7,7 @@ using UnityEngine.Serialization;
 #if UNITY_2018_3_OR_NEWER
 [ExecuteAlways]
 #else
-    [ExecuteInEditMode]
+[ExecuteInEditMode]
 #endif
 [DisallowMultipleComponent]
 //[HelpURL(Documentation.BaseURL + "manual/CinemachineDollyCart.html")]
@@ -83,7 +77,7 @@ public class TestCart : MonoBehaviour
     void LateUpdate()
     {
         if (!Application.isPlaying)
-          SetCartPosition(m_Position);
+            SetCartPosition(m_Position);
         else if (m_UpdateMethod == UpdateMethod.LateUpdate)
             SetCartPosition(m_Position + m_Speed * Time.deltaTime);
     }

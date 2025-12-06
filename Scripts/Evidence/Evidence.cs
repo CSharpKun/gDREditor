@@ -1,7 +1,5 @@
 using DREditor.TrialEditor;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 [System.Serializable]
 [CreateAssetMenu(menuName = "DREditor/Trials/Evidence", fileName = "Evidence")]
 public class Evidence : ScriptableObject
@@ -11,7 +9,7 @@ public class Evidence : ScriptableObject
     {
         string[] arr = new string[TruthBullets.Count];
 
-        for(int i = 0; i < TruthBullets.Count; i++)
+        for (int i = 0; i < TruthBullets.Count; i++)
         {
             arr[i] = TruthBullets[i].Title;
         }

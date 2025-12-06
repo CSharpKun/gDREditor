@@ -1,4 +1,4 @@
-﻿//
+//
 // EventObjects - A scriptable-object based messaging system for Unity
 //
 // Copyright (c) 2019 Bart Heijltjes (Wispfire)
@@ -23,8 +23,6 @@
 //
 
 using System;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace DREditor.EventObjects
 {
@@ -36,8 +34,8 @@ namespace DREditor.EventObjects
         public abstract void Init();
 
     }
-    
-    public abstract class ValueWithEvent<T,TY> : BaseValueWithEvent where TY : UnityEvent<T>, new()
+
+    public abstract class ValueWithEvent<T, TY> : BaseValueWithEvent where TY : UnityEvent<T>, new()
     {
         public TY OnChange = new TY();
 
@@ -77,9 +75,9 @@ namespace DREditor.EventObjects
             }
             else
             {
-                _value = default(T); 
+                _value = default(T);
             }
-                
+
         }
 
         /// <summary>
@@ -142,17 +140,17 @@ namespace DREditor.EventObjects
             if (state == UnityEditor.PlayModeStateChange.ExitingPlayMode || state == UnityEditor.PlayModeStateChange.ExitingEditMode) Reset();
         }
 #endif
-        
+
     }
-    
+
     /// <summary>
     /// This caches a ValueWithEvent to optimize it for fast read access. 
     /// </summary>
     /// <typeparam name="T">ValueWithEvent Type</typeparam>
     /// <typeparam name="TX">Value Type</typeparam>
     /// <typeparam name="TY">UnityEvent derived Type used by ValueWithEvent Type</typeparam>
-    public class CachedVariable<T,TX,TY> where T : ValueWithEvent<TX, TY> where TY : UnityEvent<TX>, new() // TODO: Add option to use local value instead of BoolWithEvent
-    {        
+    public class CachedVariable<T, TX, TY> where T : ValueWithEvent<TX, TY> where TY : UnityEvent<TX>, new() // TODO: Add option to use local value instead of BoolWithEvent
+    {
         public T SyncWith;
 
         private TX _currentValue;
@@ -175,11 +173,11 @@ namespace DREditor.EventObjects
             {
                 UnityEngine.Debug.LogWarning("SyncWith field is not filled. This is not supported.");
             }
-            
+
             _currentValue = SyncWith.GetValueAndAddListener((x) => _currentValue = x);
             _isSetup = true;
         }
-        
+
         /// <summary>
         /// Removes the event listener from the backing value and deinitializes the caching variable.
         /// </summary>
@@ -193,19 +191,19 @@ namespace DREditor.EventObjects
         {
             _currentValue = value;
         }
-        
-    }
-    
-    
-    [Serializable] public class BoolEvent : UnityEvent<bool>{}
-    [Serializable] public class IntEvent : UnityEvent<int>{}
-    [Serializable] public class FloatEvent : UnityEvent<float>{}
-    [Serializable] public class SpriteEvent : UnityEvent<Sprite>{}
-    [Serializable] public class StringArrayEvent : UnityEvent<string[]>{}
-    [Serializable] public class GameObjectEvent : UnityEvent<GameObject>{}
-    
-    [Serializable] public class TransformEvent : UnityEvent<PosRot>{}
-    
 
-    
+    }
+
+
+    [Serializable] public class BoolEvent : UnityEvent<bool> { }
+    [Serializable] public class IntEvent : UnityEvent<int> { }
+    [Serializable] public class FloatEvent : UnityEvent<float> { }
+    [Serializable] public class SpriteEvent : UnityEvent<Sprite> { }
+    [Serializable] public class StringArrayEvent : UnityEvent<string[]> { }
+    [Serializable] public class GameObjectEvent : UnityEvent<GameObject> { }
+
+    [Serializable] public class TransformEvent : UnityEvent<PosRot> { }
+
+
+
 }
